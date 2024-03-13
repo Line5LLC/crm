@@ -358,3 +358,8 @@ task_completed:
   - :completed_last_week
   - :completed_this_month
   - :completed_last_month
+
+
+:DEVISE_SECRET_KEY: "42db98b530e55f92e32c2ebed4faf11830d0cd83e59394c414f3ef4afe92b23c17d4966db16ddc6ee4c193bb5d6f3d206c98aaf832a4fffcb176c598a47f49b5"
+:UNLOCK_TIME: '5' # Devise unlock time
+:DIALER_AUTH_TOKEN: "d97339b67392d42c9ca2c6c20eb5ebbcea68925a35c02662bea89a5c1a64035fc7e565ad1b2f386c736506ec7fed77166b08212d6b9073995e3f5c33b179e0fe"

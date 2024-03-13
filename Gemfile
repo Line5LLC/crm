@@ -5,16 +5,7 @@ source 'https://rubygems.org'
 # Uncomment the database that you have configured in config/database.yml
 # ----------------------------------------------------------------------
 
-case ENV['CI'] && ENV['DB']
-when 'sqlite'
-  gem 'sqlite3', '~> 1.6.8'
-when 'mysql'
-  gem 'mysql2'
-when 'postgres'
-  gem 'pg'
-else
-  gem 'pg'
-end
+gem 'pg', '~> 1.5'
 
 # Removes a gem dependency
 def remove(name)
@@ -108,3 +99,4 @@ gem 'bootstrap', '~>5.0.0'
 gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem 'jquery-ui-rails', git: 'https://github.com/jquery-ui-rails/jquery-ui-rails.git', tag: 'v7.0.0' # See https://github.com/jquery-ui-rails/jquery-ui-rails/issues/146
+gem 'rack-cors', require: 'rack/cors'

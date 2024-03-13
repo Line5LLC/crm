@@ -45,10 +45,12 @@
 #  confirmed_at            :datetime
 #  confirmation_sent_at    :datetime
 #
+require_relative '../../../app/line5/users/devise_overrides'
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :confirmable,
-         :encryptable, :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable
+  include Line5::Users::DeviseOverrides
+
   before_create :suspend_if_needs_approval
 
   has_one :avatar, as: :entity, dependent: :destroy  # Personal avatar.
@@ -116,22 +118,6 @@ class User < ActiveRecord::Base
   #----------------------------------------------------------------------------
   def awaits_approval?
     suspended? && sign_in_count == 0 && Setting.user_signup == :needs_approval
-  end
-
-  def active_for_authentication?
-    super && confirmed? && !awaits_approval? && !suspended?
-  end
-
-  def inactive_message
-    if !confirmed?
-      super
-    elsif awaits_approval?
-      I18n.t(:msg_account_not_approved)
-    elsif suspended?
-      I18n.t(:msg_invalig_login)
-    else
-      super
-    end
   end
 
   #----------------------------------------------------------------------------
