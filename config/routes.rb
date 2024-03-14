@@ -209,4 +209,6 @@ Rails.application.routes.draw do
     resources :settings, only: :index
     resources :plugins,  only: :index
   end
+
+  resources :single_sign_ons, only: %i[create]
 end
