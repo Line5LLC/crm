@@ -25,9 +25,8 @@ module Line5
         devise_mailer.send(notification, self, *args).deliver
       end
 
-      # this method is called by devise to check for "active" state of the model
       def active_for_authentication?
-        super && active
+        super
       end
 
       def generate_reset_token
