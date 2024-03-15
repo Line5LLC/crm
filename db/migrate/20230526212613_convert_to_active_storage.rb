@@ -44,43 +44,43 @@ class ConvertToActiveStorage < ActiveRecord::Migration[5.2]
     end
 
     Rails.application.eager_load!
-    models = ActiveRecord::Base.descendants.reject { |model| model.abstract_class? || model == ActionMailbox::InboundEmail || model == ActionText::RichText }
-
-    transaction do
-      models.each do |model|
-        attachments = model.column_names.map do |c|
-          ::Regexp.last_match(1) if c =~ /(.+)_file_name$/
-        end.compact
-
-        next if attachments.blank?
-
-        model.find_each.each do |instance|
-          attachments.each do |attachment|
-            next if instance.send(attachment).path.blank?
-
-            ActiveRecord::Base.connection.execute_prepared(
-              'active_storage_blob_statement', [
-                key(instance, attachment),
-                instance.send("#{attachment}_file_name"),
-                instance.send("#{attachment}_content_type"),
-                instance.send("#{attachment}_file_size"),
-                checksum(instance.send(attachment)),
-                instance.updated_at.iso8601
-              ]
-            )
-
-            ActiveRecord::Base.connection.execute_prepared(
-              'active_storage_attachment_statement', [
-                attachment,
-                model.name,
-                instance.id,
-                instance.updated_at.iso8601
-              ]
-            )
-          end
-        end
-      end
-    end
+    # models = ActiveRecord::Base.descendants.reject { |model| model.abstract_class? || model == ActionMailbox::InboundEmail || model == ActionText::RichText }
+    #
+    # transaction do
+    #   models.each do |model|
+    #     attachments = model.column_names.map do |c|
+    #       ::Regexp.last_match(1) if c =~ /(.+)_file_name$/
+    #     end.compact
+    #
+    #     next if attachments.blank?
+    #
+    #     model.find_each.each do |instance|
+    #       attachments.each do |attachment|
+    #         next if instance.send(attachment).path.blank?
+    #
+    #         ActiveRecord::Base.connection.execute_prepared(
+    #           'active_storage_blob_statement', [
+    #             key(instance, attachment),
+    #             instance.send("#{attachment}_file_name"),
+    #             instance.send("#{attachment}_content_type"),
+    #             instance.send("#{attachment}_file_size"),
+    #             checksum(instance.send(attachment)),
+    #             instance.updated_at.iso8601
+    #           ]
+    #         )
+    #
+    #         ActiveRecord::Base.connection.execute_prepared(
+    #           'active_storage_attachment_statement', [
+    #             attachment,
+    #             model.name,
+    #             instance.id,
+    #             instance.updated_at.iso8601
+    #           ]
+    #         )
+    #       end
+    #     end
+    #   end
+    # end
   end
 
   def down

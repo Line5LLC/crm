@@ -5,16 +5,16 @@ source 'https://rubygems.org'
 # Uncomment the database that you have configured in config/database.yml
 # ----------------------------------------------------------------------
 
-case ENV['CI'] && ENV['DB']
-when 'sqlite'
-  gem 'sqlite3', '~> 1.6.8'
-when 'mysql'
-  gem 'mysql2'
-when 'postgres'
-  gem 'pg'
-else
-  gem 'pg'
-end
+# case ENV['CI'] && ENV['DB']
+# when 'sqlite'
+#   gem 'sqlite3', '~> 1.6.8'
+# when 'mysql'
+#   gem 'mysql2'
+# when 'postgres'
+#   gem 'pg'
+# else
+gem 'pg'
+# end
 
 # Removes a gem dependency
 def remove(name)
