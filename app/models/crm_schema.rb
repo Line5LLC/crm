@@ -1,4 +1,3 @@
-class CrmSchema < CrmSchema
+class CrmSchema < ActiveRecord::Base
   self.abstract_class = true
-  establish_connection :crm
 end
