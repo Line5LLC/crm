@@ -45,11 +45,12 @@
 #  confirmed_at            :datetime
 #  confirmation_sent_at    :datetime
 #
-require_relative '../../../app/line5/users/devise_overrides'
+require_relative '../../line5/users/devise_overrides'
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable
   include Line5::Users::DeviseOverrides
+
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable
 
   before_create :suspend_if_needs_approval
 
