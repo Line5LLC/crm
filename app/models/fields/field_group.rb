@@ -20,7 +20,9 @@
 #  klass_name :string(32)
 #
 
-class FieldGroup < ActiveRecord::Base
+class FieldGroup < CrmSchema
+  set_table_name :field_groups
+
   has_many :fields, -> { order :position }
   belongs_to :tag, optional: true
   before_destroy :not_default_field_group, :move_fields_to_default_field_group

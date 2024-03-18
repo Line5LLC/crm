@@ -17,7 +17,9 @@
 #  updated_at :datetime
 #
 
-class Permission < ActiveRecord::Base
+class Permission < CrmSchema
+  set_table_name :permissions
+
   belongs_to :user, optional: true
   belongs_to :group, optional: true
   belongs_to :asset, polymorphic: true, optional: true

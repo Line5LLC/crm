@@ -27,7 +27,9 @@
 #  background_info :string(255)
 #
 
-class Task < ActiveRecord::Base
+class Task < CrmSchema
+  set_table_name :tasks
+
   include ActiveModel::Serializers::Xml
 
   attr_accessor :calendar

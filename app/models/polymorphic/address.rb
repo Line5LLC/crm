@@ -25,7 +25,9 @@
 #  deleted_at       :datetime
 #
 
-class Address < ActiveRecord::Base
+class Address < CrmSchema
+  set_table_name :addresses
+
   belongs_to :addressable, polymorphic: true
 
   has_paper_trail versions: { class_name: 'Version' }, meta: { related: :addressable }

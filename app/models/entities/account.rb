@@ -27,7 +27,9 @@
 #  category        :string(32)
 #
 
-class Account < ActiveRecord::Base
+class Account < CrmSchema
+  set_table_name :accounts
+
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true
   has_many :account_contacts, dependent: :destroy

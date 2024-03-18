@@ -18,7 +18,9 @@
 #  updated_at     :datetime
 #
 
-class ContactOpportunity < ActiveRecord::Base
+class ContactOpportunity < CrmSchema
+  set_table_name :contact_opportunities
+
   belongs_to :contact
   belongs_to :opportunity
   validates_presence_of :contact_id, :opportunity_id

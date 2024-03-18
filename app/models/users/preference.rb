@@ -17,7 +17,9 @@
 #  updated_at :datetime
 #
 
-class Preference < ActiveRecord::Base
+class Preference < CrmSchema
+  set_table_name :preferences
+
   belongs_to :user, optional: true
 
   #-------------------------------------------------------------------

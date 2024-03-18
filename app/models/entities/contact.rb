@@ -38,7 +38,9 @@
 #  skype           :string(128)
 #
 
-class Contact < ActiveRecord::Base
+class Contact < CrmSchema
+  set_table_name :contacts
+
   belongs_to :user
   belongs_to :lead, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true # TODO: Is this really optional?

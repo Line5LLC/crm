@@ -28,7 +28,9 @@
 #  updated_at     :datetime
 #
 
-class Field < ActiveRecord::Base
+class Field < CrmSchema
+  set_table_name :fields
+
   acts_as_list
 
   serialize :collection, Array

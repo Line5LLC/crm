@@ -21,7 +21,9 @@
 #  state            :string(16)      default("Expanded"), not null
 #
 
-class Comment < ActiveRecord::Base
+class Comment < CrmSchema
+  set_table_name :comments
+
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 

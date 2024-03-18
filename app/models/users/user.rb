@@ -47,7 +47,9 @@
 #
 require_relative '../../line5/users/devise_overrides'
 
-class User < ActiveRecord::Base
+class User < CrmSchema
+  set_table_name :users
+
   include Line5::Users::DeviseOverrides
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable

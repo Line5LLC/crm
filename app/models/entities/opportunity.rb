@@ -27,7 +27,9 @@
 #  background_info :string(255)
 #
 
-class Opportunity < ActiveRecord::Base
+class Opportunity < CrmSchema
+  set_table_name :opportunities
+
   belongs_to :user, optional: true
   belongs_to :campaign, optional: true
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true

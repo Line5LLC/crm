@@ -29,7 +29,9 @@
 #  state           :string(16)      default("Expanded"), not null
 #
 
-class Email < ActiveRecord::Base
+class Email < CrmSchema
+  set_table_name :emails
+
   belongs_to :mediator, polymorphic: true, optional: true # TODO: Is this really optional?
   belongs_to :user, optional: true # TODO: Is this really optional?
 

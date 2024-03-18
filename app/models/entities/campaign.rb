@@ -31,7 +31,9 @@
 #  background_info     :string(255)
 #
 
-class Campaign < ActiveRecord::Base
+class Campaign < CrmSchema
+  set_table_name :campaigns
+
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true # TODO: Is this really optional?
   has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'

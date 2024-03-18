@@ -38,7 +38,9 @@
 #  skype           :string(128)
 #
 
-class Lead < ActiveRecord::Base
+class Lead < CrmSchema
+  set_table_name :leads
+
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :campaign, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true # TODO: Is this really optional?

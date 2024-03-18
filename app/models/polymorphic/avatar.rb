@@ -20,7 +20,9 @@
 #  updated_at         :datetime
 #
 
-class Avatar < ActiveRecord::Base
+class Avatar < CrmSchema
+  set_table_name :avatars
+
   belongs_to :user
   belongs_to :entity, polymorphic: true
 

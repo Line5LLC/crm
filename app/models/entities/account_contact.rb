@@ -17,7 +17,9 @@
 #  updated_at :datetime
 #
 
-class AccountContact < ActiveRecord::Base
+class AccountContact < CrmSchema
+  set_table_name :account_contacts
+
   belongs_to :account, counter_cache: :contacts_count
   belongs_to :contact
 
