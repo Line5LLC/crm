@@ -26,7 +26,7 @@
 #
 
 class Address < CrmSchema
-  set_table_name :addresses
+  self.table_name = 'addresses'
 
   belongs_to :addressable, polymorphic: true
 

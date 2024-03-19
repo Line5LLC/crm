@@ -48,7 +48,7 @@
 require_relative '../../line5/users/devise_overrides'
 
 class User < CrmSchema
-  set_table_name :users
+  self.table_name = 'users'
 
   include Line5::Users::DeviseOverrides
 

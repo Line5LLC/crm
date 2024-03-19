@@ -24,6 +24,7 @@
 #
 # Any configured settings in `config/settings.yml` will override those in
 # `config/settings.default.yml`, and settings in the database table have the highest priority.
+require_relative 'crm_schema'
 
 class Setting < CrmSchema
   validates :name, presence: true, allow_blank: false

@@ -39,7 +39,7 @@
 #
 
 class Lead < CrmSchema
-  set_table_name :leads
+  self.table_name = 'leads'
 
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :campaign, optional: true # TODO: Is this really optional?

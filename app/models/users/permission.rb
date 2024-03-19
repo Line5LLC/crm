@@ -18,7 +18,7 @@
 #
 
 class Permission < CrmSchema
-  set_table_name :permissions
+  self.table_name = 'permissions'
 
   belongs_to :user, optional: true
   belongs_to :group, optional: true

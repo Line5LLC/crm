@@ -29,7 +29,7 @@
 #
 
 class Field < CrmSchema
-  set_table_name :fields
+  self.table_name = 'fields'
 
   acts_as_list
 

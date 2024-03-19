@@ -6,7 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class Group < CrmSchema
-  set_table_name :groups
+  self.table_name = 'groups'
 
   has_and_belongs_to_many :users
   has_many :permissions

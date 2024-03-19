@@ -32,7 +32,7 @@
 #
 
 class Campaign < CrmSchema
-  set_table_name :campaigns
+  self.table_name = 'campaigns'
 
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true # TODO: Is this really optional?
