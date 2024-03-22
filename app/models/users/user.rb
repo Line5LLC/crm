@@ -51,7 +51,7 @@ class User < CrmSchema
   self.table_name = 'users'
 
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable
-  include ::Line5::Users::DeviseOverrides
+  include Line5::Users::DeviseOverrides
 
   before_create :suspend_if_needs_approval
 
