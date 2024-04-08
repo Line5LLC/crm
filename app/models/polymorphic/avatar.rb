@@ -21,7 +21,7 @@
 #
 
 class Avatar < CrmSchema
-  set_table_name :avatars
+  self.table_name = "avatars"
 
   belongs_to :user
   belongs_to :entity, polymorphic: true

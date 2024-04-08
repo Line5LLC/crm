@@ -21,7 +21,7 @@
 #
 
 class FieldGroup < CrmSchema
-  set_table_name :field_groups
+  self.table_name = "field_groups"
 
   has_many :fields, -> { order :position }
   belongs_to :tag, optional: true
