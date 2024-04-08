@@ -28,7 +28,7 @@
 #
 
 class Task < CrmSchema
-  self.table_name = 'tasks'
+  self.table_name = "tasks"
 
   include ActiveModel::Serializers::Xml
 

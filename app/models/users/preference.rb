@@ -18,7 +18,7 @@
 #
 
 class Preference < CrmSchema
-  self.table_name = 'preferences'
+  self.table_name = "preferences"
 
   belongs_to :user, optional: true
 

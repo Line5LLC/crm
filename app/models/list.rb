@@ -6,7 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class List < CrmSchema
-  self.table_name = 'lists'
+  self.table_name = "lists"
 
   validates_presence_of :name
   validates_presence_of :url

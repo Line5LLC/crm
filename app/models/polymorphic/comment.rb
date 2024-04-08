@@ -22,7 +22,7 @@
 #
 
 class Comment < CrmSchema
-  self.table_name = 'comments'
+  self.table_name = "comments"
 
   belongs_to :user
   belongs_to :commentable, polymorphic: true

@@ -18,8 +18,8 @@
 #
 
 class AccountContact < CrmSchema
-  self.table_name = 'account_contacts'
-
+  self.table_name = "account_contacts"
+  
   belongs_to :account, counter_cache: :contacts_count
   belongs_to :contact
 

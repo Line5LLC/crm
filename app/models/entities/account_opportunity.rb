@@ -18,7 +18,7 @@
 #
 
 class AccountOpportunity < CrmSchema
-  self.table_name = 'account_opportunities'
+  self.table_name = "account_opportunities"
 
   belongs_to :account, counter_cache: :opportunities_count
   belongs_to :opportunity

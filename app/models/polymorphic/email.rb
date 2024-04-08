@@ -30,7 +30,7 @@
 #
 
 class Email < CrmSchema
-  self.table_name = 'emails'
+  self.table_name = "emails"
 
   belongs_to :mediator, polymorphic: true, optional: true # TODO: Is this really optional?
   belongs_to :user, optional: true # TODO: Is this really optional?

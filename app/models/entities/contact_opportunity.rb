@@ -19,7 +19,7 @@
 #
 
 class ContactOpportunity < CrmSchema
-  self.table_name = 'contact_opportunities'
+  self.table_name = "contact_opportunities"
 
   belongs_to :contact
   belongs_to :opportunity

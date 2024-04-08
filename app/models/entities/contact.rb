@@ -39,7 +39,7 @@
 #
 
 class Contact < CrmSchema
-  self.table_name = 'contacts'
+  self.table_name = "contacts"
 
   belongs_to :user
   belongs_to :lead, optional: true # TODO: Is this really optional?

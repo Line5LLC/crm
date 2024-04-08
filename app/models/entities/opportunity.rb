@@ -28,7 +28,7 @@
 #
 
 class Opportunity < CrmSchema
-  self.table_name = 'opportunities'
+  self.table_name = "opportunities"
 
   belongs_to :user, optional: true
   belongs_to :campaign, optional: true

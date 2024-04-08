@@ -28,7 +28,7 @@
 #
 
 class Account < CrmSchema
-  self.table_name = 'accounts'
+  self.table_name = "accounts"
 
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true
