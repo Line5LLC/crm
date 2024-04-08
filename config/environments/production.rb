@@ -44,6 +44,9 @@ if defined?(FatFreeCRM::Application)
     # Include generic and useful information about system operation, but avoid logging too much
     # information to avoid inadvertent exposure of personally identifiable information (PII).
     config.log_level = :info
+    config.action_view.logger = nil
+    config.logger = ActiveSupport::Logger.new(STDOUT)
+    config.logger.formatter = Logger::Formatter.new
 
     # Use a different logger for distributed setups
     # config.logger = SyslogLogger.new
