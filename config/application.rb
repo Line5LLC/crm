@@ -41,7 +41,8 @@ module FatFreeCRM
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Models are organized in sub-directories
-    config.autoload_paths += Dir[Rails.root.join("app/models/**")] +
+    config.autoload_paths += Dir[Rails.root.join("app/line5/**")] +
+                             Dir[Rails.root.join("app/models/**")] +
                              Dir[Rails.root.join("app/controllers/entities")]
 
     # Prevent Field class from being reloaded more than once as this clears registered customfields
