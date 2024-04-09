@@ -9,7 +9,7 @@ class SingleSignOnsController < ApplicationController
 
     user = User.find_by(sso_token: token) if token
 
-    if user
+    if user && !user.suspended?
       sign_in(user)
       after_sign_in_path_for(user)
     end
