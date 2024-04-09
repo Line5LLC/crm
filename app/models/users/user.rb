@@ -97,7 +97,7 @@ class User < CrmSchema
   validates :username,
             uniqueness: { message: :username_taken, case_sensitive: false },
             presence: { message: :missing_username },
-            format: { with: /\A[a-z0-9_-]+\z/i }
+            format: { with: /\A[\w\s-]+\z/ }
   validates :password,
             presence: { if: :password_required? },
             confirmation: true
@@ -175,6 +175,22 @@ class User < CrmSchema
       asset != "Comment" && klass.assigned_to(self).exists? || klass.created_by(self).exists?
     end
     !sum.nil?
+  end
+
+  def suspend!
+    update(suspended_at: Time.current)
+  end
+
+  def unsuspend!
+    update(suspended_at: nil)
+  end
+
+  def suspended?
+    suspended_at.present?
+  end
+
+  def active_for_authentication?
+    super && !suspended?
   end
 
   # Define class methods
