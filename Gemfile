@@ -46,6 +46,7 @@ group :development do
     gem 'rb-fsevent', require: false
     gem 'rb-fchange', require: false
     gem 'brakeman', require: false
+    gem 'letter_opener'
   end
 end
 
