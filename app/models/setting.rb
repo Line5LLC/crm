@@ -25,8 +25,13 @@
 # Any configured settings in `config/settings.yml` will override those in
 # `config/settings.default.yml`, and settings in the database table have the highest priority.
 require 'crm_schema'
+require 'yaml'
 
 class Setting < CrmSchema
+  def self.load
+    @settings ||= YAML.load_file(Rails.root.join('config', 'settings.default.yml'))
+  end
+
   validates :name, presence: true, allow_blank: false
   serialize :value
 

@@ -78,10 +78,10 @@ if defined?(FatFreeCRM::Application)
     config.action_mailer.deliver_later_queue_name = 'default'
 
     ActionMailer::Base.smtp_settings = {
-      port: Setting.MAILGUN_SMTP_PORT,
-      address: Setting.MAILGUN_SMTP_SERVER,
-      user_name: Setting.MAILGUN_SMTP_LOGIN,
-      password: Setting.MAILGUN_SMTP_PASSWORD,
+      port: ENV['MAILGUN_SMTP_PORT'],
+      address: ENV['MAILGUN_SMTP_SERVER'],
+      user_name: ENV['MAILGUN_SMTP_LOGIN'],
+      password: ENV['MAILGUN_SMTP_PASSWORD'],
       domain: canonical_domain,
       authentication: :plain,
       enable_starttls_auto: true
