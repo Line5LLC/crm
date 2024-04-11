@@ -69,5 +69,22 @@ if defined?(FatFreeCRM::Application)
 
     # Do not dump schema after migrations.
     config.active_record.dump_schema_after_migration = false
+
+    canonical_domain = ENV['CANONICAL_DOMAIN']
+    config.action_mailer.default_url_options = { host: canonical_domain }
+    config.action_mailer.default_options = {
+      from: "noreply@line5.com"
+    }
+    config.action_mailer.deliver_later_queue_name = 'default'
+
+    ActionMailer::Base.smtp_settings = {
+      port: Setting.MAILGUN_SMTP_PORT,
+      address: Setting.MAILGUN_SMTP_SERVER,
+      user_name: Setting.MAILGUN_SMTP_LOGIN,
+      password: Setting.MAILGUN_SMTP_PASSWORD,
+      domain: canonical_domain,
+      authentication: :plain,
+      enable_starttls_auto: true
+    }
   end
 end

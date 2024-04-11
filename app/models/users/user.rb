@@ -50,9 +50,8 @@ require_relative '../../line5/users/devise_overrides'
 class User < CrmSchema
   self.table_name = "users"
 
-  include Line5::Users::DeviseOverrides
-
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :lockable, :timeoutable
+  include Line5::Users::DeviseOverrides
 
   before_create :suspend_if_needs_approval
 
