@@ -3,15 +3,15 @@
 // Fat Free CRM is freely distributable under the terms of MIT license.
 // See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 //------------------------------------------------------------------------------
-$color_header: skyblue;
-$color_header_background: #1e4262;
-$color_logo: greenyellow;
+$color_header: #ff6b45;
+$color_header_background: #222222;
+$color_logo: #ff6b45;
 $color_tab: white;
-$color_tab_background: #466bb1;
+$color_tab_background: #ff6b45;
 $color_active_tab: black;
 $color_active_tab_background: #E5E5E5;
-$color_hover_tab: navy;
-$color_hover_tab_background: #97baff;
+$color_hover_tab: black;
+$color_hover_tab_background: white;
 $size_tab_height: 26px;
 $size_tab_width: 80px;
 $color_footer: grey;
@@ -36,9 +36,9 @@ $color_footer: grey;
       text-decoration: none;
       &:hover {
         background: $color_header_background;
-        color: yellow; } }
+        color: $color_header; } }
     a.selected {
-      background: steelblue;
+      background: #ff8b45;
       color: lightyellow;
       -moz-border-radius: {
         topleft: 2px;
@@ -47,7 +47,7 @@ $color_footer: grey;
         top-left-radius: 2px;
         top-right-radius: 2px; }; } }
   #jumpbox {
-    background: steelblue;
+    background: #ff8b45;
     margin: 2px 0px 0px 0px;
     padding: 12px;
     position: absolute;
@@ -62,9 +62,9 @@ $color_footer: grey;
         color: white;
         padding: 0px 0px 4px 0px;
         &.selected {
-          color: navy; }
+          color: $color_header_background; }
         &:hover {
-          background: steelblue; } } }
+          background: $color_header; } } }
     #jumpbox_label {
       color: white; }
     input {

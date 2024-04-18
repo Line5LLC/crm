@@ -3,8 +3,8 @@
 // Fat Free CRM is freely distributable under the terms of MIT license.
 // See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 //------------------------------------------------------------------------------
-$color_title: #342d7e;
-$color_subtitle: darkslateblue;
+$color_title: black;
+$color_subtitle: black;
 $sidebar_width: 210px;
 
 // Common page elements.
@@ -135,7 +135,7 @@ $sidebar_width: 210px;
 
 .req, label.required {
   background: image-url("asterisk.gif") no-repeat scroll center right transparent;
-  color: navy;
+  color: #ff6b45;
   display: inline-block; }
 
 .required label {
@@ -187,20 +187,20 @@ $sidebar_width: 210px;
           margin-left: 5px; } } } } }
 
 .remote {
-  border: 5px lightblue solid;
+  border: 5px #ffcca5 solid;
   background: whitesmoke;
   margin: 0px;
   padding: 0px 10px 0px 10px;
   position: relative;
   a.close {
     display: block;
-    background: lightblue;
+    background: #ff8b45;
     border: {
       top: 1px gainsboro solid;
       left: 1px gainsboro solid;
       bottom: 1px grey solid;
       right: 1px grey solid; };
-    color: navy;
+    color: black;
     cursor: pointer;
     height: 16px;
     margin: 3px;
@@ -210,7 +210,7 @@ $sidebar_width: 210px;
     top: 0px;
     width: 17px;
     &:hover {
-      background: #1e4262;
+      background: #ff8b45;
       color: white; } } }
 
 .buttonbar {
@@ -506,7 +506,7 @@ $bg_color9: #FFDD4A;
 
   .caption {
     border-bottom: 1px #eee solid;
-    color: navy;
+    color: #ff6b45;
     font: {
       weight: bold; };
     margin: 4px 0px 5px 0px;
@@ -515,7 +515,7 @@ $bg_color9: #FFDD4A;
 
 .filters {
   h4 {
-    color: navy;
+    color: #ff6b45;
     font-size: 12px;
     font-weight: bold; }
   input[type=text] {
@@ -593,7 +593,7 @@ $bg_color9: #FFDD4A;
     padding: 4px 15px;
     text-decoration: none; }
   ahover: {
-    background: mediumblue;
+    background: #ff8545;
     color: white; }; }
 
 // Star ratings.

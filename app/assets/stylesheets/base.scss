@@ -4,9 +4,9 @@
 // See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 //------------------------------------------------------------------------------
 $color_body: #e5e5e5;
-$color_link: #0033cc;
+$color_link: #ff6b45;
 $color_link_hover: white;
-$color_link_hover_background: #0033cc;
+$color_link_hover_background: #ff6b45;
 $color_link_image: white;
 $color_link_image_background: white;
 
@@ -67,8 +67,8 @@ a.btn, a.btn-sm {
     text-decoration: none;
     &:hover {
       background: $color_body;
-      border-bottom: 1px dotted darkblue;
-      color: darkblue; } } }
+      border-bottom: 1px dotted #ff6b45;
+      color: #ff6b45; } } }
 
 // Smaller fonts.
 //------------------------------------------------------------------------------
