@@ -80,7 +80,7 @@ $sidebar_width: 210px;
 
 .standalone {
   background: whitesmoke;
-  border: 20px lightsteelblue solid;
+  border: 20px rgb(250, 150, 120) solid;
   margin: 75px auto 6px auto;
   padding: 20px;
   width: 400px;
@@ -659,7 +659,7 @@ $bg_color9: #FFDD4A;
       text-align: center;
       color: black; }
     &.selected a {
-      background: #1e4262;
+      background: #ff6b45;
       color: white;
       font-weight: bold; } } }
 

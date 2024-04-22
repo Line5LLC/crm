@@ -197,7 +197,7 @@ nl:
   msg_cant_do: Kon deze %{asset} niet %{action} omdat deze niet langer beschikbaar is.
   msg_email_not_found: Geen gebruiker gevonden met dat email adres.
   msg_enter_new_password: Geef alstublieft uw nieuwe wachtwoord op.
-  msg_goodbye: U bent nu uitgelogd. Bedankt voor het gebruiken van Fat Free CRM!
+  msg_goodbye: U bent nu uitgelogd. Bedankt voor het gebruiken van Line 5 CRM!
   msg_invalid_password: ^Geef alstublieft het juiste huidige wachtwoord op
   msg_invalig_login: Ongeldige gebruikersnaam of wachtwoord.
   msg_last_login: Uw laatste login was op %{value}.
@@ -208,8 +208,8 @@ nl:
   msg_password_updated: Wachtwoord aangepast.
   msg_pwd_instructions_sent: Instructies om uw wachtwoord opnieuw in te stellen zijn aan u verstuurd. Controleer uw email alstublieft.
   msg_require_admin: U moet een administrator zijn om deze pagina te bekijken.
-  msg_successful_signup: Aanmelding succesvol, welkom bij Fat Free CRM!
-  msg_welcome: Welkom bij Fat Free CRM!
+  msg_successful_signup: Aanmelding succesvol, welkom bij Line 5 CRM!
+  msg_welcome: Welkom bij Line 5 CRM!
 
   # Options.
   #----------------------------------------------------------------------------
@@ -638,12 +638,12 @@ nl:
   about: Over
   about_dev_group: Discussiegroep voor ontwikkelaars
   about_features: Features en bugs
-  about_ffc: Over Fat Free CRM
-  about_ffc_resources: Fat Free CRM hulp middelen (links openen in een nieuw venster)
-  about_ffc_version: Fat Free CRM versie
+  about_ffc: Over Line 5 CRM
+  about_ffc_resources: Line 5 CRM hulp middelen (links openen in een nieuw venster)
+  about_ffc_version: Line 5 CRM versie
   about_home_page: Home pagina
   about_project_page: Project pagina
-  about_thank_you: Dank u voor het gebruik van Fat Free CRM! Wij waarderen uw bedrijf en hopen dat u geniet van het gebruik van de software.
+  about_thank_you: Dank u voor het gebruik van Line 5 CRM! Wij waarderen uw bedrijf en hopen dat u geniet van het gebruik van de software.
   about_twitter: Twitter commit updates
   about_user_group: Discussiegroep voor gebruikers
   admin: Backend
@@ -683,8 +683,8 @@ nl:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: Terug naar Fat Free CRM
-  crm_admin_page: Fat Free CRM Administratie
+  back_to_crm: Terug naar Line 5 CRM
+  crm_admin_page: Line 5 CRM Administratie
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------

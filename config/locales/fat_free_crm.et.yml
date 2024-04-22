@@ -197,7 +197,7 @@ et:
   msg_cant_do: Toiming %{action} ebaõnnestus, kuna %{asset} ei ole enam kättesaadav.
   msg_email_not_found: Antud elektronpostiga kasutajat ei leitud.
   msg_enter_new_password: Palun sisesta uus salasõna.
-  msg_goodbye: Oled süsteemist väljunud. Aitäh, et kasutasid Fat Free CRM'i!
+  msg_goodbye: Oled süsteemist väljunud. Aitäh, et kasutasid Line 5 CRM'i!
   msg_invalid_password: ^Palun sisesta korrektne salasõna.
   msg_invalig_login: Kehtetu kasutajanimi või salasõna.
   msg_last_login: Sinu viimane sisselogimine oli %{value}.
@@ -209,8 +209,8 @@ et:
   msg_pwd_instructions_sent: Salasõna muutmise juhis on saadetud Sinu elektronposti aadressile.
     Palun vaata saabunud kirju.
   msg_require_admin: Juurdepääs sellele leheküljele on võimalik vaid administraatoritel.
-  msg_successful_signup: Registreerimine oli edukas, tere tulemast Fat Free CRM'i!
-  msg_welcome: Tere tulemast Fat Free CRM'i!
+  msg_successful_signup: Registreerimine oli edukas, tere tulemast Line 5 CRM'i!
+  msg_welcome: Tere tulemast Line 5 CRM'i!
 
   # Options.
   #----------------------------------------------------------------------------
@@ -640,12 +640,12 @@ et:
   about: Projektist
   about_dev_group: Arutelugrupp arendajatele
   about_features: Funktsioonid ja vead
-  about_ffc: Fat Free CRM'ist
-  about_ffc_resources: Fat Free CRM'i ressursid (lingid avavad uue akna)
-  about_ffc_version: Fat Free CRM versioon
+  about_ffc: Line 5 CRM'ist
+  about_ffc_resources: Line 5 CRM'i ressursid (lingid avavad uue akna)
+  about_ffc_version: Line 5 CRM versioon
   about_home_page: Koduleht
   about_project_page: Projekti lehekülg
-  about_thank_you: Aitäh, et kasutasid Fat Free CRM'i! Me hindame Sinu äri ja
+  about_thank_you: Aitäh, et kasutasid Line 5 CRM'i! Me hindame Sinu äri ja
     loodame, et Sulle meeldib seda tarkvara kasutada.
   about_twitter: Twitter'i uuedistevoog
   about_user_group: Arutlusgrupp kasutajatele
@@ -687,8 +687,8 @@ et:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: Tagasi Fat Free CRM'i
-  crm_admin_page: Fat Free CRM'i administreerimine
+  back_to_crm: Tagasi Line 5 CRM'i
+  crm_admin_page: Line 5 CRM'i administreerimine
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------

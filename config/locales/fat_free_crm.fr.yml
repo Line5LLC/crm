@@ -199,7 +199,7 @@ fr:
   msg_cant_do: Impossible de %{action} le %{asset} puisqu'il n'est plus disponible.
   msg_email_not_found: Aucun utilisateur ne correspond a cette adresse
   msg_enter_new_password: Saisissez votre nouveau mot de passe.
-  msg_goodbye: Vous avez été déconnecté, merci d'utiliser Fat Free CRM!
+  msg_goodbye: Vous avez été déconnecté, merci d'utiliser Line 5 CRM!
   msg_invalid_password: ^Saisissez votre mot de passe actuel
   msg_invalig_login: Utilisateur ou mot de passe non valide.
   msg_last_login: Votre dernière connection était le  %{value}.
@@ -211,8 +211,8 @@ fr:
   msg_pwd_instructions_sent: Les instruction de modification de mot de passe vous
     on été envoyées. Vérifiez vos e-mails
   msg_require_admin: Vous devez être administrateur pour accéder a cette page
-  msg_successful_signup: Enregistrement réussi. Bienvenu dans Fat Free CRM
-  msg_welcome: Bienvenue dans Fat Free CRM
+  msg_successful_signup: Enregistrement réussi. Bienvenu dans Line 5 CRM
+  msg_welcome: Bienvenue dans Line 5 CRM
   msg_not_authorized: Vous n'êtes pas authorisé à réaliser cette action.
   msg_assets_not_available: Le %{value} n'est pas disponible.
 
@@ -645,12 +645,12 @@ fr:
   about: A propos
   about_dev_group: Groupe de discussion pour les développeurs
   about_features: Fonctionnalités et bugs
-  about_ffc: A propos de Fat Free CRM
-  about_ffc_resources: Ressources pour Fat Free CRM (Nouvelle fenêtre)
-  about_ffc_version: version de Fat Free CRM
+  about_ffc: A propos de Line 5 CRM
+  about_ffc_resources: Ressources pour Line 5 CRM (Nouvelle fenêtre)
+  about_ffc_version: version de Line 5 CRM
   about_home_page: Page d'accueil
   about_project_page: Page du projet
-  about_thank_you: Merci d'utiliser Fat Free CRM!
+  about_thank_you: Merci d'utiliser Line 5 CRM!
   about_twitter: mises à jours sur Twitter
   about_user_group: Groupe de discussion pour les utilisateurs
   admin: Administration
@@ -691,8 +691,8 @@ fr:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: Retour à Fat Free CRM
-  crm_admin_page: Administration de Fat Free CRM
+  back_to_crm: Retour à Line 5 CRM
+  crm_admin_page: Administration de Line 5 CRM
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------

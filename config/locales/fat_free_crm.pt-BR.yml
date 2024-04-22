@@ -203,7 +203,7 @@ pt-BR:
   msg_cant_do: Impossível %{action} o %{asset} já que não está mais disponível.
   msg_email_not_found: Nenhum usuário encontrado com este e-mail.
   msg_enter_new_password: Por favor, informe sua nova senha.
-  msg_goodbye: Você saiu do sistema. Obrigado por usar o Fat Free CRM!
+  msg_goodbye: Você saiu do sistema. Obrigado por usar o Line 5 CRM!
   msg_invalid_password: ^Por favor informe uma senha válida
   msg_invalig_login: Usuário e senha inválida.
   msg_last_login: Você entrou no sistema pela última vez em %{value}.
@@ -215,8 +215,8 @@ pt-BR:
   msg_pwd_instructions_sent: Instruções para redefinir a sua senha foram enviadas
     a você. Por favor, verifique seu e-mail.
   msg_require_admin: É preciso ser um administrador para acessar esta página.
-  msg_successful_signup: Cadastrado com sucesso, bem vindo(a) ao Fat Free CRM!
-  msg_welcome: Bem vindo(a) ao Fat Free CRM!
+  msg_successful_signup: Cadastrado com sucesso, bem vindo(a) ao Line 5 CRM!
+  msg_welcome: Bem vindo(a) ao Line 5 CRM!
 
   # Options.
   #----------------------------------------------------------------------------
@@ -573,12 +573,12 @@ pt-BR:
   about: Sobre
   about_dev_group: Grupo de discussão para desenvolvedores
   about_features: Funcionalidades e bugs
-  about_ffc: Sobre Fat Free CRM
-  about_ffc_resources: Recursos do Fat Free CRM (link abre em uma nova janela)
-  about_ffc_version: Fat Free CRM versão
+  about_ffc: Sobre Line 5 CRM
+  about_ffc_resources: Recursos do Line 5 CRM (link abre em uma nova janela)
+  about_ffc_version: Line 5 CRM versão
   about_home_page: Home page
   about_project_page: Página do projeto
-  about_thank_you: Obrigado(a) por usar o Fat Free CRM! Nós apreciamos o seu negócio
+  about_thank_you: Obrigado(a) por usar o Line 5 CRM! Nós apreciamos o seu negócio
     e esperamos que você goste de usar nosso software.
   about_twitter: Twitter
   about_user_group: Grupo de discussão para usuários
@@ -594,8 +594,8 @@ pt-BR:
     sua senha serão enviadas a você.
   reset_password: Redefnir senha
   update_password_and_login: Atualizar senha e entrar.
-  back_to_crm: Voltar ao Fat Free CRM
-  crm_admin_page: Administração do Fat Free CRM
+  back_to_crm: Voltar ao Line 5 CRM
+  crm_admin_page: Administração do Line 5 CRM
   approve: Aprovar
   create_user: Novo usuário
   last_logged_in: last logged in %{value}

@@ -156,7 +156,7 @@ it:
   msg_cant_do: Can't %{action} the %{asset} since it's no longer available.
   msg_email_not_found: Non e' stato trovato alcun utente con questa email.
   msg_enter_new_password: Per favore insersci la tua nuova password.
-  msg_goodbye: Ti sei sconnesso. Grazie per aver usato Fat Free CRM!
+  msg_goodbye: Ti sei sconnesso. Grazie per aver usato Line 5 CRM!
   msg_invalid_password: ^Specifica la tua password corrente
   msg_invalig_login: username o password non valida.
   msg_last_login: il tuo ultimo login risale al %{value}.
@@ -168,8 +168,8 @@ it:
   msg_pwd_instructions_sent: Ti sono state inviate le istruzioni per resettare la
     tua password. Per favore controlla la tua email.
   msg_require_admin: Devi essere un Amministratore per accedere a questa pagina.
-  msg_successful_signup: Registrazione con successo, benvenuto a Fat Free CRM!
-  msg_welcome: Benvenuto a Fat Free CRM!
+  msg_successful_signup: Registrazione con successo, benvenuto a Line 5 CRM!
+  msg_welcome: Benvenuto a Line 5 CRM!
   option_amount*probability: ammonotare pesato
   activity_options: Mostra %{models} %{action_type} eseguito da %{user} nel passato
     %{period}.
@@ -509,12 +509,12 @@ it:
   about: Info
   about_dev_group: Gruppo di discussione per gli sviluppatori
   about_features: Caratteristiche e bug
-  about_ffc: About Fat Free CRM
-  about_ffc_resources: Risorse Fat Free CRM (i link si aprono in una nuova pagina)
-  about_ffc_version: Fat Free CRM versione
+  about_ffc: About Line 5 CRM
+  about_ffc_resources: Risorse Line 5 CRM (i link si aprono in una nuova pagina)
+  about_ffc_version: Line 5 CRM versione
   about_home_page: Home page
   about_project_page: Pagina del Progetto
-  about_thank_you: Grazie per usare Fat Free CRM! Appreziamo il tuo business e speriamo
+  about_thank_you: Grazie per usare Line 5 CRM! Appreziamo il tuo business e speriamo
     ti sia gradito l'uso di questo programma.
   about_twitter: Aggiornamenti Twitter delle modifiche
   about_user_group: Gruppo di discussione per gli utenti
@@ -530,8 +530,8 @@ it:
     la password ti saranno inviate.
   reset_password: Resetta Password
   update_password_and_login: Aggiorna Password e Login
-  back_to_crm: Ritorna a Fat Free CRM
-  crm_admin_page: Fat Free CRM Amministrazione
+  back_to_crm: Ritorna a Line 5 CRM
+  crm_admin_page: Line 5 CRM Amministrazione
   approve: Approva
   create_user: Utente creato
   last_logged_in: last logged in %{value}

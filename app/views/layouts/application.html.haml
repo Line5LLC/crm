@@ -2,7 +2,7 @@
 %html
   %head
     %meta{ "http-equiv" => "Content-Type", content: "text/html; charset=utf-8" }
-    %title Line5 CRM
+    %title Line 5 CRM
     == <!-- #{controller.controller_name} : #{controller.action_name} -->
     = stylesheet_link_tag :application
     = stylesheet_link_tag :print, media: 'print'
@@ -30,8 +30,8 @@
         #{raw User.all.map{|u| "'#{j u.full_name} (@#{j u.username})'" }.join(",\n")}
         ];
 
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
 
   %body
     = render "layouts/header"

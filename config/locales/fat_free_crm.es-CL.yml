@@ -210,7 +210,7 @@ es-CL:
   msg_cant_do: No se puede %{action} la %{asset} por ya no estar disponible.
   msg_email_not_found: No se han encontrado usuarios con esa dirección de correo electrónico.
   msg_enter_new_password: Por favor, introduzca su nueva contraseña, .
-  msg_goodbye: La sesión se ha cerrado. ¡Gracias por utilizar Fat Free CRM!
+  msg_goodbye: La sesión se ha cerrado. ¡Gracias por utilizar Line 5 CRM!
   msg_invalid_password: ^Por favor, introduzca correctamente su contraseña
   msg_invalig_login: Nombre de usuario o contraseña no válida.
   msg_last_login: Su última conexión fue el %{value}.
@@ -222,8 +222,8 @@ es-CL:
   msg_pwd_instructions_sent: Se le han enviado las instrucciones para restaurar su
     contraseña. Por favor, revise su correo electrónico.
   msg_require_admin: Debe ser administrador para acceder a ésta página.
-  msg_successful_signup: Registro realizado con éxito, ¡Bienvenido/a a Fat Free CRM!
-  msg_welcome: ¡Bienvenido/a to Fat Free CRM!
+  msg_successful_signup: Registro realizado con éxito, ¡Bienvenido/a a Line 5 CRM!
+  msg_welcome: ¡Bienvenido/a to Line 5 CRM!
 
   # Options.
   #----------------------------------------------------------------------------
@@ -641,13 +641,13 @@ es-CL:
   about: Sobre
   about_dev_group: Grupo de debate para programadores
   about_features: Funciones y errores
-  about_ffc: Sobre Fat Free CRM
-  about_ffc_resources: Recursos de Fat Free CRM (los enlaces se abren en una ventana
+  about_ffc: Sobre Line 5 CRM
+  about_ffc_resources: Recursos de Line 5 CRM (los enlaces se abren en una ventana
     nueva)
-  about_ffc_version: Versión Fat Free CRM
+  about_ffc_version: Versión Line 5 CRM
   about_home_page: Página del producto
   about_project_page: Página del proyecto
-  about_thank_you: ¡Gracias por utilizar Fat Free CRM! Esperamos que lo disfrute.
+  about_thank_you: ¡Gracias por utilizar Line 5 CRM! Esperamos que lo disfrute.
   about_twitter: Twitter commit updates
   about_user_group: Grupo de debate para usuarios
   admin: Admin
@@ -688,8 +688,8 @@ es-CL:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: Volver a Fat Free CRM
-  crm_admin_page: Administración de Fat Free CRM
+  back_to_crm: Volver a Line 5 CRM
+  crm_admin_page: Administración de Line 5 CRM
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------

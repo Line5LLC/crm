@@ -200,7 +200,7 @@ zh-CN:
   msg_cant_do: 不能 %{action} %{asset} 因为它已经不存在
   msg_email_not_found: 未找到用户使用此邮件地址
   msg_enter_new_password: 请输入新密码
-  msg_goodbye: 您已退出，感谢您使用 Fat Free CRM!
+  msg_goodbye: 您已退出，感谢您使用 Line 5 CRM!
   msg_invalid_password: ^^请输入正确密码
   msg_invalig_login: 用户名或密码错
   msg_last_login: 您上次登录是在 %{value}.
@@ -212,8 +212,8 @@ zh-CN:
   msg_pwd_instructions_sent: 重置密码方法已经发出，请检查您的邮件
 
   msg_require_admin: 必须是管理员才能使用本页
-  msg_successful_signup: 成功申请，欢迎您使用 Fat Free CRM!
-  msg_welcome: 欢迎使用 Fat Free CRM!
+  msg_successful_signup: 成功申请，欢迎您使用 Line 5 CRM!
+  msg_welcome: 欢迎使用 Line 5 CRM!
 
   # Options.
   #----------------------------------------------------------------------------
@@ -648,9 +648,9 @@ zh-CN:
   about: 关于
   about_dev_group: 开发者讨论组
   about_features: 特性与bugs
-  about_ffc: 关于 Fat Free CRM
-  about_ffc_resources: Fat Free CRM 资源 (在新窗口打开)
-  about_ffc_version: Fat Free CRM 版本
+  about_ffc: 关于 Line 5 CRM
+  about_ffc_resources: Line 5 CRM 资源 (在新窗口打开)
+  about_ffc_version: Line 5 CRM 版本
   about_home_page: 主页
   about_project_page: 项目页
   about_thank_you: 感谢使用Fat Free CRM! 希望使用愉快.
@@ -695,8 +695,8 @@ zh-CN:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: 返回 Fat Free CRM
-  crm_admin_page: Fat Free CRM 管理
+  back_to_crm: 返回 Line 5 CRM
+  crm_admin_page: Line 5 CRM 管理
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------

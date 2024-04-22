@@ -197,7 +197,7 @@ es:
   msg_cant_do: No puede %{action} el/la %{asset} desde que ya no esta disponible.
   msg_email_not_found: No se ha encontrado ningún usuario con ese correo electrónico.
   msg_enter_new_password: Porfavor, introduce tu nueva contraseña.
-  msg_goodbye: Usted ha cerrado sesión. ¡ Gracias por usar Fat Free CRM!
+  msg_goodbye: Usted ha cerrado sesión. ¡ Gracias por usar Line 5 CRM!
   msg_invalid_password: ^Porfavor, específica una contraseña válida
   msg_invalig_login: Usuario o contraseña no validos.
   msg_last_login: Su último login fue el %{value}.
@@ -208,8 +208,8 @@ es:
   msg_password_updated: Su contraseña se ha actualizado correctamente.
   msg_pwd_instructions_sent: Las instrucciones de recuperación de contraseña se han mandado a su email. Porfavor, revise su correo electrónico.
   msg_require_admin: Debes ser un administrador para acceder a esta página.
-  msg_successful_signup: Se ha dado de alta satisfactoriamente. ¡Bienvenido a Fat Free CRM!
-  msg_welcome: ¡Bienvenido a Fat Free CRM!
+  msg_successful_signup: Se ha dado de alta satisfactoriamente. ¡Bienvenido a Line 5 CRM!
+  msg_welcome: ¡Bienvenido a Line 5 CRM!
 
   # Options.
   #----------------------------------------------------------------------------
@@ -635,12 +635,12 @@ es:
   about: Sobre
   about_dev_group: Grupo de discursión para desarrolladores
   about_features: Características y bugs
-  about_ffc: Sobre Fat Free CRM
-  about_ffc_resources: Recursos Fat Free CRM (el enlace abre una nueva ventana)
-  about_ffc_version: Versión Fat Free CRM
+  about_ffc: Sobre Line 5 CRM
+  about_ffc_resources: Recursos Line 5 CRM (el enlace abre una nueva ventana)
+  about_ffc_version: Versión Line 5 CRM
   about_home_page: Página de inicio
   about_project_page: Página de proyecto
-  about_thank_you: ¡Gracias por usar Fat Free CRM! Apreciamos tu negocio y esperamos que disfrute del software.
+  about_thank_you: ¡Gracias por usar Line 5 CRM! Apreciamos tu negocio y esperamos que disfrute del software.
   about_twitter: Actualizaciones de Twitter
   about_user_group: Grupo de discursión para usuarios
   admin: Administrador
@@ -680,8 +680,8 @@ es:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: Volver a Fat Free CRM
-  crm_admin_page: Administración de Fat Free CRM
+  back_to_crm: Volver a Line 5 CRM
+  crm_admin_page: Administración de Line 5 CRM
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------

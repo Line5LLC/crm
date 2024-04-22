@@ -1,4 +1,4 @@
-# French I18n file for Fat Free CRM
+# French I18n file for Line 5 CRM
 # Translation by Cédric Brancourt aka Electron-libre
 # cedric.brancourt@gmail.com
 #
@@ -161,7 +161,7 @@ fr-CA:
   msg_cant_do: Impossible de %{action} le %{asset} puisqu'il n'est plus disponible.
   msg_email_not_found: Aucun utilisateur ne correspond a cette adresse
   msg_enter_new_password: Saisissez votre nouveau mot de passe.
-  msg_goodbye: Vous avez été déconnecté, merci d'utiliser Fat Free CRM!
+  msg_goodbye: Vous avez été déconnecté, merci d'utiliser Line 5 CRM!
   msg_invalid_password: ^Saisissez votre mot de passe actuel
   msg_invalig_login: Utilisateur ou mot de passe non valide.
   msg_last_login: Votre dernière connection était le  %{value}.
@@ -173,8 +173,8 @@ fr-CA:
   msg_pwd_instructions_sent: Les instruction de modification de mot de passe vous
     on été envoyées. Vérifiez vos e-mails
   msg_require_admin: Vous devez être administrateur pour accéder a cette page
-  msg_successful_signup: Enregistrement réussi. Bienvenu dans Fat Free CRM
-  msg_welcome: Bienvenu dans Fat Free CRM
+  msg_successful_signup: Enregistrement réussi. Bienvenu dans Line 5 CRM
+  msg_welcome: Bienvenu dans Line 5 CRM
   option_amount*probability: Montant pondéré
   activity_options: Voir les actions %{models} effectuées par %{user} dans les derniers
     %{period}.
@@ -493,12 +493,12 @@ fr-CA:
   about: A propos
   about_dev_group: Groupe de discussion développeur
   about_features: Fonctionnalités et bugs
-  about_ffc: A propos Fat Free CRM
-  about_ffc_resources: Ressources Fat Free CRM (Nouvelle fenêtre)
-  about_ffc_version: Fat Free CRM version
+  about_ffc: A propos Line 5 CRM
+  about_ffc_resources: Ressources Line 5 CRM (Nouvelle fenêtre)
+  about_ffc_version: Line 5 CRM version
   about_home_page: Page d'accueil
   about_project_page: Page du projet
-  about_thank_you: Merci d'utiliser Fat Free CRM!
+  about_thank_you: Merci d'utiliser Line 5 CRM!
   about_twitter: Twitter commit updates
   about_user_group: Discussion group for users
   admin: Admin
@@ -513,8 +513,8 @@ fr-CA:
     vous seront communiquées.
   reset_password: Ré-initialisation du mot de passe
   update_password_and_login: Modification de l'identifiant et du mot de passe
-  back_to_crm: Retour à Fat Free CRM
-  crm_admin_page: Administration Fat Free CRM
+  back_to_crm: Retour à Line 5 CRM
+  crm_admin_page: Administration Line 5 CRM
   approve: Approuver
   create_user: Créer un utilisateur
   last_logged_in: last logged in %{value}

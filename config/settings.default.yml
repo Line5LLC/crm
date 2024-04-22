@@ -204,11 +204,6 @@
   :url:
     :controller: home
 - :active: false
-  :text: :tab_tasks
-  :icon: :fa-check-square-o
-  :url:
-    :controller: tasks
-- :active: false
   :text: :tab_campaigns
   :icon: :fa-bar-chart-o
   :url:
@@ -218,6 +213,13 @@
   :icon: :fa-tasks
   :url:
     :controller: leads
+
+:admin_tabs:
+- :active: false
+  :text: :tab_tasks
+  :icon: :fa-check-square-o
+  :url:
+    :controller: tasks
 - :active: false
   :text: :tab_accounts
   :icon: :fa-users
@@ -239,8 +241,6 @@
   :url:
     :controller: users
     :action: opportunities_overview
-
-:admin_tabs:
 - :active: true
   :text: :admin_tab_users
   :icon: :fa-user

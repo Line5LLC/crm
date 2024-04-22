@@ -77,7 +77,7 @@ de:
   referred_by: erwähnt von
   address: Adresse
   sign_up: Registrieren
-  about_ffc: Über Fat Free CRM
+  about_ffc: Über Line 5 CRM
   convert: Umwandeln
   msg_asset_not_available: ! '%{value} ist nicht länger verfügbar.'
   admin_tab_tags: Markierungen
@@ -127,7 +127,7 @@ de:
   option_updated_at: Änderungsdatum
   keep_private: nur für mich sichtbar
   select_none: -- Kein(e) --
-  about_ffc_version: Fat Free CRM version
+  about_ffc_version: Line 5 CRM version
   budget_label: Budget (€)
   currency: (€)
   close_date: Abschlussdatum
@@ -208,7 +208,7 @@ de:
   status: Status
   dropbox_notification_to: Hinzugefügt zu
   related: ! 're:'
-  msg_welcome: Willkommen bei Fat Free CRM!
+  msg_welcome: Willkommen bei Line 5 CRM!
   msg_bad_image_file: ^Konnte das angegebene Bild nicht hochladen oder zu zuschneiden.
   save_lead: Anfrage sichern
   custom_fields: Benutzerdefinierte Felder
@@ -317,7 +317,7 @@ de:
   one_hour: Eine Stunde
   change_password: Passwort ändern
   user: Benutzer
-  msg_goodbye: Sie wurden abgemeldet. Danke, dass Sie Fat Free CRM! benutzt haben.
+  msg_goodbye: Sie wurden abgemeldet. Danke, dass Sie Line 5 CRM! benutzt haben.
   option_leads_count: aktuelle Anfragen
   suspend: Sperren
   task_completed_ago: vor %{value} erledigt
@@ -517,7 +517,7 @@ de:
   option_created_at: Erstellungsdatum
   users_small: Benutzer
   custom_field_options: Passe die Feldoptionen an
-  about_ffc_resources: Fat Free CRM Ressourcen (Links öffnen ein neues Fenster)
+  about_ffc_resources: Line 5 CRM Ressourcen (Links öffnen ein neues Fenster)
   task_due_later: demnächst fällig
   myself: mir
   mobile_small: Mobiltelefon
@@ -534,7 +534,7 @@ de:
   total_accounts: Alle Accounts
   dropbox_notification_intro: Die e-Mail wurde erfolgreich hinzugefügt, welche an
     die Dropbox geschickt wurde
-  msg_successful_signup: Erfolgreiche Anmeldung. Willkommen bei Fat Free CRM!
+  msg_successful_signup: Erfolgreiche Anmeldung. Willkommen bei Line 5 CRM!
   following_users_will_be_notified: Die folgenden Benutzer werden mittels e-Mail benachrichtigt
   skype: Skype
   partner: Partner
@@ -579,11 +579,11 @@ de:
   leads_options: Anfrage-Einstellungen
   due_this_week: Diese Woche
   select_an_account: Wähle einen Account aus
-  about_thank_you: Danke, dass Sie Fat Free CRM benutzen! Wir schätzen Ihre Hilfe
+  about_thank_you: Danke, dass Sie Line 5 CRM benutzen! Wir schätzen Ihre Hilfe
     und hoffen, Sie finden Gefallen an der Software.
   web: Website
   accounts_options: Firmen-Optionen
-  crm_admin_page: Fat Free CRM Administration
+  crm_admin_page: Line 5 CRM Administration
   tab_tasks: Aufgaben
   blog: Website/Blog
   source: Quelle
@@ -602,7 +602,7 @@ de:
   about_dev_group: Diskussionsgruppe für Entwickler
   lost: Verloren
   expand_all: Alles anzeigen
-  back_to_crm: Back to Fat Free CRM
+  back_to_crm: Back to Line 5 CRM
   option_long: lang
   edit: Bearbeiten
   no_button: Nein

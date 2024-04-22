@@ -151,7 +151,7 @@ th:
   msg_cant_do: ไม่สามารถ%{action}ของ%{asset} เพราะไม่มีเอกสารแล้ว
   msg_email_not_found: ไม่มีผู้ใช้ที่ใช้อีเมล์นี้
   msg_enter_new_password: โปรดใส่ระหัสผ่านตัวใหม่
-  msg_goodbye: คุณได้ออกจากระบบแล้ว ขอบคุณที่ใช้งานโปรแกรม Fat Free CRM
+  msg_goodbye: คุณได้ออกจากระบบแล้ว ขอบคุณที่ใช้งานโปรแกรม Line 5 CRM
   msg_invalid_password: ^โปรดระบุรหัสผ่านตัวปัจจุบันให้ถูกต้อง
   msg_invalig_login: ชื่อผู้ใช้ หรือ รหัสผ่าน ไม่ถูกต้อง
   msg_last_login: ครั้งสุดท้านที่คุณเข้าสู่ระบบคือ %{value}.
@@ -162,8 +162,8 @@ th:
   msg_password_updated: รหัสผ่านของคุณได้รับการปรับปรุงแล้ว
   msg_pwd_instructions_sent: ขั้นตอนการตั้งรหัสผ่านใหม่ได้ส่งไปยังคุณแล้ว โปรดตรวจสอบอีเมล์ของคุณ
   msg_require_admin: คุณต้องเป็นผู้ดูแลระบบเพื่อเข้าหน้านี้
-  msg_successful_signup: สมัครสมาชิกเรียบร้อยแล้ว ยินดีต้อนรับสู่ Fat Free CRM
-  msg_welcome: ยินดีต้อนรับสู่ Fat Free CRM
+  msg_successful_signup: สมัครสมาชิกเรียบร้อยแล้ว ยินดีต้อนรับสู่ Line 5 CRM
+  msg_welcome: ยินดีต้อนรับสู่ Line 5 CRM
   option_amount*probability: จำนวนถ่วงน้ำหนัก
   activity_options: แสดง%{models}ที่เกิดขึ้น โดย%{user} ในช่วง%{period}ที่ผ่านมา.
   all_users: ผู้ใช้ทุกคน
@@ -482,12 +482,12 @@ th:
   about: เกี่ยวกับ
   about_dev_group: แหล่งสนทนาของนักพัฒนา
   about_features: คุณลักษณะ และข้อผิดพลาด
-  about_ffc: About Fat Free CRM
-  about_ffc_resources: Fat Free CRM เพิ่มเติม (กดเพื่อเปิดหน้าใหม่)
-  about_ffc_version: Fat Free CRM เวอร์ชัน
+  about_ffc: About Line 5 CRM
+  about_ffc_resources: Line 5 CRM เพิ่มเติม (กดเพื่อเปิดหน้าใหม่)
+  about_ffc_version: Line 5 CRM เวอร์ชัน
   about_home_page: หน้าแรก
   about_project_page: หน้าโครงการ
-  about_thank_you: ขอบคุณที่ใช้งาน Fat Free CRM! เรายินดีเป็นอย่างยิ่งกับธุรกิจของคุณ
+  about_thank_you: ขอบคุณที่ใช้งาน Line 5 CRM! เรายินดีเป็นอย่างยิ่งกับธุรกิจของคุณ
     และหวังว่าคุณจะสนุกกับการใช้โปรแกรม
   about_twitter: ติดตามบน Twitter
   about_user_group: แหล่งสนทนาของผู้ใช้
@@ -502,8 +502,8 @@ th:
   password_intro: โปรดระบุอีเมล์ของท่าน จากนั้นขั้นตอนการเปลี่ยนรหัสผ่านจะส่งถึงท่านผ่านทางอีเมล์
   reset_password: เปลี่ยนรหัสผ่าน
   update_password_and_login: ปรับปรุงรหัสผ่านและเข้าสู่ระบบ
-  back_to_crm: Back to Fat Free CRM
-  crm_admin_page: Fat Free CRM Administration
+  back_to_crm: Back to Line 5 CRM
+  crm_admin_page: Line 5 CRM Administration
   approve: อนุมัติ
   create_user: เพิ่มผู้ใช้
   last_logged_in: last logged in %{value}

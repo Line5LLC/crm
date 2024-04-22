@@ -208,7 +208,7 @@ ru:
   msg_cant_do: Нельзя %{action} %{asset}, его больше не существует.
   msg_email_not_found: Пользователя с таким адресом не найдено.
   msg_enter_new_password: Пожалуйста введите новый пароль.
-  msg_goodbye: Вы вышли. Спасибо за использование Fat Free CRM!
+  msg_goodbye: Вы вышли. Спасибо за использование Line 5 CRM!
   msg_invalid_password: ^Введите правильный пароль.
   msg_invalig_login: Неправильный логин или пароль.
   msg_last_login: Последний раз Вы заходили %{value}.
@@ -220,8 +220,8 @@ ru:
   msg_pwd_instructions_sent: Инструкции по перемене пароля Вам высланы. Пожалуйста
     проверьте свою электронную почту.
   msg_require_admin: Для доступа к этой странице нужны права Администратора
-  msg_successful_signup: Регистрация прошла успешно, добро пожаловать в Fat Free CRM!
-  msg_welcome: Добро пожаловать в Fat Free CRM!
+  msg_successful_signup: Регистрация прошла успешно, добро пожаловать в Line 5 CRM!
+  msg_welcome: Добро пожаловать в Line 5 CRM!
 
 
   # Options.
@@ -657,13 +657,13 @@ ru:
   about: О программе
   about_dev_group: Форум для разработчиков
   about_features: Багтрекер
-  about_ffc: О программе Fat Free CRM
-  about_ffc_resources: Полезные ресурсы по Fat Free CRM (ссылки открываются в новом
+  about_ffc: О программе Line 5 CRM
+  about_ffc_resources: Полезные ресурсы по Line 5 CRM (ссылки открываются в новом
     окне)
-  about_ffc_version: Fat Free CRM версия
+  about_ffc_version: Line 5 CRM версия
   about_home_page: Домашняя страница
   about_project_page: Страница проекта
-  about_thank_you: Спасибо что Вы пользуетесь Fat Free CRM! Мы ценим ваш бизнес и
+  about_thank_you: Спасибо что Вы пользуетесь Line 5 CRM! Мы ценим ваш бизнес и
     надеемся что Вам нравится наше приложение.
   about_twitter: Следите за информацией в Twitter
   about_user_group: Форум для пользователей
@@ -727,8 +727,8 @@ ru:
 
   # Views -> Admin
   #----------------------------------------------------------------------------
-  back_to_crm: Назад к Fat Free CRM
-  crm_admin_page: Администрирование Fat Free CRM
+  back_to_crm: Назад к Line 5 CRM
+  crm_admin_page: Администрирование Line 5 CRM
 
   # Views -> Admin -> Groups
   #----------------------------------------------------------------------------
