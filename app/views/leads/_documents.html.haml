@@ -1,0 +1,78 @@
+- edit ||= false
+- collapsed = session[:lead_document].nil? # && @lead.errors.empty?
+= subtitle :lead_document, collapsed, t(:documents)
+.section
+  %small#lead_document_intro{ hidden_if(!collapsed) }
+    = t(:intro, t(:lead_documents_small)) unless edit
+  #lead_document{ hidden_if(collapsed) }
+    %label
+      Add Document:
+      %input{type: "file", name: "document[file]", id: "document-file"}
+    %button{type: "button", id: "add-document-button"} Add Document
+    %table
+      %thead
+        %tr
+          %th Document Name
+          %th Document Type
+          %th Document Size
+          %th Actions
+      %tbody{id: "document-table"}
+        - @documents&.each do |document|
+          %tr
+            %td= document.file_file_name
+            %td= document.file_content_type
+            %td= number_to_human_size(document.file_file_size)
+            %td
+              = link_to "Download", document.file.url
+
+:javascript
+  $(document).ready(function() {
+    $('#add-document-button').click(function() {
+      var fileInput = $('#document-file')[0];
+      var file = fileInput.files[0];
+      if (file) {
+        // Adicione o arquivo à tabela
+        var row = $('<tr>');
+        row.append($('<td>').text(file.name));
+        row.append($('<td>').text(file.type));
+        row.append($('<td>').text(formatBytes(file.size)));
+        $('#document-table').append(row);
+      }
+    });
+
+    $('#document-form').submit(function(event) {
+      event.preventDefault();
+      
+      var formData = new FormData($(this)[0]);
+      var url = $(this).attr('action'); 
+
+      console.log(url);
+
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+          console.log("File uploaded successfully!");
+          // Aqui você pode manipular a resposta do servidor, se necessário
+        },
+        error: function(xhr, status, error) {
+          console.error("Error uploading file: " + error);
+          // Em caso de erro, manipular conforme necessário
+        }
+      });
+    });
+  });
+
+  // Função para formatar o tamanho do arquivo em bytes para uma string legível
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }

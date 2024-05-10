@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       get :autocomplete_account_name
     end
     member do
+      post :document_uploader
       get :convert
       post :discard
       post :subscribe

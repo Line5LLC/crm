@@ -30,7 +30,7 @@
     = link_to_if can?(:read, lead), lead.full_name(current_user.preference[:leads_naming]), lead
     %tt
       - if lead.company? && lead.title?
-        = t(:works_at, job_title: lead.title, company: lead.company)
+        = t(:works_at, job_title: '', company: lead.company)
       - else
         = lead.company if lead.company?
         = lead.title if lead.title?

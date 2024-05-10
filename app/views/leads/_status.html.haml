@@ -9,8 +9,8 @@
     %table
       %tr
         %td
-          .label.top #{t :assigned_to}:
-          = user_select(:lead, all_users, current_user)
+          .label.top #{t :dealer_type}:
+          = f.select :dealer_type, Lead.dealer_types.keys.map { |key| [key.to_s.humanize, key] }, { selected: @lead.dealer_type }, { style: "width:160px", class: 'select2' }
         %td= spacer
         %td
           .label.top #{t :status}:
@@ -28,9 +28,13 @@
           - else
             = f.select :source, Setting.unroll(:lead_source), { selected: (@lead.source || "other").to_sym }, { style: "width:160px", class: 'select2' }
         %td= spacer
-        %td{ colspan: 3 }
+        %td
           .label #{t :campaign}:
           - if @campaign && !edit # Create a lead from Campaign landing page: select current campaign and disable the dropdown.
             = collection_select :lead, :campaign_id, @campaigns, :id, :name, { selected: @campaign.id }, { style: "width:100%", disabled: true, class: 'select2' }
           - else
             = collection_select :lead, :campaign_id, @campaigns, :id, :name, { selected: @lead.campaign_id, include_blank: t(:select_none) }, { style: "width:100%", onchange: "crm.flip_campaign_permissions(this.value)", class: 'select2' }
+        %td= spacer
+        %td
+          .label.top #{t :assigned_to}:
+          = user_select(:lead, all_users, current_user)

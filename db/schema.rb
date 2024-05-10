@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_08_182139) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_07_164455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -203,6 +203,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_182139) do
     t.index ["user_id", "last_name", "deleted_at"], name: "id_last_name_deleted", unique: true
   end
 
+  create_table "documents", force: :cascade do |t|
+    t.string "file_file_name", null: false
+    t.string "file_content_type", null: false
+    t.integer "file_file_size"
+    t.datetime "file_updated_at", null: false
+    t.string "documentable_type"
+    t.bigint "documentable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable"
+  end
+
   create_table "emails", id: :serial, force: :cascade do |t|
     t.string "imap_message_id", null: false
     t.integer "user_id"
@@ -304,6 +316,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_182139) do
     t.string "background_info"
     t.string "skype", limit: 128
     t.text "subscribed_users"
+    t.integer "dealer_type"
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true
   end
@@ -449,7 +462,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_182139) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.boolean "active"
     t.string "sso_token"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email"

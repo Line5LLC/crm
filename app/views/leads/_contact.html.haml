@@ -8,20 +8,17 @@
     %table
       %tr
         %td
-          .label.top #{t :job_title}:
-          = f.text_field :title
-        %td= spacer
-        %td
-          .label.top #{t :company}:
-          = f.autocomplete_field :company, autocomplete_account_name_leads_path
-      %tr
-        %td
-          .label #{t :alt_email}:
-          = f.text_field :alt_email
+          .label #{t :phone}:
+          = f.text_field :phone
         %td= spacer
         %td
           .label #{t :mobile}:
           = f.text_field :mobile
+      %tr
+        %td
+          .label #{t :alt_email}:
+          = f.text_field :alt_email
+        
       %tr
         %td
           = render "shared/address", f: f, asset: @lead, type: 'business', title: :address

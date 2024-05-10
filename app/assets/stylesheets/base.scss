@@ -44,6 +44,7 @@ a {
   text-decoration: none;
   &:link, &:visited {
     color: $color_link;
+    transition: color 0.3s ease;
   }
   &:hover {
     background: $color_link_hover_background;

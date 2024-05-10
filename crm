@@ -304,6 +304,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_08_182139) do
     t.string "background_info"
     t.string "skype", limit: 128
     t.text "subscribed_users"
+    t.integer "dealer_type"
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true
   end

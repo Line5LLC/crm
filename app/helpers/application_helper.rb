@@ -491,10 +491,11 @@ module ApplicationHelper
   # <span class="timeago" datetime="2008-07-17T09:24:17Z">July 17, 2008</span>
   def timeago(time, options = {})
     return unless time
-
-    options[:class] ||= "timeago"
-    options[:title] = time.getutc.iso8601
-    content_tag(:span, I18n.l(time), options)
+    
+    time.strftime("%m/%d/%Y %I:%M %p")
+    # options[:class] ||= "timeago"
+    # options[:title] = time.getutc.iso8601
+    # content_tag(:span, I18n.l(time), options)
   end
 
   #----------------------------------------------------------------------------

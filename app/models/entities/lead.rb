@@ -49,6 +49,7 @@ class Lead < CrmSchema
   has_one :business_address, -> { where "address_type='Business'" }, dependent: :destroy, as: :addressable, class_name: "Address"
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
+  has_many :documents, as: :documentable
 
   serialize :subscribed_users, Array
 
@@ -78,11 +79,22 @@ class Lead < CrmSchema
 
   validates_presence_of :first_name, message: :missing_first_name, if: -> { Setting.require_first_names }
   validates_presence_of :last_name,  message: :missing_last_name,  if: -> { Setting.require_last_names  }
+  validates_presence_of :company,  message: :missing_company,  if: -> { Setting.require_company  }
+  
   validate :users_for_shared_access
   validates :status, inclusion: { in: proc { Setting.unroll(:lead_status).map { |s| s.last.to_s } } }, allow_blank: true
 
   after_create :increment_leads_count
   after_destroy :decrement_leads_count
+
+  enum dealer_type: {
+    demo:        0,
+    auto:        1,
+    rv:          2,
+    powersport:  3,
+    marine:      4,
+    call_center: 5
+  }
 
   # Default values provided through class methods.
   #----------------------------------------------------------------------------

@@ -12,12 +12,12 @@
           = f.text_field :last_name
       %tr
         %td
-          .label #{t :email}:
-          = f.text_field :email
+          .label.top{ class: "#{Setting.require_company ? 'req' : nil}" } #{t :company}:
+          = f.autocomplete_field :company, autocomplete_account_name_leads_path
         %td= spacer
         %td
-          .label #{t :phone}:
-          = f.text_field :phone
+          .label.top #{t :email}:
+          = f.text_field :email
 
       - if Setting.background_info && Setting.background_info.include?(:lead)
         %tr

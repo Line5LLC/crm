@@ -439,6 +439,7 @@ pt-BR:
   leads_small: leads
   none: Nenhum
   rating: Rating
+  dealer_type: Tipo de Revendedor
   reject: Rejeitar
   reject_lead_confirm: Tem certeza que deseja rejeitar este lead?
   save_lead: Salvar lead

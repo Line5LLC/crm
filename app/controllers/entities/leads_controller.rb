@@ -76,9 +76,26 @@ class LeadsController < EntitiesController
     end
   end
 
+  def document_uploader
+    byebug
+    @document = Document.new(params.require(:document).permit(:file, :lead_id))
+    if @document.save
+      respond_to do |format|
+        format.html { redirect_to @document.lead }
+        format.json { render json: @document, status: :created }
+      end
+    else
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @document.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PUT /leads/1
   #----------------------------------------------------------------------------
   def update
+    byebug
     respond_with(@lead) do |_format|
       # Must set access before user_ids, because user_ids= method depends on access value.
       @lead.access = resource_params[:access] if resource_params[:access]
