@@ -7,7 +7,7 @@
   #lead_document{ hidden_if(collapsed) }
     %label
       Add Document:
-      %input{type: "file", name: "document[file]", id: "document-file"}
+      %input{type: "file", name: "documents[file]", id: "documents-file", multiple: true}
     %button{type: "button", id: "add-document-button"} Add Document
     %table
       %thead
@@ -28,46 +28,27 @@
 :javascript
   $(document).ready(function() {
     $('#add-document-button').click(function() {
-      var fileInput = $('#document-file')[0];
-      var file = fileInput.files[0];
-      if (file) {
-        // Adicione o arquivo à tabela
+      var fileInput = $('#documents-file')[0];
+      var files = fileInput.files;
+
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
         var row = $('<tr>');
         row.append($('<td>').text(file.name));
         row.append($('<td>').text(file.type));
         row.append($('<td>').text(formatBytes(file.size)));
         $('#document-table').append(row);
+
+        var hiddenInput = $('<input>').attr({
+          type: 'hidden',
+          name: 'documents_files[]',
+          value: files[i]
+        });
+        $('#lead_document').append(hiddenInput);
       }
-    });
-
-    $('#document-form').submit(function(event) {
-      event.preventDefault();
-      
-      var formData = new FormData($(this)[0]);
-      var url = $(this).attr('action'); 
-
-      console.log(url);
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          console.log("File uploaded successfully!");
-          // Aqui você pode manipular a resposta do servidor, se necessário
-        },
-        error: function(xhr, status, error) {
-          console.error("Error uploading file: " + error);
-          // Em caso de erro, manipular conforme necessário
-        }
-      });
     });
   });
 
-  // Função para formatar o tamanho do arquivo em bytes para uma string legível
   function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
     const k = 1024;

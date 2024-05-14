@@ -27,7 +27,6 @@ class Document < CrmSchema
   include Documentable
 
   belongs_to :documentable, polymorphic: true
-  belongs_to :lead
 
   has_attached_file :file, :styles => {}
   do_not_validate_attachment_file_type :file

@@ -95,15 +95,24 @@ class LeadsController < EntitiesController
   # PUT /leads/1
   #----------------------------------------------------------------------------
   def update
-    byebug
     respond_with(@lead) do |_format|
       # Must set access before user_ids, because user_ids= method depends on access value.
       @lead.access = resource_params[:access] if resource_params[:access]
       if @lead.update_with_lead_counters(resource_params)
+        process_documents
+
         update_sidebar
       else
         @campaigns = Campaign.my(current_user).order('name')
       end
+    end
+  end
+
+  def process_documents
+    params[:document_files].each do |file|
+      next if file.blank?
+  
+      @lead.documents.create(file: file, documentable_id: @lead.class)
     end
   end
 
