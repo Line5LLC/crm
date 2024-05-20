@@ -48,16 +48,14 @@
         row.append($('<td>').append('<a href="#" class="remove-document-button" style="margin-left: 10px;">Remove</a>'));
         $('#document-table').append(row);
 
-        // Armazena o arquivo como dado de um input hidden
         var hiddenInput = $('<input>').attr({
           type: 'hidden',
           name: 'documents_files[]'
-        }).data('file', file); // Usa $.data para armazenar o arquivo
+        }).data('file', file);
 
         $('#lead_document').append(hiddenInput);
       }
 
-      // Limpa o campo de arquivo para permitir a seleção dos mesmos arquivos novamente, se necessário
       fileInput.value = '';
     });
 
@@ -87,7 +85,6 @@
       $(this).closest('tr').remove();
     });
 
-    // Quando o formulário for enviado, adiciona os arquivos do input oculto ao FormData
     $('form').submit(function(event) {
       event.preventDefault();
 
@@ -98,7 +95,6 @@
         formData.append('documents_files[]', file);
       });
 
-      // Envia o formulário via AJAX
       $.ajax({
         url: this.action,
         type: this.method,
@@ -106,12 +102,10 @@
         processData: false,
         contentType: false,
         success: function(response) {
-          // Lida com a resposta de sucesso
-          console.log('Formulário enviado com sucesso.');
+          console.log('Form sent with success.');
         },
         error: function(response) {
-          // Lida com a resposta de erro
-          console.log('Erro ao enviar o formulário.');
+          console.log('Error sending the form.');
         }
       });
     });
