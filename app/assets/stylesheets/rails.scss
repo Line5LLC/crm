@@ -43,13 +43,13 @@ p, div {
     margin: 0px;
     padding: 5px 0px 5px 16px; }
   &.flash_notice, &.flash_message {
-    background: #ddff99;
-    color: darkgreen;
+    background: salmon;
+    color: black;
     margin: 0px;
     padding: 5px 0px 5px 16px; }
   &.flash_exception {
-    background: #ddff99;
-    border: 5px limegreen solid;
+    background: salmon;
+    border: 5px orangered solid;
     font-size: 14px;
     margin: 50px auto;
     padding: 50px;

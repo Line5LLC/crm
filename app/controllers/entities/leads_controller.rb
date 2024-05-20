@@ -54,6 +54,7 @@ class LeadsController < EntitiesController
 
     @previous = Lead.my(current_user).find_by_id(detect_previous_id) || detect_previous_id if detect_previous_id
 
+    @documents = @lead.documents
     respond_with(@lead)
   end
 
@@ -76,43 +77,49 @@ class LeadsController < EntitiesController
     end
   end
 
-  def document_uploader
-    byebug
-    @document = Document.new(params.require(:document).permit(:file, :lead_id))
-    if @document.save
-      respond_to do |format|
-        format.html { redirect_to @document.lead }
-        format.json { render json: @document, status: :created }
-      end
-    else
-      respond_to do |format|
-        format.html { render :new }
-        format.json { render json: @document.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
   # PUT /leads/1
   #----------------------------------------------------------------------------
   def update
-    respond_with(@lead) do |_format|
-      # Must set access before user_ids, because user_ids= method depends on access value.
-      @lead.access = resource_params[:access] if resource_params[:access]
-      if @lead.update_with_lead_counters(resource_params)
-        process_documents
+    respond_to do |format|
+      format.html do
+        @lead.access = resource_params[:access] if resource_params[:access]
+        if @lead.update_with_lead_counters(resource_params)
+          process_documents
 
-        update_sidebar
-      else
-        @campaigns = Campaign.my(current_user).order('name')
+          update_sidebar
+          flash[:notice] = 'Lead was successfully updated.'
+          redirect_to leads_path
+        else
+          @campaigns = Campaign.my(current_user).order('name')
+          render :edit
+        end
+      end
+      format.json do
+        @lead.access = resource_params[:access] if resource_params[:access]
+        if @lead.update_with_lead_counters(resource_params)
+          process_documents
+          update_sidebar
+          render json: @lead, status: :ok
+        else
+          render json: @lead.errors, status: :unprocessable_entity
+        end
       end
     end
   end
 
   def process_documents
-    params[:document_files].each do |file|
-      next if file.blank?
-  
-      @lead.documents.create(file: file, documentable_id: @lead.class)
+    if params[:documents_files].present?
+      params[:documents_files].each do |file|
+        if file.is_a?(ActionDispatch::Http::UploadedFile)
+          @lead.documents.create(file: file)
+        end
+      end
+    end
+
+    params[:documents_to_remove]&.each do |document_id|
+      document = @lead.documents.find(document_id)
+      document&.destroy
     end
   end
 
@@ -219,6 +226,15 @@ class LeadsController < EntitiesController
 
   private
 
+  def resource__test_params
+    params.require(:lead).permit(:user_id, :first_name, :last_name, :company, :email, :tag_list, :dealer_type,
+                                 :status, :rating, :source, :campaign_id, :assigned_to, :phone, :mobile,
+                                 :alt_email, :referred_by, :do_not_call, :blog, :twitter, :linkedin,
+                                 :facebook, :skype, :access, :user_ids, :group_ids,
+                                 business_address_attributes: [:address_type, :street1, :street2, :city,
+                                                               :state, :zipcode, :country, :id],
+                                 documents_files: [])
+  end
   #----------------------------------------------------------------------------
   alias get_leads get_list_of_records
 

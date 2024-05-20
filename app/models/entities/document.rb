@@ -44,4 +44,8 @@ class Document < CrmSchema
     signer = Aws::S3::Presigner.new(client: s3_client)
     signer.presigned_url(:get_object, bucket: ENV['AWS_BUCKET'], key: object.key, expires_in: URL_EXPIRATION_TIME)
   end
+
+  def file_url
+    PaperclipLocalUrl.url(file)
+  end
 end

@@ -17,43 +17,102 @@
           %th Document Size
           %th Actions
       %tbody{id: "document-table"}
-        - @documents&.each do |document|
+        - @documents.each do |document|
           %tr
             %td= document.file_file_name
             %td= document.file_content_type
             %td= number_to_human_size(document.file_file_size)
             %td
-              = link_to "Download", document.file.url
+              = link_to "Download", document.file_url, style: 'margin-right: 10px;'
+              = link_to "Remove", "#", class: 'remove-document-button', data: { document_id: document.id }, style: 'margin-left: 10px;'
 
 :javascript
   $(document).ready(function() {
+    function clearHiddenInputs() {
+      $('input[name="documents_to_remove[]"]').remove();
+    }
+
+    clearHiddenInputs();
+
     $('#add-document-button').click(function() {
       var fileInput = $('#documents-file')[0];
       var files = fileInput.files;
 
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
+
         var row = $('<tr>');
         row.append($('<td>').text(file.name));
         row.append($('<td>').text(file.type));
         row.append($('<td>').text(formatBytes(file.size)));
+        row.append($('<td>').append('<a href="#" class="remove-document-button" style="margin-left: 10px;">Remove</a>'));
         $('#document-table').append(row);
 
+        // Armazena o arquivo como dado de um input hidden
         var hiddenInput = $('<input>').attr({
           type: 'hidden',
-          name: 'documents_files[]',
-          value: files[i]
+          name: 'documents_files[]'
+        }).data('file', file); // Usa $.data para armazenar o arquivo
+
+        $('#lead_document').append(hiddenInput);
+      }
+
+      // Limpa o campo de arquivo para permitir a seleção dos mesmos arquivos novamente, se necessário
+      fileInput.value = '';
+    });
+
+    function formatBytes(bytes, decimals = 2) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const dm = decimals < 0 ? 0 : decimals;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+
+    $(document).on('click', '.remove-document-button', function(event) {
+      event.preventDefault();
+
+      var documentId = $(this).data('document-id');
+
+      if ($('input[name="documents_to_remove[]"][value="' + documentId + '"]').length === 0) {
+        var hiddenInput = $('<input>').attr({
+          type: 'hidden',
+          name: 'documents_to_remove[]',
+          value: documentId
         });
         $('#lead_document').append(hiddenInput);
       }
+
+      $(this).closest('tr').remove();
+    });
+
+    // Quando o formulário for enviado, adiciona os arquivos do input oculto ao FormData
+    $('form').submit(function(event) {
+      event.preventDefault();
+
+      var formData = new FormData(this);
+
+      $('input[name="documents_files[]"]').each(function() {
+        var file = $(this).data('file');
+        formData.append('documents_files[]', file);
+      });
+
+      // Envia o formulário via AJAX
+      $.ajax({
+        url: this.action,
+        type: this.method,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          // Lida com a resposta de sucesso
+          console.log('Formulário enviado com sucesso.');
+        },
+        error: function(response) {
+          // Lida com a resposta de erro
+          console.log('Erro ao enviar o formulário.');
+        }
+      });
     });
   });
-
-  function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-  }
