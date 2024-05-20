@@ -226,15 +226,6 @@ class LeadsController < EntitiesController
 
   private
 
-  def resource__test_params
-    params.require(:lead).permit(:user_id, :first_name, :last_name, :company, :email, :tag_list, :dealer_type,
-                                 :status, :rating, :source, :campaign_id, :assigned_to, :phone, :mobile,
-                                 :alt_email, :referred_by, :do_not_call, :blog, :twitter, :linkedin,
-                                 :facebook, :skype, :access, :user_ids, :group_ids,
-                                 business_address_attributes: [:address_type, :street1, :street2, :city,
-                                                               :state, :zipcode, :country, :id],
-                                 documents_files: [])
-  end
   #----------------------------------------------------------------------------
   alias get_leads get_list_of_records
 
