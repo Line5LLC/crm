@@ -92,7 +92,6 @@ class LeadsController < EntitiesController
           redirect_to leads_path
         else
           @campaigns = Campaign.my(current_user).order('name')
-          render :edit
         end
       end
       format.json do

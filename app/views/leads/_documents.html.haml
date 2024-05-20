@@ -48,12 +48,17 @@
         row.append($('<td>').append('<a href="#" class="remove-document-button" style="margin-left: 10px;">Remove</a>'));
         $('#document-table').append(row);
 
-        var hiddenInput = $('<input>').attr({
-          type: 'hidden',
-          name: 'documents_files[]'
-        }).data('file', file);
+        var hiddenFileInput = $('<input>').attr({
+          type: 'file',
+          name: 'documents_files[]',
+        });
 
-        $('#lead_document').append(hiddenInput);
+        var dt = new DataTransfer();
+        dt.items.add(file);
+
+        hiddenFileInput[0].files = dt.files;
+
+        $('#lead_document').append(hiddenFileInput);
       }
 
       fileInput.value = '';
@@ -85,28 +90,4 @@
       $(this).closest('tr').remove();
     });
 
-    $('form').submit(function(event) {
-      event.preventDefault();
-
-      var formData = new FormData(this);
-
-      $('input[name="documents_files[]"]').each(function() {
-        var file = $(this).data('file');
-        formData.append('documents_files[]', file);
-      });
-
-      $.ajax({
-        url: this.action,
-        type: this.method,
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-          console.log('Form sent with success.');
-        },
-        error: function(response) {
-          console.log('Error sending the form.');
-        }
-      });
-    });
   });
