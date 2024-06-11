@@ -7,9 +7,9 @@ $color_header: #ff6b45;
 $color_header_background: #222222;
 $color_logo: #ff6b45;
 $color_tab: white;
-$color_tab_background: #ff6b45;
+$color_tab_background: #ffffff00;
 $color_active_tab: black;
-$color_active_tab_background: #E5E5E5;
+$color_active_tab_background: #ff6b45;
 $color_hover_tab: black;
 $color_hover_tab_background: white;
 $size_tab_height: 26px;
@@ -71,7 +71,7 @@ $color_footer: grey;
       margin: 2px 0px 0px 0px; } } }
 
 .tabs {
-  background: $color_header_background;
+  // background: $color_header_background;
   padding: 0px;
   i.fa { 
     font-size: 130%; 
@@ -88,7 +88,7 @@ $color_footer: grey;
       float: none;
       margin-right: 7px; }
     background: $color_tab_background;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 4px 15px 6px;
     text-align: center;
     text-decoration: none;
@@ -104,7 +104,14 @@ $color_footer: grey;
   a:link.active, a:visited.active {
     background: $color_active_tab_background;
     color: $color_active_tab;
-    text-decoration: none; } }
+    text-decoration: none;
+    border-radius: 10px;
+  } }
+
+.tabs a:link.active .sideBarBoxIcon,
+.tabs a:visited.active .sideBarBoxIcon {
+  background-color: white; /* Change background color to white when active */
+}
 
 #footer {
   color: $color_footer;

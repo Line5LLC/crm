@@ -1,18 +1,70 @@
 = styles_for :lead
 
-= render 'entities/title_bar'
 
-.remote#create_lead{ hidden }
 
-= render 'search'
+-# .remote#create_lead{ hidden }
+
+-# = render 'search'
 
 .remote#options{ hidden }
+-# .list#leads
+-#   - if @leads.any?
+-#     = render @leads
+-#   - else
+-#     = render "shared/empty"
+%div LEADS
+%div.leadsBoxContainer
+  = render 'entities/title_bar'
+  %div.testTOCheck.mt-2
+    %div.flex.mt-2
+      %div.mar-r
+        %div.input-with-icon
+          %i.fa.fa-search
+          %input.heightInputsCustom
+      %div
+        %div.input-with-icon
+          %i.fa.fa-user
+          %input.heightInputsCustom
+    %div.flex.mt-2
+      %div.mar-r
+        %div.input-with-icon
+          %i.fa.fa-search
+          %input.heightInputsCustom
+      %div
+        %div.input-with-icon
+          %i.fa.fa-user
+          %input.heightInputsCustom
+          
 
-.list#leads
-  - if @leads.any?
-    = render @leads
-  - else
-    = render "shared/empty"
+
+  
+  %table.fs-14.tableBorderLeads.mt-2
+    %thead
+      %tr.theadLeads
+        %th.p-14 Lead Name
+        %th.p-14 Company Name
+        %th.p-14 Main Phone
+        %th.p-14 Main Email
+        %th.p-14 Lead Status
+        %th.p-14 Create Lead
+        %th.p-14 Lead Owner
+        %th.p-14 Action
+    %tbody
+      - @leads.each do |lead|
+        %tr
+          %td
+            %div.cell-content
+              = "#{lead.first_name} #{lead.last_name}"
+          %td= lead.company
+          %td= lead.phone || lead.mobile
+          %td= lead.email
+          %td= lead.status
+          %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
+          %td= lead.assigned_to # Assuming assigned_to is the lead owner
+          %td
+            = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
+            = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } # Adjust link path as needed
+
 
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"

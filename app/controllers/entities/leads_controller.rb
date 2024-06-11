@@ -13,6 +13,7 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def index
     @leads = get_leads(page: page_param)
+    puts "Leads: #{@leads.inspect}" # Using puts
 
     respond_with @leads do |format|
       format.xls { render layout: 'header' }

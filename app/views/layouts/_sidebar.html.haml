@@ -8,5 +8,25 @@
   = render sidebar if sidebar
   - rescue MissingTemplate
 
-= render "lists/lists"
-= render "shared/recently"
+-# = render "lists/lists"
+-# = render "shared/recently"
+%div.userBox
+  #welcome.userDashboard
+    - if current_user
+      -# This span gets updated on the fly if user changes her name.
+      %div.mar-r
+        %div.mar-r.iconOrangeCircle
+          %div icon
+      %div.mt-2
+        %strong#welcome_username= current_user.name
+  %ul.tabs.mt-2
+    - tabs.each do |tab|
+      %li.nav-item
+        %div
+          = link_to(tab[:url], class: tab[:active] ? "nav-link active" : "nav-link") do
+            %div.flex
+              %div
+                %div.mar-r.sideBarBoxIcon
+                  %i.fa{class: tab[:icon]}
+              %div.mt-1
+                = t(tab[:text])

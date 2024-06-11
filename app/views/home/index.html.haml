@@ -1,46 +1,164 @@
 
 = styles_for :task, :opportunity, :account
 
-.title
-  %span#title #{t :my_tasks}
-%ul.list#tasks
-  - unless @my_tasks.empty?
-    = render partial: "home/task", collection: @my_tasks.limit(10)
-    = show_hidden_entities_message(@my_tasks.count, 'task', 10)
-  - else
-    #{t :no_task_records}
+-# .title
+-#   %span#title #{t :my_tasks}
+-# %ul.list#tasks
+-#   - unless @my_tasks.empty?
+-#     = render partial: "home/task", collection: @my_tasks.limit(10)
+-#     = show_hidden_entities_message(@my_tasks.count, 'task', 10)
+-#   - else
+-#     #{t :no_task_records}
 
-.title
-  %span#title #{t :my_opportunities}
-%ul.list#opportunities
-  - unless @my_opportunities.empty?
-    = render partial: "home/opportunity", collection: @my_opportunities.limit(10)
-    = show_hidden_entities_message(@my_opportunities.count, 'opportunity', 10)
-  - else
-    #{t :no_opportunity_records}
+-# .title
+-#   %span#title #{t :my_opportunities}
+-# %ul.list#opportunities
+-#   - unless @my_opportunities.empty?
+-#     = render partial: "home/opportunity", collection: @my_opportunities.limit(10)
+-#     = show_hidden_entities_message(@my_opportunities.count, 'opportunity', 10)
+-#   - else
+-#     #{t :no_opportunity_records}
 
-.title
-  %span#title #{t :my_accounts}
-%ul.list#accounts
-  - unless @my_accounts.empty?
-    = render partial: "home/account", collection: @my_accounts.limit(10)
-    = show_hidden_entities_message(@my_accounts.count, 'account', 10)
-  - else
-    #{t :no_account_records}
+-# .title
+-#   %span#title #{t :my_accounts}
+-# %ul.list#accounts
+-#   - unless @my_accounts.empty?
+-#     = render partial: "home/account", collection: @my_accounts.limit(10)
+-#     = show_hidden_entities_message(@my_accounts.count, 'account', 10)
+-#   - else
+-#     #{t :no_account_records}
 
-.title_tools
-  = link_to_inline(:options, url_for(action: :options), text: t(:options))
+-# .title_tools
+-#   = link_to_inline(:options, url_for(action: :options), text: t(:options))
 
-.title
-  %span#title #{t :recent_activity}
-  = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
-.remote#options{ hidden }
+-# .title
+-#   %span#title #{t :recent_activity}
+-#   = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+-# .remote#options{ hidden }
 
-%ul.list#activities
-  - unless @activities.empty?
-    = render partial: "activity", collection: @activities
-  - else
-    #{t :no_activity_records}
+-# %ul.list#activities
+-#   - unless @activities.empty?
+-#     = render partial: "activity", collection: @activities
+-#   - else
+-#     #{t :no_activity_records}
+
+%div
+  %div.mt-2
+    %h1 Main Dashboard
+  %div.testTOCheck.mt-2
+    %div.testBox.mar-r
+      %div.testTOCheck.p-15
+        %div.font-orange-20
+          %h4.mt-1 Recently Leads
+        %div 
+          %input.inputDate
+      %div.flex-center.mt-2
+        %table.fs-14.tableBorder
+          %thead
+            %tr.theadLeads
+              %th.p-14 Lead Name
+              %th.p-14 Company Name
+              %th.p-14 Main Phone
+              %th.p-14 Status
+          %tbody
+            %tr
+              %td.p-14 Lead Name
+              %td.p-14 Blue Ligth Tech
+              %td.p-14 786574485
+              %td.p-14.ovalStatusPendind pending
+            %tr
+              %td.p-14 Lead Name
+              %td.p-14 Blue Ligth Tech
+              %td.p-14 786574485
+              %td.p-14.ovalStatusOkey pending
+            %tr
+              %td.p-14 Lead Name
+              %td.p-14 Blue Ligth Tech
+              %td.p-14 786574485
+              %td.p-14.ovalStatusPendind pending
+            %tr
+              %td.p-14 Lead Name
+              %td.p-14 Blue Ligth Tech
+              %td.p-14 786574485
+              %td.p-14.ovalStatusOkey pending
+    %div.testBox
+      %div.testTOCheck.p-15
+        %div.font-orange-20
+          %h4.mt-1 Leads By Stage
+        %div 
+          %input.inputDate
+  
+  %div.testTOCheck.mt-2
+    %div.testBox.mar-r
+      %ul.list#activities
+        - unless @activities.empty?
+          = render partial: "activity", collection: @activities
+        - else
+          #{t :no_activity_records}
+    %div.testBox
+      %div
+        = render "lists/lists"
+        = render "shared/recently"
+      
+  %div.mt-2
+    %div.testBoxLarge.mar-r.p-14
+      %div.font-orange-20
+        %h4.mt-1 Reminders:
+      %div.testTOCheck.mt-2
+        %div.flex
+          %div.mar-r.iconOrangeCircle
+            %div icon
+          %div.mt-1
+            %h3 Company Name - Today at 2pm
+            %p.m0 Lead Name
+        %div.mt-2
+          %span
+            %a Mark as done -
+          %span
+            %a Edit -
+          %span
+            %a Convert -
+          %span
+            %a Reject -
+          %span
+            %a Delete 
+      %div.testTOCheck.mt-2
+        %div.flex
+          %div.mar-r.iconOrangeCircle
+            %div icon
+          %div.mt-1
+            %h3 Company Name - Today at 2pm
+            %p.m0 Lead Name
+        %div.mt-2
+          %span
+            %a Mark as done -
+          %span
+            %a Edit -
+          %span
+            %a Convert -
+          %span
+            %a Reject -
+          %span
+            %a Delete
+      %div.testTOCheck.mt-2
+        %div.flex
+          %div.mar-r.iconOrangeCircle
+            %div icon
+          %div.mt-1
+            %h3 Company Name - Today at 2pm
+            %p.m0 Lead Name
+        %div.mt-2
+          %span
+            %a Mark as done -
+          %span
+            %a Edit -
+          %span
+            %a Convert -
+          %span
+            %a Reject -
+          %span
+            %a Delete
+
 
 
 #export= render "shared/export"
