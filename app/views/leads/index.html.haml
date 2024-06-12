@@ -1,9 +1,8 @@
 = styles_for :lead
-
-
-
--# .remote#create_lead{ hidden }
-
+- view   ||= controller.controller_name
+- action ||= controller.action_name
+- sidebar = "#{view}/sidebar_#{action}" unless action.to_s == 'show'
+- sidebar = "admin/#{sidebar}" if controller.class.to_s.starts_with?("Admin::")
 -# = render 'search'
 
 .remote#options{ hidden }
@@ -13,31 +12,28 @@
 -#   - else
 -#     = render "shared/empty"
 %div LEADS
+%div#popupContainer.popup
+  %div.popup-content
+    -# %button#closePopUp.btn.btn-secondary.close-button X
+    .remote#create_lead{ hidden }
 %div.leadsBoxContainer
   = render 'entities/title_bar'
   %div.testTOCheck.mt-2
     %div.flex.mt-2
       %div.mar-r
         %div.input-with-icon
-          %i.fa.fa-search
-          %input.heightInputsCustom
+          %button.btn.btn-primary{"data-bs-target" => "#exampleModalTwo", "data-bs-toggle" => "modal", type: "button"}
+            Sort
       %div
         %div.input-with-icon
           %i.fa.fa-user
-          %input.heightInputsCustom
+          %button.btn.btn-danger{"data-bs-target" => "#exampleModalThree", "data-bs-toggle" => "modal", type: "button"}
+            date
     %div.flex.mt-2
       %div.mar-r
         %div.input-with-icon
-          %i.fa.fa-search
-          %input.heightInputsCustom
-      %div
-        %div.input-with-icon
-          %i.fa.fa-user
-          %input.heightInputsCustom
-          
-
-
-  
+          %button.btn.btn-primary{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
+            Filters
   %table.fs-14.tableBorderLeads.mt-2
     %thead
       %tr.theadLeads
@@ -63,8 +59,133 @@
           %td= lead.assigned_to # Assuming assigned_to is the lead owner
           %td
             = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
-            = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } # Adjust link path as needed
+            = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
+#exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Modal title
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        = content_for :sidebar
+        - begin
+          = render sidebar if sidebar
+          - rescue MissingTemplate
+      .modal-footer
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
 
+#exampleModalTwo.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title SORT LEADS
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        %div 
+          %div
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Ascending
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Descending
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Recently Viewed
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Recently added
+      .modal-footer
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
+
+#exampleModalThree.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title DATES
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        %div 
+          %div
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Today
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Yesterday
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Last 7 Days
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Last 30 Days
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Custom Range
+      .modal-footer
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
 
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
+:javascript 
+  console.log("working")
+ 
+  var collapsePopUpButton = document.getElementById('collapsePopUp');
+  var popupContainer = document.getElementById('popupContainer');
+  var closePopUpButton = document.getElementById('closePopUp');
+  var closePopUpModalButton = document.getElementById('closePopUpModal');
+  var createLead = document.getElementById('create_lead')
+  console.log("closePopUpModalButton", closePopUpModalButton )
+  console.log("createLead", createLead )
+
+  collapsePopUpButton.addEventListener('click', function() {
+    console.log("clicking")
+    popupContainer.classList.toggle('show');
+    console.log("createLead", createLead )
+  });
+
+  closePopUpButton.addEventListener('click', function() {
+    popupContainer.classList.remove('show');
+  });
+
+  closePopUpModalButton.addEventListener('click', function() {
+    var popupContainer = document.getElementById('popupContainer');
+    console.log("clicking")
+    popupContainer.classList.remove('show');
+  });
+
+
+ 
+
+
+  

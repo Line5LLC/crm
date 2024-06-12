@@ -9,15 +9,15 @@
       %tr
         %td
           .label #{t :phone}:
-          = f.text_field :phone
+          = f.text_field :phone, class: "customInputsLeads"
         %td= spacer
         %td
           .label #{t :mobile}:
-          = f.text_field :mobile
+          = f.text_field :mobile, class: "customInputsLeads"
       %tr
         %td
           .label #{t :alt_email}:
-          = f.text_field :alt_email
+          = f.text_field :alt_email, class: "customInputsLeads"
         
       %tr
         %td
@@ -25,7 +25,7 @@
         %td= spacer
         %td
           .label #{t :referred_by}:
-          = f.text_field :referred_by
+          = f.text_field :referred_by, class: "customInputsLeads"
           %div{style: "margin-top:6px"}
             .check_box
               = f.check_box :do_not_call, {}, true

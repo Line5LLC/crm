@@ -4,9 +4,9 @@
 - sidebar = "admin/#{sidebar}" if controller.class.to_s.starts_with?("Admin::")
 
 = content_for :sidebar
-- begin
-  = render sidebar if sidebar
-  - rescue MissingTemplate
+-# - begin
+-#   = render sidebar if sidebar
+-#   - rescue MissingTemplate
 
 -# = render "lists/lists"
 -# = render "shared/recently"

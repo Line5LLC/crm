@@ -5,25 +5,24 @@
       %tr
         %td
           .label.top{ class: "#{Setting.require_first_names ? 'req' : nil}" } #{t :first_name}:
-          = f.text_field :first_name, autofocus: true
+          = f.text_field :first_name, autofocus: true, class: "customInputsLeads"
         %td= spacer
         %td
           .label.top{ class: "#{Setting.require_last_names ? 'req' : nil}" } #{t :last_name}:
-          = f.text_field :last_name
+          = f.text_field :last_name, class: "customInputsLeads"
       %tr
         %td
           .label.top{ class: "#{Setting.require_company ? 'req' : nil}" } #{t :company}:
-          = f.autocomplete_field :company, autocomplete_account_name_leads_path
+          = f.autocomplete_field :company, autocomplete_account_name_leads_path, class: "customInputsLeads"
         %td= spacer
         %td
           .label.top #{t :email}:
-          = f.text_field :email
-
+          = f.text_field :email, class: "customInputsLeads"
       - if Setting.background_info && Setting.background_info.include?(:lead)
         %tr
           %td(colspan="3")
             .label= t(:background_info) + ':'
-            = f.text_area :background_info, style: "width:500px", rows: 3
+            = f.text_area :background_info, style: "width:500px", rows: 3, class: "customInputsLeads"
 
       = render partial: "/shared/tags", locals: {f: f, span: 3}
 

@@ -137,7 +137,7 @@ $sidebar_width: 210px;
 
 .req, label.required {
   background: image-url("asterisk.gif") no-repeat scroll center right transparent;
-  color: #ff6b45;
+  color: #000000;
   display: inline-block; }
 
 .required label {
@@ -149,7 +149,7 @@ $sidebar_width: 210px;
   padding-top: 5px; }
 
 .section {
-  background-color: whitesmoke;
+  // background-color: whitesmoke;
   color: #3f3f3f;
   margin: 0px 0px 2px 0px;
   padding: 4px 15px 8px 15px;
@@ -168,9 +168,13 @@ $sidebar_width: 210px;
       img.tooltip-icon {
         display: inline;
         vertical-align: bottom; }
-      input, select, textarea {
-        width: 240px;
-        display: block; }
+        input, select, textarea {
+          width: 240px;
+          display: block;
+          &.select2_tag {
+            width: 500px; 
+          }
+        }
       input[type="checkbox"], input[type="radio"] {
         display: inline;
         width: auto; }
@@ -188,9 +192,11 @@ $sidebar_width: 210px;
         input {
           margin-left: 5px; } } } } }
 
+
+
 .remote {
-  border: 5px #ffcca5 solid;
-  background: whitesmoke;
+  // border: 5px #ffcca5 solid;
+  // background: whitesmoke;
   margin: 0px;
   padding: 0px 10px 0px 10px;
   position: relative;
@@ -224,7 +230,13 @@ $sidebar_width: 210px;
 .section select, .sidebar select, .inline select,
 .section textarea, .sidebar textarea, .inline textarea {
   margin: 3px 0px 0px 0px;
-  vertical-align: middle; }
+  vertical-align: middle;
+  border: 1px solid #909090 !important;
+  background-color: #E9E9E9 !important;
+  border-radius: 5px !important;
+  height: 35px;
+ }
+
 
 .cool {
   color: darkgreen; }
@@ -894,6 +906,9 @@ font-size: 14px;
 .flex{
   display: flex;
 }
+.al-item{
+  align-items: center;
+}
 
 .iconOrangeCircle{
   display: flex;
@@ -958,3 +973,72 @@ font-size: 14px;
 .cell-content {
   padding: 20px;
 }
+
+.popup {
+  position: fixed;
+  top: 0;
+  right: -50%; /* Initially hidden */
+  width: 50%; /* Adjust as needed */
+  height: 100%;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.popup.show {
+  right: 0; /* Slide in from the right */
+}
+.custom-checkbox-wrapper {
+  display: flex; /* Utiliza flexbox para alinear los elementos horizontalmente */
+  flex-direction: column; /* Apila los elementos en columna */
+}
+
+.custom-checkbox-label {
+  display: flex; /* Utiliza flexbox para alinear los elementos horizontalmente */
+  align-items: center; /* Alinea verticalmente los elementos */
+}
+
+.custom-checkbox-leads {
+  margin-right: 5px; /* Ajusta el espacio entre el checkbox y el texto según sea necesario */
+}
+
+
+.custom-checkbox-leads {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid #F26B48; /* Cambia #000 al color que desees */
+  border-radius: 4px;
+  outline: none;
+}
+
+.custom-checkbox-leads:checked::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 16px;
+  height: 16px;
+  background-color: #F26B48; /* Cambia #000 al color que desees */
+  border-radius: 2px;
+}
+
+.customInputsLeads{
+    height: 35px !important;
+    border: 1px solid #909090 !important;
+    background-color: #E9E9E9 !important;
+    border-radius: 5px !important;
+}
+
+.customTextAreaLeads{
+  height: 75px !important;
+  border: 1px solid #909090 !important;
+  background-color: #E9E9E9 !important;
+  border-radius: 5px !important;
+}
+
+

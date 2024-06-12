@@ -4,7 +4,7 @@
   .title_tools
     #buttons
       = view_buttons
-    .create_asset
+    .create_asset#collapsePopUp
       = link_to_inline("create_#{model_name}".to_sym, send("new_#{model_name}_path"), {text: t("create_#{model_name}".to_sym), class: 'btn-sm btn-primary'})
   %div
     %input.heightInputsCustom
