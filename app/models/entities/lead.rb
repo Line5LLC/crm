@@ -65,6 +65,10 @@ class Lead < CrmSchema
 
   scope :text_search, ->(query) { ransack('first_name_or_last_name_or_company_or_email_cont' => query).result }
 
+  scope :visible_on_dashboard, ->(user) {
+    where('user_id = :user_id OR assigned_to = :user_id', user_id: user.id)
+  }
+
   uses_user_permissions
   acts_as_commentable
   uses_comment_extensions

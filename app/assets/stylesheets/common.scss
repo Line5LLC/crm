@@ -852,12 +852,19 @@ table.asset_attributes {
   margin-top: 10px;
 }
 
-.theadLeads{
+.theadLeads {
   background-color: #ECEBEB;
+
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-radius: 10px;
 }
 
 .p-14{
-  padding: 14px;
+  padding: 12px;
 }
 
 .flex-center{
@@ -879,14 +886,14 @@ font-size: 14px;
 }
 
 .tableBorder{
-  border: 1px solid black;
+  border: 1px solid #b8b4b4;
   margin-top: 10px;
   border-radius: 10px;
   width: 100%; 
 }
 
 .tableBorderLeads{
-  border: 1px solid black;
+  border: 1px solid #b8b4b4;
   margin-top: 40px;
   border-radius: 10px;
   width: 100%; 
@@ -894,14 +901,42 @@ font-size: 14px;
 }
 
 .ovalStatusPendind{
-  background-color: #c74343;
+  background-color: #FF9C9C;
   border-radius: 20px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 80px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
 }
 
 .ovalStatusOkey{
-  background-color: #00A896;
+  background-color: #CFF6D1;
   border-radius: 20px;
+  text-align: center;
+  padding: 6px;
+    border-radius: 80px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
 }
+
+.ovalStatusNew{
+  background-color: #99d5f8;
+  border-radius: 20px;
+  text-align: center;
+  padding: 6px;
+    border-radius: 80px;
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+
 
 .flex{
   display: flex;
@@ -1039,6 +1074,26 @@ font-size: 14px;
   border: 1px solid #909090 !important;
   background-color: #E9E9E9 !important;
   border-radius: 5px !important;
+}
+
+.newCustomButton{
+  height: 35px;
+  width: auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  border: 1px solid #b8b4b4;
+  background-color: transparent;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  color: #b8b4b4;;
+}
+
+.mar-r-icons{
+  margin-right: 5px;
+}
+
+.mar-r-icons-2{
+  margin-right: -5px;
 }
 
 

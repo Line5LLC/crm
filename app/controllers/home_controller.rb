@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     @my_tasks = Task.visible_on_dashboard(current_user).includes(:user, :asset).by_due_at
     @my_opportunities = Opportunity.visible_on_dashboard(current_user).includes(:account, :user, :tags).by_closes_on.by_amount
     @my_accounts = Account.visible_on_dashboard(current_user).includes(:user, :tags).by_name
+    @leads = Lead.visible_on_dashboard(current_user).includes(:user, :tags).order(created_at: :desc)
     respond_with @activities do |format|
       format.xls { render xls: @activities, layout: 'header' }
     end

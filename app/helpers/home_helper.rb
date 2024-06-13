@@ -65,4 +65,18 @@ module HomeHelper
       end
     end
   end
+
+  #helper for dinamic clases on table 
+  def lead_status_class(status)
+    case status
+    when "new"
+      "ovalStatusNew"
+    when "rejected"
+      "ovalStatusPendind"
+    when "contacted"
+      "ovalStatusOkey"
+    else
+      "ovalStatusPendind"  # Default class for other statuses
+    end
+  end
 end

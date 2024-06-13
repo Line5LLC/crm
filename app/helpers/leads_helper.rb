@@ -83,4 +83,19 @@ module LeadsHelper
     summary << "#{t(:mobile_small)}: #{lead.mobile}" if lead.mobile.present?
     summary.join(', ')
   end
+
+  #Helper for tables clases
+  #------------------------------------------------
+  def lead_status_class(status)
+    case status
+    when "new"
+      "ovalStatusNew"
+    when "rejected"
+      "ovalStatusPendind"
+    when "contacted"
+      "ovalStatusOkey"
+    else
+      "ovalStatusPendind"  # Default class for other statuses
+    end
+  end
 end

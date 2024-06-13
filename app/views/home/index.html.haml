@@ -51,42 +51,28 @@
         %div.font-orange-20
           %h4.mt-1 Recently Leads
         %div 
-          %input.inputDate
+          %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
       %div.flex-center.mt-2
         %table.fs-14.tableBorder
           %thead
-            %tr.theadLeads
-              %th.p-14 Lead Name
-              %th.p-14 Company Name
-              %th.p-14 Main Phone
-              %th.p-14 Status
+            %tr
+              %th.p-14.theadLeads Lead Name
+              %th.p-14.theadLeads Company Name
+              %th.p-14.theadLeads Main Phone
+              %th.p-14.theadLeads Status
           %tbody
-            %tr
-              %td.p-14 Lead Name
-              %td.p-14 Blue Ligth Tech
-              %td.p-14 786574485
-              %td.p-14.ovalStatusPendind pending
-            %tr
-              %td.p-14 Lead Name
-              %td.p-14 Blue Ligth Tech
-              %td.p-14 786574485
-              %td.p-14.ovalStatusOkey pending
-            %tr
-              %td.p-14 Lead Name
-              %td.p-14 Blue Ligth Tech
-              %td.p-14 786574485
-              %td.p-14.ovalStatusPendind pending
-            %tr
-              %td.p-14 Lead Name
-              %td.p-14 Blue Ligth Tech
-              %td.p-14 786574485
-              %td.p-14.ovalStatusOkey pending
+            - @leads.each do |lead|
+              %tr
+                %td.p-14= "#{lead.first_name} #{lead.last_name}"
+                %td.p-14= lead.company
+                %td.p-14= lead.phone || lead.mobile
+                %td{:class => lead_status_class(lead.status)}= lead.status
     %div.testBox
       %div.testTOCheck.p-15
         %div.font-orange-20
           %h4.mt-1 Leads By Stage
         %div 
-          %input.inputDate
+          %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
   
   %div.testTOCheck.mt-2
     %div.testBox.mar-r

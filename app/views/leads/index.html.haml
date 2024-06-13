@@ -20,31 +20,32 @@
   = render 'entities/title_bar'
   %div.testTOCheck.mt-2
     %div.flex.mt-2
-      %div.mar-r
-        %div.input-with-icon
-          %button.btn.btn-primary{"data-bs-target" => "#exampleModalTwo", "data-bs-toggle" => "modal", type: "button"}
-            Sort
+      %div.input-with-icon.mar-r
+        %button.newCustomButton{"data-bs-target" => "#exampleModalTwo", "data-bs-toggle" => "modal", type: "button"}
+          %span.button-text Sort
+        %i.fa.fa-user.mar-r-icons-2
       %div
         %div.input-with-icon
-          %i.fa.fa-user
-          %button.btn.btn-danger{"data-bs-target" => "#exampleModalThree", "data-bs-toggle" => "modal", type: "button"}
-            date
+          %button.newCustomButton{"data-bs-target" => "#exampleModalThree", "data-bs-toggle" => "modal", type: "button"}
+            12/03/24 - 12/10/24
+          %i.fa.fa-user.mar-r-icons
     %div.flex.mt-2
       %div.mar-r
         %div.input-with-icon
-          %button.btn.btn-primary{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
+          %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
             Filters
+          %i.fa.fa-user.mar-r-icons-2
   %table.fs-14.tableBorderLeads.mt-2
     %thead
-      %tr.theadLeads
-        %th.p-14 Lead Name
-        %th.p-14 Company Name
-        %th.p-14 Main Phone
-        %th.p-14 Main Email
-        %th.p-14 Lead Status
-        %th.p-14 Create Lead
-        %th.p-14 Lead Owner
-        %th.p-14 Action
+      %tr
+        %th.p-14.theadLeads Lead Name
+        %th.p-14.theadLeads Company Name
+        %th.p-14.theadLeads Main Phone
+        %th.p-14.theadLeads Main Email
+        %th.p-14.theadLeads Lead Status
+        %th.p-14.theadLeads Create Lead
+        %th.p-14.theadLeads Lead Owner
+        %th.p-14.theadLeads Action
     %tbody
       - @leads.each do |lead|
         %tr
@@ -54,7 +55,7 @@
           %td= lead.company
           %td= lead.phone || lead.mobile
           %td= lead.email
-          %td= lead.status
+          %td{:class => lead_status_class(lead.status)}= lead.status
           %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
           %td= lead.assigned_to # Assuming assigned_to is the lead owner
           %td
@@ -74,6 +75,7 @@
       .modal-footer
         %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
         %button.btn.btn-primary{type: "button"} Save changes
+
 
 #exampleModalTwo.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
   .modal-dialog
