@@ -11,12 +11,13 @@
 -#     = render @leads
 -#   - else
 -#     = render "shared/empty"
-%div LEADS
+%div.mt-2
+  %h1 LEADS
 %div#popupContainer.popup
   %div.popup-content
     -# %button#closePopUp.btn.btn-secondary.close-button X
     .remote#create_lead{ hidden }
-%div.leadsBoxContainer
+%div.leadsBoxContainer.mt-2
   = render 'entities/title_bar'
   %div.testTOCheck.mt-2
     %div.flex.mt-2

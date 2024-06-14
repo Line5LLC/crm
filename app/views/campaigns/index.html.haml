@@ -2,7 +2,8 @@
 -# = render 'search'
 
 .remote#options{ hidden }
-%div CAMPAIGNS
+%div.mt-2
+  %h1 CAMPAIGNS
 %div#popupContainer.popup
   %div.popup-content
     -# %button#closePopUp.btn.btn-secondary.close-button X
@@ -13,7 +14,7 @@
 -#     = render @campaigns
 -#   - else
 -#     = render "shared/empty"
-%div.leadsBoxContainer
+%div.leadsBoxContainer.mt-2
   = render 'entities/title_bar'
   %div.testTOCheck.mt-2
     %div.flex.mt-2
@@ -46,15 +47,15 @@
     %tbody
       - @campaigns.each do |campaign|
         %tr
-          %td= campaign.name
-          %td= campaign.assigned_to
-          %td= campaign.budget
-          %td= campaign.leads_count
-          %td= campaign.revenue
-          %td= campaign.starts_on # Adjust date format if needed
-          %td= campaign.ends_on # Assuming assigned_to is the lead owner
-          %td= campaign.target_leads
-          %td
+          %td.p-14= campaign.name
+          %td.p-14= campaign.assigned_to
+          %td.p-14= campaign.budget
+          %td.p-14= campaign.leads_count
+          %td.p-14= campaign.revenue
+          %td.p-14= campaign.starts_on # Adjust date format if needed
+          %td.p-14= campaign.ends_on # Assuming assigned_to is the lead owner
+          %td.p-14= campaign.target_leads
+          %td.p-14
             -# = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
             -# = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
 

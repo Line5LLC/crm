@@ -16,6 +16,13 @@ class HomeController < ApplicationController
     @my_opportunities = Opportunity.visible_on_dashboard(current_user).includes(:account, :user, :tags).by_closes_on.by_amount
     @my_accounts = Account.visible_on_dashboard(current_user).includes(:user, :tags).by_name
     @leads = Lead.visible_on_dashboard(current_user).includes(:user, :tags).order(created_at: :desc)
+
+    status_counts = @leads.group_by(&:status).transform_values(&:count)
+    total = status_counts.values.sum
+    @percentages = status_counts.transform_values { |count| (count.to_f / total * 100).round(2) }
+
+    puts "DEBUG: Percentages - #{@percentages}"
+
     respond_with @activities do |format|
       format.xls { render xls: @activities, layout: 'header' }
     end

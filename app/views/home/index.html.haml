@@ -73,7 +73,8 @@
           %h4.mt-1 Leads By Stage
         %div 
           %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
-  
+      %div.chartPie
+        %canvas#statusPieChart{ width: "300", height: "300" }
   %div.testTOCheck.mt-2
     %div.testBox.mar-r
       %ul.list#activities
@@ -148,3 +149,56 @@
 
 
 #export= render "shared/export"
+
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+    const percentages = #{raw @percentages.to_json};
+    console.log("DEBUG: Percentages", percentages); // Debugging output
+
+    const canvas = document.getElementById('statusPieChart');
+    const ctx = canvas.getContext('2d');
+
+    // Define colors for the pie slices
+    const colors = ['#FF9C9C', '#99d5f8', '#CFF6D1'];
+
+    // Define canvas dimensions
+    const canvasWidth = 300;
+    const canvasHeight = 300;
+    const centerX = canvasWidth / 2;
+    const centerY = canvasHeight / 2;
+    const radius = canvasWidth / 2 - 20; // Smaller radius to fit within the canvas
+
+    // Calculate the starting and ending angles for each slice
+    let startAngle = 0;
+    const labels = Object.keys(percentages);
+    const data = Object.values(percentages);
+
+    data.forEach((percentage, index) => {
+      const sliceAngle = (percentage / 100) * 2 * Math.PI;
+      const endAngle = startAngle + sliceAngle;
+
+      // Draw the pie slice
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY); // Center of the pie
+      ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+      ctx.closePath();
+      ctx.fillStyle = colors[index % colors.length];
+      ctx.fill();
+
+      startAngle = endAngle;
+    });
+
+    // Draw the labels
+    startAngle = 0;
+    ctx.fillStyle = "#000";
+    ctx.font = "12px Arial"; // Smaller font size for the labels
+    data.forEach((percentage, index) => {
+      const sliceAngle = (percentage / 100) * 2 * Math.PI;
+      const labelX = centerX + (radius / 1.5) * Math.cos(startAngle + sliceAngle / 2);
+      const labelY = centerY + (radius / 1.5) * Math.sin(startAngle + sliceAngle / 2);
+
+      ctx.fillText(`${labels[index]}: ${percentage}%`, labelX, labelY);
+      startAngle += sliceAngle;
+    });
+  });
+

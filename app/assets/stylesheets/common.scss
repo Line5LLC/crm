@@ -952,7 +952,12 @@ font-size: 14px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #00A896;
+  background-color: #ff6b45;
+}
+
+.font-icon-color{
+  font-size: 30px;
+  color:#fff;
 }
 
 .m0{
@@ -976,7 +981,7 @@ font-size: 14px;
 
 .userDashboard{
   background-color: #D9D9D9;
-  padding: 20px;
+  padding: 10px 10px;
   display: flex;
   border-radius: 10px;
 }
@@ -1096,4 +1101,8 @@ font-size: 14px;
   margin-right: -5px;
 }
 
+.chartPie{
+  display: flex;
+  justify-content: center;
+}
 
