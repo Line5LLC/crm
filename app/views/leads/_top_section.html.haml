@@ -4,20 +4,38 @@
     %table
       %tr
         %td
-          .label.top{ class: "#{Setting.require_first_names ? 'req' : nil}" } #{t :first_name}:
-          = f.text_field :first_name, autofocus: true
-        %td= spacer
-        %td
-          .label.top{ class: "#{Setting.require_last_names ? 'req' : nil}" } #{t :last_name}:
-          = f.text_field :last_name
-      %tr
-        %td
           .label.top{ class: "#{Setting.require_company ? 'req' : nil}" } #{t :company}:
           = f.autocomplete_field :company, autocomplete_account_name_leads_path
         %td= spacer
         %td
+          .label.top{ class: "#{Setting.require_last_names ? 'req' : nil}" } #{t :company_address}:
+          = f.text_field :company_address
+
+      %tr
+        %td
           .label.top #{t :email}:
           = f.text_field :email
+        %td= spacer
+        %td
+          .label #{t :alt_email}:
+          = f.text_field :alt_email
+
+      %tr
+        %td
+          .label #{t :phone}:
+          = f.text_field :phone
+        %td= spacer
+        %td
+          .label #{t :mobile}:
+          = f.text_field :mobile
+        %td= spacer
+        %td
+          .label #{t :referred_by}:
+          = f.text_field :referred_by
+          %div{style: "margin-top:6px"}
+            .check_box
+              = f.check_box :do_not_call, {}, true
+              #{t :do_not_call}
 
       - if Setting.background_info && Setting.background_info.include?(:lead)
         %tr

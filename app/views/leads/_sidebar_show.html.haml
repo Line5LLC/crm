@@ -46,8 +46,8 @@
       %tt #{t :campaign}:
     %li
       %dt
-        - if @lead.contact
-          = link_to(truncate(@lead.contact.name, length: 16), @lead.contact, title: @lead.contact.name)
+        - if @lead.contacts.any?
+          = link_to(truncate(@lead.contacts.first.name, length: 16), @lead.contacts.first, title: @lead.contacts.first.name)
         - else
           #{t :n_a}
       %tt #{t :contact}:

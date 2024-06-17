@@ -44,7 +44,7 @@ class Lead < CrmSchema
   belongs_to :user, optional: true # TODO: Is this really optional?
   belongs_to :campaign, optional: true # TODO: Is this really optional?
   belongs_to :assignee, class_name: "User", foreign_key: :assigned_to, optional: true # TODO: Is this really optional?
-  has_one :contact, dependent: :nullify # On destroy keep the contact, but nullify its lead_id
+  has_many :contacts, dependent: :nullify # On destroy keep the contact, but nullify its lead_id
   has_many :tasks, as: :asset, dependent: :destroy # , :order => 'created_at DESC'
   has_one :business_address, -> { where "address_type='Business'" }, dependent: :destroy, as: :addressable, class_name: "Address"
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
@@ -54,6 +54,7 @@ class Lead < CrmSchema
   serialize :subscribed_users, Array
 
   accepts_nested_attributes_for :business_address, allow_destroy: true, reject_if: proc { |attributes| Address.reject_address(attributes) }
+  accepts_nested_attributes_for :contacts, allow_destroy: true, reject_if: proc { |attributes| attributes['first_name'].blank? && attributes['last_name'].blank? && attributes['email'].blank? && attributes['phone'].blank? }
 
   scope :state, lambda { |filters|
     where(['status IN (?)' + (filters.delete('other') ? ' OR status IS NULL' : ''), filters])
@@ -74,11 +75,11 @@ class Lead < CrmSchema
   exportable
   sortable by: ["first_name ASC", "last_name ASC", "company ASC", "rating DESC", "created_at DESC", "updated_at DESC"], default: "created_at DESC"
 
-  has_ransackable_associations %w[contact campaign tasks tags activities emails addresses comments]
+  has_ransackable_associations %w[contacts campaign tasks tags activities emails addresses comments]
   ransack_can_autocomplete
 
-  validates_presence_of :first_name, message: :missing_first_name, if: -> { Setting.require_first_names }
-  validates_presence_of :last_name,  message: :missing_last_name,  if: -> { Setting.require_last_names  }
+  # validates_presence_of :first_name, message: :missing_first_name, if: -> { Setting.require_first_names }
+  # validates_presence_of :last_name,  message: :missing_last_name,  if: -> { Setting.require_last_names  }
   validates_presence_of :company,  message: :missing_company,  if: -> { Setting.require_company  }
   
   validate :users_for_shared_access
@@ -127,7 +128,7 @@ class Lead < CrmSchema
     else                                            # Campaign has been changed -- update lead counters...
       decrement_leads_count                         # ..for the old campaign...
       self.attributes = attributes                  # Assign new campaign.
-      lead = save
+      lead = save!
       increment_leads_count                         # ...and now for the new campaign.
       lead
     end

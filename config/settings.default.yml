@@ -214,6 +214,11 @@
   :icon: :fa-tasks
   :url:
     :controller: leads
+- :active: true
+  :text: :tab_contacts
+  :icon: :fa-user
+  :url:
+    :controller: contacts
 
 :admin_tabs:
 - :active: false
@@ -226,7 +231,7 @@
   :icon: :fa-users
   :url:
     :controller: accounts
-- :active: false
+- :active: true
   :text: :tab_contacts
   :icon: :fa-user
   :url:

@@ -292,8 +292,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_164455) do
     t.integer "user_id"
     t.integer "campaign_id"
     t.integer "assigned_to"
-    t.string "first_name", limit: 64, default: "", null: false
-    t.string "last_name", limit: 64, default: "", null: false
+    t.string "first_name", limit: 64, default: ""
+    t.string "last_name", limit: 64, default: ""
     t.string "access", limit: 8, default: "Public"
     t.string "title", limit: 64
     t.string "company", limit: 64
@@ -317,6 +317,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_164455) do
     t.string "skype", limit: 128
     t.text "subscribed_users"
     t.integer "dealer_type"
+    t.string "company_address", limit: 128
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true
   end
