@@ -1,5 +1,5 @@
 = simple_form_for(@campaign, html: one_submit_only, remote: true) do |f|
-  = link_to_close new_campaign_path
+  = link_to_close(new_campaign_path, 'closePopUp')
   = f.hidden_field :user_id
 
   = f.error_messages object_name: t('campaign')
@@ -17,4 +17,17 @@
     #{t :or}
     %div#closePopUp
       = link_to_cancel new_campaign_path
+:javascript 
+  console.log("here from new file")
+  var closePopUpButton = document.getElementById('closePopUp');
+  console.log(closePopUpButton,"closePopUpButton")
 
+  if (closePopUpButton) {
+    closePopUpButton.addEventListener('click', function() {
+      var popupContainer = document.getElementById('popupContainer');
+      if (popupContainer) {
+        popupContainer.classList.remove('show');
+        console.log("Popup closed");
+      }
+    });
+  }

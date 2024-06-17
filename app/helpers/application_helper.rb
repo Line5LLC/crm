@@ -151,6 +151,14 @@ module ApplicationHelper
             title: t(:close_form))
   end
 
+  def link_to_close(url, id)
+    link_to("x", url + "#{url.include?('?') ? '&' : '?'}cancel=true",
+            remote: true,
+            class: "close",
+            title: t(:close_form),
+            id: id)
+  end
+
   # Bcc: to dropbox address if the dropbox has been set up.
   #----------------------------------------------------------------------------
   def link_to_email(email, length = nil, &_block)
