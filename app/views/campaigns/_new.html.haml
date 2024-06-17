@@ -15,4 +15,6 @@
   .buttonbar
     = f.submit t(:create_campaign), class: 'btn btn-primary'
     #{t :or}
-    = link_to_cancel new_campaign_path
+    %div#closePopUp
+      = link_to_cancel new_campaign_path
+

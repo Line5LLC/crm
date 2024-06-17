@@ -52,7 +52,7 @@
           %h4.mt-1 Recently Leads
         %div 
           %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
-      %div.flex-center.mt-2
+      %div.flex-center.mt-2.table-responsive
         %table.fs-14.tableBorder
           %thead
             %tr
@@ -77,13 +77,17 @@
         %canvas#statusPieChart{ width: "300", height: "300" }
   %div.testTOCheck.mt-2
     %div.testBox.mar-r
+      %div.font-orange-20
+        %h4.mt-1 Activities
       %ul.list#activities
         - unless @activities.empty?
           = render partial: "activity", collection: @activities
         - else
           #{t :no_activity_records}
     %div.testBox
-      %div
+      %div.font-orange-20
+        %h4.mt-1 Lists
+      %div.mt-1
         = render "lists/lists"
         = render "shared/recently"
       

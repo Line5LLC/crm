@@ -33,44 +33,44 @@
           %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
             Filters
           %i.fa.fa-user.mar-r-icons-2
-  %table.fs-14.tableBorderLeads.mt-2
-    %thead
-      %tr
-        %th.p-14.theadLeads Campaing Name
-        %th.p-14.theadLeads Assigned To    
-        %th.p-14.theadLeads Budget
-        %th.p-14.theadLeads Leads Count 
-        %th.p-14.theadLeads Revenue  
-        %th.p-14.theadLeads Starts On  
-        %th.p-14.theadLeads Ends On     
-        %th.p-14.theadLeads Target Leads 
-    %tbody
-      - @campaigns.each do |campaign|
+  %div.table-responsive
+    %table.fs-14.tableBorderLeads.mt-2
+      %thead
         %tr
-          %td.p-14= campaign.name
-          %td.p-14= campaign.assigned_to
-          %td.p-14= campaign.budget
-          %td.p-14= campaign.leads_count
-          %td.p-14= campaign.revenue
-          %td.p-14= campaign.starts_on # Adjust date format if needed
-          %td.p-14= campaign.ends_on # Assuming assigned_to is the lead owner
-          %td.p-14= campaign.target_leads
-          %td.p-14
-            -# = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
-            -# = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
+          %th.p-14.theadLeads Campaing Name
+          %th.p-14.theadLeads Assigned To    
+          %th.p-14.theadLeads Budget
+          %th.p-14.theadLeads Leads Count 
+          %th.p-14.theadLeads Revenue  
+          %th.p-14.theadLeads Starts On  
+          %th.p-14.theadLeads Ends On     
+          %th.p-14.theadLeads Target Leads 
+      %tbody
+        - @campaigns.each do |campaign|
+          %tr
+            %td.p-14= campaign.name
+            %td.p-14= campaign.assigned_to
+            %td.p-14= campaign.budget
+            %td.p-14= campaign.leads_count
+            %td.p-14= campaign.revenue
+            %td.p-14= campaign.starts_on # Adjust date format if needed
+            %td.p-14= campaign.ends_on # Assuming assigned_to is the lead owner
+            %td.p-14= campaign.target_leads
+            %td.p-14
+              -# = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
+              -# = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
 
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
 
 :javascript 
   console.log("working")
- 
   var collapsePopUpButton = document.getElementById('collapsePopUp');
   var popupContainer = document.getElementById('popupContainer');
   var closePopUpButton = document.getElementById('closePopUp');
   var closePopUpModalButton = document.getElementById('closePopUpModal');
   var createLead = document.getElementById('create_lead')
-  console.log("closePopUpModalButton", closePopUpModalButton )
+  console.log("closePopUpButton", closePopUpButton )
   console.log("createLead", createLead )
 
   collapsePopUpButton.addEventListener('click', function() {

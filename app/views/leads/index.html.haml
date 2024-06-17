@@ -36,32 +36,33 @@
           %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
             Filters
           %i.fa.fa-user.mar-r-icons-2
-  %table.fs-14.tableBorderLeads.mt-2
-    %thead
-      %tr
-        %th.p-14.theadLeads Lead Name
-        %th.p-14.theadLeads Company Name
-        %th.p-14.theadLeads Main Phone
-        %th.p-14.theadLeads Main Email
-        %th.p-14.theadLeads Lead Status
-        %th.p-14.theadLeads Create Lead
-        %th.p-14.theadLeads Lead Owner
-        %th.p-14.theadLeads Action
-    %tbody
-      - @leads.each do |lead|
+  %div.table-responsive
+    %table.fs-14.tableBorderLeads.mt-2
+      %thead
         %tr
-          %td
-            %div.cell-content
-              = "#{lead.first_name} #{lead.last_name}"
-          %td= lead.company
-          %td= lead.phone || lead.mobile
-          %td= lead.email
-          %td{:class => lead_status_class(lead.status)}= lead.status
-          %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
-          %td= lead.assigned_to # Assuming assigned_to is the lead owner
-          %td
-            = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
-            = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
+          %th.p-14.theadLeads Lead Name
+          %th.p-14.theadLeads Company Name
+          %th.p-14.theadLeads Main Phone
+          %th.p-14.theadLeads Main Email
+          %th.p-14.theadLeads Lead Status
+          %th.p-14.theadLeads Create Lead
+          %th.p-14.theadLeads Lead Owner
+          %th.p-14.theadLeads Action
+      %tbody
+        - @leads.each do |lead|
+          %tr
+            %td
+              %div.cell-content
+                = "#{lead.first_name} #{lead.last_name}"
+            %td= lead.company
+            %td= lead.phone || lead.mobile
+            %td= lead.email
+            %td{:class => lead_status_class(lead.status)}= lead.status
+            %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
+            %td= lead.assigned_to # Assuming assigned_to is the lead owner
+            %td
+              = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
+              = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
 #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
   .modal-dialog
     .modal-content
@@ -168,17 +169,15 @@
   var closePopUpButton = document.getElementById('closePopUp');
   var closePopUpModalButton = document.getElementById('closePopUpModal');
   var createLead = document.getElementById('create_lead')
-  console.log("closePopUpModalButton", closePopUpModalButton )
-  console.log("createLead", createLead )
+  console.log("closePopUpButton", closePopUpButton )
 
   collapsePopUpButton.addEventListener('click', function() {
-    console.log("clicking")
     popupContainer.classList.toggle('show');
-    console.log("createLead", createLead )
   });
 
   closePopUpButton.addEventListener('click', function() {
     popupContainer.classList.remove('show');
+    console.log("closePopUpButton", closePopUpButton )
   });
 
   closePopUpModalButton.addEventListener('click', function() {
