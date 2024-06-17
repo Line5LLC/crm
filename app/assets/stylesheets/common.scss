@@ -1109,3 +1109,46 @@ font-size: 14px;
   justify-content: center;
 }
 
+.customerBox{
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  width: 30%;
+  height: 150px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.boxesDashboardTtile{
+  padding: 10px;
+  font-weight: bold;
+  color: #F26B48;
+  font-size: 14px;
+}
+
+.porcentageBox{
+  background-color: #D4EBC5;
+  width: 100px;
+  height: auto;
+  padding: 10px;
+  border-radius: 20px;
+
+}
+
+.pController{
+  padding: 20px;
+
+}
+
+.p0{
+  margin: 0px;
+}
+
+.pDashboard-miniBoxes{
+  margin-top: 08px;
+  color: #089B05;
+}
+
+.bold-number-miniBoxes{
+  font-size: 30px;
+  font-weight: bold;
+}
