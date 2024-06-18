@@ -13,10 +13,15 @@
 -#     = render "shared/empty"
 %div.mt-2
   %h1 LEADS
+
 %div#popupContainer.popup
   %div.popup-content
-    -# %button#closePopUp.btn.btn-secondary.close-button X
     .remote#create_lead{ hidden }
+
+%div#editLeadPopup.popup
+  %div.popup-content
+    = render 'edit', lead: @lead
+
 %div.leadsBoxContainer.mt-2
   = render 'entities/title_bar'
   %div.testTOCheck.mt-2
@@ -60,9 +65,8 @@
             %td{:class => lead_status_class(lead.status)}= lead.status
             %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
             %td= lead.assigned_to # Assuming assigned_to is the lead owner
-            %td
-              = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
-              = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
+            %td.edit-lead-link
+              = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit)) + " | "
 #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
   .modal-dialog
     .modal-content
@@ -162,28 +166,30 @@
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
 :javascript 
-  console.log("working")
- 
-  var collapsePopUpButton = document.getElementById('collapsePopUp');
-  var popupContainer = document.getElementById('popupContainer');
-  var closePopUpButton = document.getElementById('closePopUp');
-  var closePopUpModalButton = document.getElementById('closePopUpModal');
-  var createLead = document.getElementById('create_lead')
-  console.log("closePopUpButton", closePopUpButton )
 
-  collapsePopUpButton.addEventListener('click', function() {
-    popupContainer.classList.toggle('show');
+  document.addEventListener('DOMContentLoaded', function() {
+  var editLinks = document.querySelectorAll('.edit-lead-link');
+  console.log("editLinks", editLinks)
+  var editLeadPopup = document.getElementById('editLeadPopup');
+  console.log("editLeadPopup", editLeadPopup)
+  var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
+
+  // create js
+
+  //edit js 
+  editLinks.forEach(function(link) {
+  link.addEventListener('click', function(event) {
+    event.preventDefault();
+    editLeadPopup.classList.toggle('show');
+    console.log("Edit link clicked");  // Check if click event is detected
+    // Add your logic to open the popup here
   });
-
-  closePopUpButton.addEventListener('click', function() {
-    popupContainer.classList.remove('show');
-    console.log("closePopUpButton", closePopUpButton )
   });
-
-  closePopUpModalButton.addEventListener('click', function() {
-    var popupContainer = document.getElementById('popupContainer');
-    console.log("clicking")
-    popupContainer.classList.remove('show');
+  if (closeEditLeadPopup) {
+    closeEditLeadPopup.addEventListener('click', function() {
+      editLeadPopup.classList.remove('show');
+    });
+  }
   });
 
 

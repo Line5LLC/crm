@@ -11,3 +11,20 @@
 -# .title
 -#   %span{id: "create_#{model_name}_title"} #{t controller_name.to_sym}
 -#   = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
+:javascript
+  document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM fully loaded and parsed");
+
+  var openCreateLead = document.getElementById('collapsePopUp');
+  var popupContainer = document.getElementById('popupContainer');
+
+  if (openCreateLead && popupContainer) {
+    openCreateLead.addEventListener('click', function(event) {
+      event.preventDefault();
+      popupContainer.classList.toggle('show');
+      console.log("Toggled popup visibility");
+    });
+  } else {
+    console.log("Elements not found");
+  }
+  });
