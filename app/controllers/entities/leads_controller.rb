@@ -13,6 +13,8 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def index
     @leads = get_leads(page: page_param)
+    # byebug  # Pause execution here
+    # @lead = Lead.find_by(id: params[:lead_id]) if params[:lead_id]
     puts "Leads: #{@leads.inspect}" # Using puts
 
     respond_with @leads do |format|
@@ -52,7 +54,7 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def edit
     byebug
-
+    @lead = Lead.find(params[:id])
     get_campaigns
 
     @previous = Lead.my(current_user).find_by_id(detect_previous_id) || detect_previous_id if detect_previous_id

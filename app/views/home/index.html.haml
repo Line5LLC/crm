@@ -71,7 +71,7 @@
             Last Months
           %div
             %h3.bold-number-miniBoxes
-              349
+              = @won_leads.length 
         %div.porcentageBox.flex-center
           %div
             = image_tag("increase1.png")
@@ -211,7 +211,7 @@
     const ctx = canvas.getContext('2d');
 
     // Define colors for the pie slices
-    const colors = ['#FF9C9C', '#99d5f8', '#CFF6D1'];
+    const colors = ['#e099f8', '#FF9C9C', '#99d5f8', '#CFF6D1'];
 
     // Define canvas dimensions
     const canvasWidth = 300;

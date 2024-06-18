@@ -75,6 +75,8 @@ module HomeHelper
       "ovalStatusPendind"
     when "contacted"
       "ovalStatusOkey"
+    when "won"
+      "ovalStatusWon"
     else
       "ovalStatusPendind"  # Default class for other statuses
     end
