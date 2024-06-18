@@ -51,8 +51,6 @@ class LeadsController < EntitiesController
   # GET /leads/1/edit                                                      AJAX
   #----------------------------------------------------------------------------
   def edit
-    byebug
-
     get_campaigns
 
     @previous = Lead.my(current_user).find_by_id(detect_previous_id) || detect_previous_id if detect_previous_id
