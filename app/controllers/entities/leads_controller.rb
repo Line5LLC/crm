@@ -15,7 +15,7 @@ class LeadsController < EntitiesController
     @leads = get_leads(page: page_param)
     # byebug  # Pause execution here
     # @lead = Lead.find_by(id: params[:lead_id]) if params[:lead_id]
-    puts "Leads: #{@leads.inspect}" # Using puts
+
 
     respond_with @leads do |format|
       format.xls { render layout: 'header' }
@@ -34,6 +34,7 @@ class LeadsController < EntitiesController
 
   # GET /leads/new
   #----------------------------------------------------------------------------
+  
   def new
     @lead.attributes = { user: current_user, access: Setting.default_access, assigned_to: nil }
     get_campaigns

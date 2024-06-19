@@ -14,7 +14,7 @@
 %div.mt-2
   %h1 LEADS
 
-%div#popupContainer.popup
+%div#popupContainerLead.popup
   %div.popup-content
     .remote#create_lead{ hidden }
 
@@ -66,7 +66,7 @@
             %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
             %td= lead.assigned_to # Assuming assigned_to is the lead owner
             %td.edit-lead-link
-              = link_to_inline("edit_lead_#{lead.id}", edit_lead_path(lead), text: t('edit')) + " | "
+              = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit)) + " | "
   -# %div
   -#   = render 'leads/title_bar'
 #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
@@ -170,13 +170,13 @@
 :javascript 
 
   document.addEventListener('DOMContentLoaded', function() {
+
   var editLinks = document.querySelectorAll('.edit-lead-link');
+  var popupContent = document.querySelectorAll('.popup-content');
   console.log("editLinks", editLinks)
   var editLeadPopup = document.getElementById('editLeadPopup');
   console.log("editLeadPopup", editLeadPopup)
   var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
-
-  // create js
 
   //edit js 
   editLinks.forEach(function(link) {
@@ -193,11 +193,13 @@
       })
       .then(response => response.text())
       .then(data => {
+        console.log("data", data)
         popupContent.innerHTML = data; // Insert fetched HTML into popup content
-        editLeadPopup.classList.add('show'); // Show the popup
+        editLeadPopup.classList.toggle('show'); // Show the popup
       })
       .catch(error => console.error('Error fetching edit form:', error));
     });
+    
     });
 
   if (closeEditLeadPopup) {

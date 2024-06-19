@@ -13,18 +13,16 @@
   = hook(:entity_form, self, {f: f, entity: @campaign})
 
   .buttonbar
-    = f.submit t(:create_campaign), class: 'btn btn-primary'
-    #{t :or}
-    %div#closePopUp
-      = link_to_cancel new_campaign_path
+    = f.submit t(:create_campaign), class: 'btn btn-primary', id: 'collapsePopUp'
+    -# #{t :or}
+    -# %div#closePopUp
+    -#   = link_to_cancel new_campaign_path
 :javascript 
-  console.log("here from new file")
   var closePopUpButton = document.getElementById('closePopUp');
-  console.log(closePopUpButton,"closePopUpButton")
 
   if (closePopUpButton) {
     closePopUpButton.addEventListener('click', function() {
-      var popupContainer = document.getElementById('popupContainer');
+      var popupContainer = document.getElementById('popupContainerCampaign');
       if (popupContainer) {
         popupContainer.classList.remove('show');
         console.log("Popup closed");

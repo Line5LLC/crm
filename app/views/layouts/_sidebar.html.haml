@@ -18,7 +18,7 @@
         %div.mar-r.iconOrangeCircle.font-icon-color
           %i.fa.fa-user
       %div.mt-2
-        %strong#welcome_username= current_user.name
+        = link_to(current_user.name, profile_path)
   %ul.tabs.mt-2
     - tabs.each do |tab|
       %li.nav-item

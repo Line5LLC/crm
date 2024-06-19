@@ -11,8 +11,9 @@ class CampaignsController < EntitiesController
   # GET /campaigns
   #----------------------------------------------------------------------------
   def index
+    
     @campaigns = get_campaigns(page: page_param, per_page: per_page_param)
-
+    
     respond_with @campaigns do |format|
       format.xls { render layout: 'header' }
       format.csv { render csv: @campaigns }

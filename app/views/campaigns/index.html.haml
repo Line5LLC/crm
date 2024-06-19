@@ -1,13 +1,18 @@
 = styles_for :campaign
+-# - sidebar = "#{view}/sidebar_#{action}" unless action.to_s == 'show'
+-# - sidebar = "admin/#{sidebar}" if controller.class.to_s.starts_with?("Admin::")
 -# = render 'search'
 
 .remote#options{ hidden }
 %div.mt-2
   %h1 CAMPAIGNS
-%div#popupContainer.popup
-  %div.popup-content
-    -# %button#closePopUp.btn.btn-secondary.close-button X
+%div#popupContainerCampaign.popup
+  %div.popup-contentCamp
     .remote#create_campaign{ hidden }
+
+%div#editCampaignPopup.popup
+  %div.popup-content
+    %div#edit_campaign{ hidden }
   
 -# .list#campaigns
 -#   - if @campaigns.any?
@@ -45,6 +50,8 @@
           %th.p-14.theadLeads Starts On  
           %th.p-14.theadLeads Ends On     
           %th.p-14.theadLeads Target Leads 
+          %th.p-14.theadLeads Status
+          %th.p-14.theadLeads Actions
       %tbody
         - @campaigns.each do |campaign|
           %tr
@@ -56,35 +63,147 @@
             %td.p-14= campaign.starts_on # Adjust date format if needed
             %td.p-14= campaign.ends_on # Assuming assigned_to is the lead owner
             %td.p-14= campaign.target_leads
-            %td.p-14
-              -# = link_to 'Edit', edit_lead_path(lead) # Adjust link path as needed
-              -# = link_to 'Delete', lead_path(lead), method: :delete, data: { confirm: 'Are you sure?' } 
+            %td.p-14= campaign.status
+            %td.p-14.edit-campaign-link
+              = link_to_inline(:edit_campaign, edit_campaign_path(campaign), text: t(:edit)) + " | "
+              -# = link_to 'Edit', edit_campaing_path(campaign) # Adjust link path as needed
+              -# = link_to 'Delete', edit_campaing_path(campaign), method: :delete, data: { confirm: 'Are you sure?' } 
+
+#exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Modal title
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        -# = content_for :sidebar
+        -# - begin
+        -#   = render sidebar if sidebar
+        -#   - rescue MissingTemplate
+      .modal-footer
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
+
+
+#exampleModalTwo.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title SORT LEADS
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        %div 
+          %div
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Ascending
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Descending
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Recently Viewed
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Recently added
+      .modal-footer
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
+
+#exampleModalThree.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title DATES
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
+      .modal-body
+        %div 
+          %div
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Today
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Yesterday
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Last 7 Days
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Last 30 Days
+            %div.flex.al-item
+              %div
+                %input{type: "checkbox", class:"custom-checkbox-leads"}
+              %div
+                %label
+                  Custom Range
+      .modal-footer
+        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        %button.btn.btn-primary{type: "button"} Save changes
 
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
 
 :javascript 
-  console.log("working")
-  var collapsePopUpButton = document.getElementById('collapsePopUp');
-  var popupContainer = document.getElementById('popupContainer');
-  var closePopUpButton = document.getElementById('closePopUp');
-  var closePopUpModalButton = document.getElementById('closePopUpModal');
-  var createLead = document.getElementById('create_lead')
-  console.log("closePopUpButton", closePopUpButton )
-  console.log("createLead", createLead )
 
-  collapsePopUpButton.addEventListener('click', function() {
-    console.log("clicking")
-    popupContainer.classList.toggle('show');
-    console.log("createLead", createLead )
-  });
+  document.addEventListener('DOMContentLoaded', function() {
+  var editLinks = document.querySelectorAll('.edit-campaign-link');
+  var popupContent = document.querySelectorAll('.popup-content');
+  var editLeadPopup = document.getElementById('editCampaignPopup');
+  console.log("editLeadPopup", editLeadPopup)
+  var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
 
-  closePopUpButton.addEventListener('click', function() {
-    popupContainer.classList.remove('show');
-  });
+  //edit js 
+  editLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      event.preventDefault();
+      var url = this.href;
+      console.log("url", url)
 
-  closePopUpModalButton.addEventListener('click', function() {
-    var popupContainer = document.getElementById('popupContainer');
-    console.log("clicking")
-    popupContainer.classList.remove('show');
+      // Fetch edit form content via AJAX
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest' // Set header for Rails to recognize AJAX request
+        }
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log("data", data)
+        popupContent.innerHTML = data; // Insert fetched HTML into popup content
+        editLeadPopup.classList.toggle('show'); // Show the popup
+      })
+      .catch(error => console.error('Error fetching edit form:', error));
+    });
+    });
+
+  if (closeEditLeadPopup) {
+    closeEditLeadPopup.addEventListener('click', function() {
+      editLeadPopup.classList.remove('show');
+    });
+  }
   });

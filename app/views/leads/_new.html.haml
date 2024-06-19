@@ -20,15 +20,15 @@
       = f.submit t(:create_lead), onclick: "crm.clear_all_hints()", class: 'btn btn-primary'
     - else
       = f.submit t(:create_lead), class: 'btn btn-primary'
-    #{t :or}
-    = link_to_cancel new_lead_path
+    -# #{t :or}
+    -# = link_to_cancel new_lead_path
 :javascript
   var closePopUpButton = document.getElementById('closePopUp');
   console.log(closePopUpButton,"closePopUpButton")
 
   if (closePopUpButton) {
     closePopUpButton.addEventListener('click', function() {
-      var popupContainer = document.getElementById('popupContainer');
+      var popupContainer = document.getElementById('popupContainerLead');
       if (popupContainer) {
         popupContainer.classList.remove('show');
         console.log("Popup closed");

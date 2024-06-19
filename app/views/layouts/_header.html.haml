@@ -1,20 +1,27 @@
 #header
   #welcome
-    - if current_user
-      #{t :welcome},
-      -# This span gets updated on the fly if user changes her name.
-      %span#welcome_username= current_user.name
-      %span> !&nbsp;&nbsp;
-
-      = link_to(t(:quick_find), "#", id: "jumper") << " |"
-      = link_to(t(:profile), profile_path) << " |"
-      - if current_user.admin?
-        = link_to(t(:admin), admin_path) << " |"
-      = link_to(t(:logout), destroy_user_session_path, method: :delete)
-      = render "/layouts/jumpbox"
-    - else
-      = link_to(t(:login), new_user_session_path) << " |"
-      = link_to(t(:sign_up), new_user_registration_path) << " |" if User.can_signup?
-      = link_to(t(:about), "#", title: t(:about_ffc), onclick: "$('#about').dialog({ title: this.title, modal: true }); return false;")
-  %h3
-    = link_to("Line 5 CRM", root_path)
+    %div
+      - if current_user
+        
+        -# This span gets updated on the fly if user changes her name.
+        %div.flex.al-item
+          %div.mar-r.iconOrangeCircle
+            %i.fa.fa-user.white.fs-icon-14
+          %div
+            %span.lightText #{t :welcome},
+            %span#welcome_username.boldText= current_user.name
+          %div
+            %span> !&nbsp;&nbsp;
+          %div
+            = link_to(t(:quick_find), "#", id: "jumper") << " |"
+            -# = link_to(t(:profile), profile_path) << " |"
+            - if current_user.admin?
+              = link_to(t(:admin), admin_path) << " |"
+            = link_to(t(:logout), destroy_user_session_path, method: :delete)
+            = render "/layouts/jumpbox"
+      - else
+        = link_to(t(:login), new_user_session_path) << " |"
+        = link_to(t(:sign_up), new_user_registration_path) << " |" if User.can_signup?
+        = link_to(t(:about), "#", title: t(:about_ffc), onclick: "$('#about').dialog({ title: this.title, modal: true }); return false;")
+    %div
+      = image_tag("logoLine5Black.png")
