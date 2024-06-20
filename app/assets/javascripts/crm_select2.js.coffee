@@ -24,7 +24,7 @@
           'width':'resolve'
           placeholder: $(this).attr("placeholder")
           allowClear: true
-
+          
       if $(this).prop("disabled") == true
         $(this).next('.select2-container').disable()
         $(this).next('.select2-container').hide()
