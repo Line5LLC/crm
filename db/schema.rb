@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_07_164455) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_25_130617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -370,6 +370,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_07_164455) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.index ["user_id", "name"], name: "index_preferences_on_user_id_and_name"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.date "date"
+    t.string "type"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", id: :serial, force: :cascade do |t|
