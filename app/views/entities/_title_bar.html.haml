@@ -7,13 +7,13 @@
     .create_asset{ data: { target: "#popupContainer#{model_name.camelcase}" } }
       = link_to_inline("create_#{model_name}".to_sym, send("new_#{model_name}_path"), {text: t("create_#{model_name}".to_sym), class: 'btn-sm btn btn-outline-primary'})
   %div
-    %input.heightInputsCustom.newCustomButton{ placeholder: "Search Lead" }
+    %input#lead-name-filter.heightInputsCustom.newCustomButton{ placeholder: "Search Lead", type: "text" }
 -# .title
 -#   %span{id: "create_#{model_name}_title"} #{t controller_name.to_sym}
 -#   = image_tag("loading.gif", size: :thumb, id: "loading", style: "display: none;")
 :javascript
   document.addEventListener('DOMContentLoaded', function() {
-   document.querySelectorAll('.create_asset').forEach(function(button) {
+    document.querySelectorAll('.create_asset').forEach(function(button) {
       button.addEventListener('click', function(event) {
         event.preventDefault();
         var targetPopupSelector = button.getAttribute('data-target');
@@ -27,4 +27,75 @@
         }
       });
     });
+
+    var searchInput = document.getElementById('lead-name-filter');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        var filterValue = this.value.trim().toLowerCase();
+        console.log("Search input value changed:", filterValue);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/leads.json?company=' + encodeURIComponent(filterValue), true); // Note the .json format
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest'); // Set header to identify AJAX request
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            console.log('Filtered leads:', response);
+
+            // Handle updating the UI with filtered results
+            updateLeadsUI(response);
+          } else {
+            console.error('Request failed. Status:', xhr.status);
+          }
+        };
+        xhr.send();
+
+        // Additional logic to filter and display leads as per your UI requirements
+      });
+    }
   });
+
+  function updateLeadsUI(filteredLeads) {
+    var tableBody = document.querySelector('#filterTable');
+    if (!tableBody) {
+      console.error('Table body not found');
+      return;
+    }
+
+    // Clear existing rows
+    tableBody.innerHTML = '';
+
+    // Populate table with filtered leads
+    filteredLeads.forEach(function(lead) {
+      var statusClass = leadStatusClass(lead.status);
+      var row = document.createElement('tr');
+      row.innerHTML = `
+        <td><div class="cell-content">${lead.first_name} ${lead.last_name}</div></td>
+        <td>${lead.company}</td>
+        <td>${lead.phone || lead.mobile}</td>
+        <td>${lead.email}</td>
+        <td class="${statusClass}">${lead.status}</td>
+        <td>${lead.created_at}</td>
+        <td>${lead.assigned_to}</td>
+        <td>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    function leadStatusClass(status) {
+      switch (status) {
+        case "new":
+          return "ovalStatusNew";
+        case "rejected":
+          return "ovalStatusPendind";
+        case "contacted":
+          return "ovalStatusOkey";
+        case "won":
+          return "ovalStatusWon";
+        default:
+          return "ovalStatusPendind";  // Default class for other statuses
+  }
+  }
+  }

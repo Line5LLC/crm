@@ -15,11 +15,18 @@ class LeadsController < EntitiesController
     @leads = get_leads(page: page_param)
     # byebug  # Pause execution here
     # @lead = Lead.find_by(id: params[:lead_id]) if params[:lead_id]
+     puts "@leads: #{@leads.inspect}"
 
+     company_name_filter = params[:company]  # Use the correct parameter name
+
+     if company_name_filter.present?
+       @leads = @leads.where("company LIKE ?", "%#{company_name_filter}%")
+     end
 
     respond_with @leads do |format|
       format.xls { render layout: 'header' }
       format.csv { render csv: @leads }
+      # format.json { render json: @leads.to_json(methods: :lead_status_class) }
     end
   end
 

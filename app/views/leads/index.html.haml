@@ -42,7 +42,7 @@
             Filters
           %i.fa.fa-user.mar-r-icons-2
   %div.table-responsive
-    %table.fs-14.tableBorderLeads.mt-2
+    %table#filterTable.fs-14.tableBorderLeads.mt-2
       %thead
         %tr
           %th.p-14.theadLeads Lead Name
@@ -65,8 +65,9 @@
             %td{:class => lead_status_class(lead.status)}= lead.status
             %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
             %td= lead.assigned_to # Assuming assigned_to is the lead owner
-            %td.edit-lead-link
-              = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit)) + " | "
+            %td
+              = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit), class: 'edit-lead-link') + " | "
+              = link_to_delete(lead, confirm: t(:are_you_sure))
   -# %div
   -#   = render 'leads/title_bar'
 #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}

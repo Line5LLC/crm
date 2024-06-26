@@ -49,7 +49,7 @@
     %div.customerBox
       %div
         %p.boxesDashboardTtile New Costumers
-      %div.testTOCheck.pController
+      %div.customerFlex.pController
         %div
           %div 
             Last Months
@@ -65,7 +65,7 @@
     %div.customerBox
       %div
         %p.boxesDashboardTtile Leads Accepted
-      %div.testTOCheck.pController
+      %div.customerFlex.pController
         %div
           %div 
             Last Months
@@ -81,7 +81,7 @@
     %div.customerBox
       %div
         %p.boxesDashboardTtile Dealers Enrollment
-      %div.testTOCheck.pController
+      %div.customerFlex.pController
         %div
           %div 
             Last Months
@@ -115,13 +115,13 @@
                 %td.p-14= lead.company
                 %td.p-14= lead.phone || lead.mobile
                 %td{:class => lead_status_class(lead.status)}= lead.status
-    %div.testBox
+    %div.testBox.mobile-mt-2
       %div.testTOCheck.p-15
         %div.font-orange-20
           %h4.mt-1 Leads By Stage
         %div 
           %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
-      %div.chartPie
+      %div.chartPie.mt-5
         %canvas#statusPieChart{ width: "300", height: "300" }
   %div.testTOCheck.mt-2
     %div.testBox.mar-r
@@ -132,7 +132,7 @@
           = render partial: "activity", collection: @activities
         - else
           #{t :no_activity_records}
-    %div.testBox
+    %div.testBox.mobile-mt-2
       %div.font-orange-20
         %h4.mt-1 Lists
       %div.mt-1
