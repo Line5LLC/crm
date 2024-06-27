@@ -103,6 +103,8 @@ Rails.application.routes.draw do
     collection do
       get :advanced_search
       post :filter
+      get 'filter_date', to: 'leads#filter_date', as: :filter_date_leads
+      get 'sort_leads', to: 'leads#sort_leads', as: 'sort_leads_leads'
       get :options
       get :field_group
       match :auto_complete, via: %i[get post]

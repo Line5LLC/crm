@@ -57,10 +57,16 @@
   });
 
   function updateLeadsUI(filteredLeads) {
-    var tableBody = document.querySelector('#filterTable');
+    var table = document.querySelector('#filterTable');
+    if (!table) {
+        console.error('Table not found');
+        return;
+    }
+
+    var tableBody = table.querySelector('tbody');
     if (!tableBody) {
-      console.error('Table body not found');
-      return;
+        tableBody = document.createElement('tbody');
+        table.appendChild(tableBody);
     }
 
     // Clear existing rows

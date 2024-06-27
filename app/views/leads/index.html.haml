@@ -29,18 +29,18 @@
       %div.input-with-icon.mar-r
         %button.newCustomButton{"data-bs-target" => "#exampleModalTwo", "data-bs-toggle" => "modal", type: "button"}
           %span.button-text Sort
-        %i.fa.fa-user.mar-r-icons-2
+        %i.fa.fa-sort-numeric-asc.mar-r-icons-2
       %div
         %div.input-with-icon
           %button.newCustomButton{"data-bs-target" => "#exampleModalThree", "data-bs-toggle" => "modal", type: "button"}
             12/03/24 - 12/10/24
-          %i.fa.fa-user.mar-r-icons
+          %i.fa.fa-calendar.mar-r-icons
     %div.flex.mt-2
       %div.mar-r
         %div.input-with-icon
           %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
-            Filters
-          %i.fa.fa-user.mar-r-icons-2
+            Status 
+          %i.fa.fa-filter.mar-r-icons-2
   %div.table-responsive
     %table#filterTable.fs-14.tableBorderLeads.mt-2
       %thead
@@ -97,31 +97,19 @@
           %div
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", class:"custom-checkbox-leads", value: "asc"}
               %div
                 %label
                   Ascending
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", class:"custom-checkbox-leads", value: "desc"}
               %div
                 %label
                   Descending
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Recently Viewed
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Recently added
       .modal-footer
         %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
-        %button.btn.btn-primary{type: "button"} Save changes
+        %button#submitSort.btn.btn-primary{type: "button"} Save changes
 
 #exampleModalThree.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
   .modal-dialog
@@ -130,84 +118,212 @@
         %h5#exampleModalLabel.modal-title DATES
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
       .modal-body
-        %div 
-          %div
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Today
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Yesterday
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Last 7 Days
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Last 30 Days
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Custom Range
-      .modal-footer
-        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
-        %button.btn.btn-primary{type: "button"} Save changes
+        %div#formContent
+          %div.flex.al-item
+            %div
+              %input{type: "checkbox", name: "date_filter", value: "today", class: "custom-checkbox-leads"}
+            %div
+              %label Today
+          %div.flex.al-item
+            %div
+              %input{type: "checkbox", name: "date_filter", value: "yesterday", class: "custom-checkbox-leads"}
+            %div
+              %label Yesterday
+          %div.flex.al-item
+            %div
+              %input{type: "checkbox", name: "date_filter", value: "last_7_days", class: "custom-checkbox-leads"}
+            %div
+              %label Last 7 Days
+          %div.flex.al-item
+            %div
+              %input{type: "checkbox", name: "date_filter", value: "last_30_days", class: "custom-checkbox-leads"}
+            %div
+              %label Last 30 Days
+          %div.flex.al-item
+            %div
+              %input{type: "checkbox", name: "date_filter", value: "custom_range", class: "custom-checkbox-leads"}
+            %div
+              %label Custom Range
+              %input{type: "text", name: "start_date", placeholder: "Start Date", class: "form-control"} 
+              %input{type: "text", name: "end_date", placeholder: "End Date", class: "form-control"} 
+        .modal-footer
+          %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+          %button.btn.btn-primary{id: "submitButton", type: "button"} Save changes
 
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
 :javascript 
 
   document.addEventListener('DOMContentLoaded', function() {
+    //edits leads pop up
+    var editLinks = document.querySelectorAll('.edit-lead-link');
+    var popupContent = document.querySelectorAll('.popup-content');
+    console.log("editLinks", editLinks)
+    var editLeadPopup = document.getElementById('editLeadPopup');
+    console.log("editLeadPopup", editLeadPopup)
+    var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
 
-  var editLinks = document.querySelectorAll('.edit-lead-link');
-  var popupContent = document.querySelectorAll('.popup-content');
-  console.log("editLinks", editLinks)
-  var editLeadPopup = document.getElementById('editLeadPopup');
-  console.log("editLeadPopup", editLeadPopup)
-  var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
+    //edit js 
+    editLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        var url = this.href;
 
-  //edit js 
-  editLinks.forEach(function(link) {
-    link.addEventListener('click', function(event) {
-      event.preventDefault();
-      var url = this.href;
+        // Fetch edit form content via AJAX
+        fetch(url, {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest' // Set header for Rails to recognize AJAX request
+          }
+        })
+        .then(response => response.text())
+        .then(data => {
+          console.log("data", data)
+          popupContent.innerHTML = data; // Insert fetched HTML into popup content
+          editLeadPopup.classList.toggle('show'); // Show the popup
+        })
+        .catch(error => console.error('Error fetching edit form:', error));
+      });
+      
+      });
 
-      // Fetch edit form content via AJAX
-      fetch(url, {
+    if (closeEditLeadPopup) {
+      closeEditLeadPopup.addEventListener('click', function() {
+        editLeadPopup.classList.remove('show');
+      });
+    }
+
+    // submit form for
+    var submitButton = document.getElementById('submitButton');
+
+    submitButton.addEventListener('click', function() {
+      var checkboxes = document.querySelectorAll('.custom-checkbox-leads');
+      var checkedFilters = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
+
+      var startDate = document.querySelector('input[name="start_date"]').value;
+      var endDate = document.querySelector('input[name="end_date"]').value;
+
+      var params = {
+        date_filter: checkedFilters.join(','),
+        start_date: startDate,
+        end_date: endDate
+      };
+
+      // Construct query parameters from params object
+      var queryParams = new URLSearchParams(params).toString();
+
+        fetch('/leads/filter_date?' + queryParams, {
         method: 'GET',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest' // Set header for Rails to recognize AJAX request
+          'X-Requested-With': 'XMLHttpRequest' // Signal to Rails that this is an AJAX request
         }
       })
-      .then(response => response.text())
+      .then(response => response.json()) // Parse response as JSON
       .then(data => {
-        console.log("data", data)
-        popupContent.innerHTML = data; // Insert fetched HTML into popup content
-        editLeadPopup.classList.toggle('show'); // Show the popup
-      })
-      .catch(error => console.error('Error fetching edit form:', error));
-    });
-    
-    });
+        console.log("Received data:", data); // Log the entire data object
 
-  if (closeEditLeadPopup) {
-    closeEditLeadPopup.addEventListener('click', function() {
-      editLeadPopup.classList.remove('show');
-    });
+        var tableBody = document.querySelector('#filterTable tbody');
+        tableBody.innerHTML = ""; // Clear existing table rows
+
+        if (data.leads && data.leads.length > 0) {
+          
+          data.leads.forEach(lead => {
+            var statusClass = leadStatusClass(lead.status);
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = `
+              <td>${lead.first_name} ${lead.last_name}</td>
+              <td>${lead.company}</td>
+              <td>${lead.phone || lead.mobile}</td>
+              <td>${lead.email}</td>
+              <td class="${statusClass}">${lead.status}</td>
+              <td>${new Date(lead.created_at).toLocaleDateString()}</td>
+              <td>${lead.assigned_to}</td>
+              <td>
+                <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
+                <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+              </td>
+            `;
+            tableBody.appendChild(newRow);
+          });
+        } else {
+          console.log("No leads found in data.");
+        }
+      })
+      .catch(error => console.error('Error fetching leads:', error));
+      });
+
+  var submitButtonSort = document.getElementById('submitSort');
+
+  submitButtonSort.addEventListener('click', function() {
+  var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
+  var order = 'asc'; // Default to ascending if no checkbox is selected
+
+  if (checkboxes.length > 0) {
+    order = checkboxes[0].value; // Get the value of the first checked checkbox (either 'asc' or 'desc')
   }
+
+  var queryParams = new URLSearchParams({
+    order: order
+    // Add other parameters like date filters if needed
+  }).toString();
+
+  fetch('/leads/sort_leads?' + queryParams, {
+    method: 'GET',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("Received data:", data);
+
+    var tableBody = document.querySelector('#filterTable tbody');
+    tableBody.innerHTML = ""; // Clear existing table rows
+
+    if (data.leads && data.leads.length > 0) {
+      data.leads.forEach(lead => {
+        var statusClass = leadStatusClass(lead.status);
+        var newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${lead.first_name} ${lead.last_name}</td>
+          <td>${lead.company}</td>
+          <td>${lead.phone || lead.mobile}</td>
+          <td>${lead.email}</td>
+          <td class="${statusClass}">${lead.status}</td>
+          <td>${new Date(lead.created_at).toLocaleDateString()}</td>
+          <td>${lead.assigned_to}</td>
+          <td>
+            <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
+            <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+          </td>
+        `;
+        tableBody.appendChild(newRow);
+      });
+    } else {
+      console.log("No leads found in data.");
+    }
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+  });
+
+  function leadStatusClass(status) {
+        switch (status) {
+          case "new":
+            return "ovalStatusNew";
+          case "rejected":
+            return "ovalStatusPendind";
+          case "contacted":
+            return "ovalStatusOkey";
+          case "won":
+            return "ovalStatusWon";
+          default:
+            return "ovalStatusPendind";  // Default class for other statuses
+      }
+      }
   });
 
 

@@ -15,13 +15,13 @@ class LeadsController < EntitiesController
     @leads = get_leads(page: page_param)
     # byebug  # Pause execution here
     # @lead = Lead.find_by(id: params[:lead_id]) if params[:lead_id]
-     puts "@leads: #{@leads.inspect}"
+      puts "@leads: #{@leads.inspect}"
 
-     company_name_filter = params[:company]  # Use the correct parameter name
+      company_name_filter = params[:company]  # Use the correct parameter name
 
-     if company_name_filter.present?
-       @leads = @leads.where("company LIKE ?", "%#{company_name_filter}%")
-     end
+      if company_name_filter.present?
+        @leads = @leads.where("company LIKE ?", "%#{company_name_filter}%")
+      end
 
     respond_with @leads do |format|
       format.xls { render layout: 'header' }
@@ -29,6 +29,41 @@ class LeadsController < EntitiesController
       # format.json { render json: @leads.to_json(methods: :lead_status_class) }
     end
   end
+
+  def filter_date
+    @leads = Lead.all
+
+    if params[:date_filter].present?
+      case params[:date_filter]
+      when "today"
+        @leads = @leads.where("DATE(created_at) = ?", Date.today)
+      when "yesterday"
+        @leads = @leads.where("DATE(created_at) = ?", Date.yesterday)
+      when "last_7_days"
+        @leads = @leads.where("created_at >= ?", 7.days.ago.beginning_of_day)
+      when "last_30_days"
+        @leads = @leads.where("created_at >= ?", 30.days.ago.beginning_of_day)
+      when "custom_range"
+        start_date = Date.parse(params[:start_date]) rescue nil
+        end_date = Date.parse(params[:end_date]) rescue nil
+        if start_date && end_date
+          @leads = @leads.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+        end
+      end
+    end
+
+    render json: { leads: @leads }
+  end
+
+  def sort_leads
+    order = params[:order] == 'asc' ? :asc : :desc
+    @leads = Lead.order(created_at: order)
+
+    respond_to do |format|
+      format.json { render json: { leads: @leads } }
+    end
+  end
+  
 
   # GET /leads/1
   # AJAX /leads/1
