@@ -268,7 +268,11 @@ en-US:
   alt_email: Alternative email
   avatar: Avatar
   change_password: Change Password
-  company: Company
+  company: Company Name
+  street_address: Stret Address
+  city: City
+  State: State
+  zip_code: ZIP code
   contact_info: Contact Information
   current_password: Current password
   edit_profile: Edit Profile
@@ -420,8 +424,8 @@ en-US:
   save_contact: Save Contact
   twitter: Twitter
   unassigned: Unassigned
-  web_presence: Web Presence
-  web_presence_small: web presence
+  web_presence: Website / Social Media
+  web_presence_small: Website / Social Media
   works_at: ! '%{job_title} at %{company}'
   general_info: General Information
   show_general_info_small: Show general information for this contact.

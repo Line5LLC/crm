@@ -303,11 +303,11 @@ campaign_status:
 # Lead Status and Source.
 #------------------------------------------------------------------------------
 lead_status:
-  - :new
-  - :contacted
-  - :converted
-  - :rejected
-  - :won
+  - :New
+  - :Contacted
+  - :Converted
+  - :Rejected
+  - :Won
 
 lead_source:
   - :campaign

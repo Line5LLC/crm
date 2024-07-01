@@ -48,14 +48,15 @@
   %div.testTOCheck
     %div.customerBox
       %div
-        %p.boxesDashboardTtile New Costumers
+        %p.boxesDashboardTtile 
+          Reminders
       %div.customerFlex.pController
         %div
           %div 
-            Last Months
+            Today
           %div
             %h3.bold-number-miniBoxes
-              349
+              4
         %div.porcentageBox.flex-center
           %div
             = image_tag("increase1.png")
@@ -79,6 +80,8 @@
             %p.p0.pDashboard-miniBoxes +10.45%
 
     %div.customerBox
+      %div.overlayCommingSoon
+        Feature Coming Soon
       %div
         %p.boxesDashboardTtile Dealers Enrollment
       %div.customerFlex.pController
@@ -87,19 +90,19 @@
             Last Months
           %div
             %h3.bold-number-miniBoxes
-              349
+              NaN
         %div.porcentageBox.flex-center
           %div
             = image_tag("increase1.png")
           %div
-            %p.p0.pDashboard-miniBoxes +10.45%
+            %p.p0.pDashboard-miniBoxes Nan
   %div.testTOCheck.mt-2
     %div.testBox.mar-r
       %div.testTOCheck.p-15
         %div.font-orange-20
           %h4.mt-1 Recently Leads
-        %div 
-          %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
+        %div
+          %input#lead-name-filter_home.inputDate.newCustomButton{ placeholder: "Search Lead", type: "text" }
       %div.flex-center.mt-2.table-responsive
         %table.fs-14.tableBorder
           %thead
@@ -120,7 +123,7 @@
         %div.font-orange-20
           %h4.mt-1 Leads By Stage
         %div 
-          %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
+          -# %input.inputDate.newCustomButton{ placeholder: "Search Lead" }
       %div.chartPie.mt-5
         %canvas#statusPieChart{ width: "300", height: "300" }
   %div.testTOCheck.mt-2
@@ -252,5 +255,89 @@
       ctx.fillText(`${labels[index]}: ${percentage}%`, labelX, labelY);
       startAngle += sliceAngle;
     });
+
+    var searchInput = document.getElementById('lead-name-filter_home');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        var filterValue = this.value.trim().toLowerCase();
+        console.log("Search input value changed:", filterValue);
+
+      var queryParams = new URLSearchParams({
+      company: filterValue
+    }).toString();
+
+    fetch('/home/filter?' + queryParams, {
+      method: 'POST',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Network response was not ok: ' + response.statusText);
+      }
+    })
+    .then(data => {
+      console.log('Filtered leads:', data);
+      updateLeadsUI(data);
+    })
+    .catch(error => console.error('Request failed:', error));
+  });
+
+    }
+
+    function updateLeadsUI(filteredLeads) {
+    var table = document.querySelector('#filterTable');
+    if (!table) {
+        console.error('Table not found');
+        return;
+    }
+
+    var tableBody = table.querySelector('tbody');
+    if (!tableBody) {
+        tableBody = document.createElement('tbody');
+        table.appendChild(tableBody);
+    }
+
+    // Clear existing rows
+    tableBody.innerHTML = '';
+
+    // Populate table with filtered leads
+    filteredLeads.forEach(function(lead) {
+      var statusClass = leadStatusClass(lead.status);
+      var row = document.createElement('tr');
+      row.innerHTML = `
+        <td><div class="cell-content">${lead.first_name} ${lead.last_name}</div></td>
+        <td>${lead.company}</td>
+        <td>${lead.phone || lead.mobile}</td>
+        <td>${lead.email}</td>
+        <td class="${statusClass}">${lead.status}</td>
+        <td>${lead.created_at}</td>
+        <td>${lead.assigned_to}</td>
+        <td>
+        </td>
+      `;
+      tableBody.appendChild(row);
+    });
+
+    function leadStatusClass(status) {
+      switch (status) {
+        case "new":
+          return "ovalStatusNew";
+        case "rejected":
+          return "ovalStatusPendind";
+        case "contacted":
+          return "ovalStatusOkey";
+        case "won":
+          return "ovalStatusWon";
+        default:
+          return "ovalStatusPendind";  // Default class for other statuses
+  }
+  }
+  }
   });
 

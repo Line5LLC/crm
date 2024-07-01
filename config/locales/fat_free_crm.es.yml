@@ -259,6 +259,9 @@ es:
   avatar: Avatar
   change_password: Cambiar contraseña
   company: Compañía
+  calle: Calle
+  ciudad: Ciudad
+  Estado: Estado
   contact_info: Información de Contacto
   current_password: Contraseña actual
   edit_profile: Editar Perfil
@@ -408,8 +411,8 @@ es:
   save_contact: Guardar Contacto
   twitter: Twitter
   unassigned: No assignado
-  web_presence: Presencia Web
-  web_presence_small: presencia web
+  web_presence: Pagina Web / Redes Sociales
+  web_presence_small: Pagina Web / Redes Sociales
   works_at: ! '%{job_title} a %{company}'
   general_info: Información General
   show_general_info_small: Mostrar información general para este contacto.

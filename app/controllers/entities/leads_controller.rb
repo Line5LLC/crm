@@ -13,8 +13,7 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def index
     @leads = get_leads(page: page_param)
-    # byebug  # Pause execution here
-    # @lead = Lead.find_by(id: params[:lead_id]) if params[:lead_id]
+    
       puts "@leads: #{@leads.inspect}"
 
       company_name_filter = params[:company]  # Use the correct parameter name

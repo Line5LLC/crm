@@ -22,7 +22,7 @@ class HomeController < ApplicationController
     total = status_counts.values.sum
     @percentages = status_counts.transform_values { |count| (count.to_f / total * 100).round(2) }
 
-    puts "DEBUG: Percentages - #{@percentages}"
+    puts "DEBUG: @activities = get_activities - #{@activities}"
 
     respond_with @activities do |format|
       format.xls { render xls: @activities, layout: 'header' }
@@ -163,6 +163,22 @@ class HomeController < ApplicationController
       end.map(&:to_a).flatten.first
     else
       [User.where(first_name: user), User.where(last_name: user)].map(&:to_a).flatten.first
+    end
+  end
+
+  #------------------------------------------------------------------------------------------
+
+  def filter
+    @leads = Lead.visible_on_dashboard(current_user).includes(:user, :tags).order(created_at: :desc)
+    
+    company_name_filter = params[:company]  # Use the correct parameter name
+
+    if company_name_filter.present?
+      @leads = @leads.where("company LIKE ?", "%#{company_name_filter}%")
+    end
+
+    respond_to do |format|
+      format.json { render json: @leads }
     end
   end
 

@@ -1,29 +1,49 @@
 
 = hook(:lead_top_section, self, f: f) do
   .section
-    %table
-      %tr
-        %td
-          .label.top{ class: "#{Setting.require_first_names ? 'req' : nil}" } #{t :first_name}:
-          = f.text_field :first_name, autofocus: true, class: "customInputsLeads"
-        %td= spacer
-        %td
-          .label.top{ class: "#{Setting.require_last_names ? 'req' : nil}" } #{t :last_name}:
-          = f.text_field :last_name, class: "customInputsLeads"
-      %tr
-        %td
-          .label.top{ class: "#{Setting.require_company ? 'req' : nil}" } #{t :company}:
-          = f.autocomplete_field :company, autocomplete_account_name_leads_path, class: "customInputsLeads"
-        %td= spacer
-        %td
-          .label.top #{t :email}:
-          = f.text_field :email, class: "customInputsLeads"
+    %div
+      %div.flex.gap-custom
+        %div
+          %div
+            .label.top{ class: "#{Setting.require_first_names ? 'req' : nil}" } #{t :first_name}:
+          %div
+            = f.text_field :first_name, autofocus: true, class: "customInputsLeads w-custom-laead-form"
+        %div
+          %div
+            .label.top{ class: "#{Setting.require_last_names ? 'req' : nil}" } #{t :last_name}:
+          %div
+            = f.text_field :last_name, class: "customInputsLeads w-custom-laead-form"
+      %div.flex.gap-custom
+        %div
+          %div
+            .label.top{ class: "#{Setting.require_company ? 'req' : nil}" } #{t :company}:
+          %div
+            = f.autocomplete_field :company, autocomplete_account_name_leads_path, class: "customInputsLeads w-custom-laead-form"
+        %div
+          %div
+            .label.top #{t :email}:
+          %div
+            = f.text_field :email, class: "customInputsLeads w-custom-laead-form"
       - if Setting.background_info && Setting.background_info.include?(:lead)
-        %tr
-          %td(colspan="3")
+        %div
+          %div(colspan="3")
             .label= t(:background_info) + ':'
-            = f.text_area :background_info, style: "width:500px", rows: 3, class: "customInputsLeads"
-
-      = render partial: "/shared/tags", locals: {f: f, span: 3}
-
+            = f.text_area :background_info, style: "width:500px", rows: 3, class: "customInputsLeads "
+      %div.mt-1
+        %div
+          #{t :street_address}:
+        %div
+          = f.text_field :email, class: "customInputsLeads w-custom-laead-form-street-long"
+      %div.flex.gap-custom
+        %div
+          .label.top #{t :city}:
+          = f.text_field :email, class: "customInputsLeads w-custom-laead-form-street-city"
+        %div
+          .label.top #{t :state}:
+          = f.text_field :email, class: "customInputsLeads"
+        %div
+          .label.top #{t :zip_code}:
+          = f.text_field :email, class: "customInputsLeads"
+      -# %div
+      -#   = render partial: "/shared/tags", locals: {f: f, span: 3}
       = hook(:lead_top_section_bottom, self, f: f)
