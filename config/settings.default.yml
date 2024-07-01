@@ -214,7 +214,11 @@
   :icon: :fa-tasks
   :url:
     :controller: leads
-
+- :active: true
+  :text: :tab_contacts
+  :icon: :fa-user
+  :url:
+    :controller: contacts
 :admin_tabs:
 - :active: false
   :text: :tab_tasks
@@ -226,7 +230,7 @@
   :icon: :fa-users
   :url:
     :controller: accounts
-- :active: false
+- :active: true
   :text: :tab_contacts
   :icon: :fa-user
   :url:
@@ -303,11 +307,11 @@ campaign_status:
 # Lead Status and Source.
 #------------------------------------------------------------------------------
 lead_status:
-  - :New
-  - :Contacted
-  - :Converted
-  - :Rejected
-  - :Won
+  - :new
+  - :contacted
+  - :converted
+  - :rejected
+  - :won
 
 lead_source:
   - :campaign

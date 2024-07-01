@@ -58,7 +58,7 @@ module LeadsHelper
   # editing existing lead that hasn't been converted before.
   #----------------------------------------------------------------------------
   def lead_status_codes_for(lead)
-    if lead.status != "converted" && (lead.new_record? || lead.contact.nil?)
+    if lead.status != "converted" && (lead.new_record? || lead.contacts.nil?)
       Setting.unroll(:lead_status).delete_if { |status| status.last == :converted }
     else
       Setting.unroll(:lead_status)

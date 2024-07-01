@@ -273,6 +273,7 @@ en-US:
   city: City
   State: State
   zip_code: ZIP code
+  company_address: Company Address
   contact_info: Contact Information
   current_password: Current password
   edit_profile: Edit Profile

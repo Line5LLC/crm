@@ -1,0 +1,215 @@
+- edit ||= false
+- collapsed = session[:lead_contact].nil? # && @lead.errors.empty?
+= subtitle :lead_contact, collapsed, t(:contacts)
+
+.section
+  %small#lead_contact_intro{ hidden_if(!collapsed) }
+    = t(:intro, t(:lead_info_small)) unless edit
+
+  .contact-form{ hidden_if(collapsed) }
+    %h3 Contact Information
+    %table
+      %tr
+        %td
+          = label_tag :contact_first_name, "First Name"
+          = text_field_tag :contact_first_name, nil, id: "contact_first_name"
+        %td= spacer
+        %td
+          = label_tag :contact_last_name, "Last Name"
+          = text_field_tag :contact_last_name, nil, id: "contact_last_name"
+      %tr
+        %td
+          = label_tag :contact_email, "Email"
+          = text_field_tag :contact_email, nil, id: "contact_email"
+        %td= spacer
+        %td
+          = label_tag :contact_phone, "Phone"
+          = text_field_tag :contact_phone, nil, id: "contact_phone"
+    %br
+    %button.btn.btn-primary{ type: 'button', id: 'add-contact' } Add Contact
+
+  .row#contacts.margin-top-1.hidden
+    = f.fields_for :contacts  do |r|
+      = r.hidden_field :id, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :first_name, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :last_name, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :email, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :phone, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :user_id, class: 'contact', data: { idx: r.index }
+
+  .contacts-list{ hidden_if(collapsed) }
+    %h3 Contacts
+    %table#contacts-table
+      %thead
+        %tr
+          %th First Name
+          %th Last Name
+          %th Email
+          %th Phone
+          %th Actions
+          %th
+      %tbody
+        - @lead.contacts.order(id: :asc).each_with_index do |contact, idx|
+          - next if contact.id.nil?
+          %tr{ id: "contact_#{contact.id}", data: { id: contact.id } }
+            %td= contact.first_name
+            %td= contact.last_name
+            %td= contact.email
+            %td= contact.phone
+            %td
+              = link_to 'Edit', '#', class: 'edit-contact add_fields', data: { idx: idx }
+            %td
+              = link_to 'Delete', '#', class: 'remove-contact add_fields', data: { idx: idx }
+
+
+:css
+  #contacts-table {
+    width: 100%;
+  }
+
+
+:javascript
+
+  let contactsTotal = $('input.contact').length;
+  const addContactButton = $('#add-contact');
+  const divContacts = $('div#contacts');
+  const tableContacts = $('table#contacts-table tbody');
+  var currentUserId = "#{current_user.id}";
+  let currentEditIdx = null;
+  let rowId = null;
+
+  addContactButton.on('click', function(e) {
+    e.preventDefault();
+
+    // Coletar valores dos campos de contato
+    const id = $('#contact_id').val();
+    const firstName = $('#contact_first_name').val();
+    const lastName = $('#contact_last_name').val();
+    const email = $('#contact_email').val();
+    const phone = $('#contact_phone').val();
+    const userId = $('#contact_user_id').val() || currentUserId;
+
+    if (firstName && lastName && email && phone) {
+      if (currentEditIdx === null) {
+        // Adicionar novo contato
+        const contactId = `new_${contactsTotal}`;
+
+        // Adicionar campos ocultos ao formulário
+        appendContactField('first_name', firstName, contactsTotal);
+        appendContactField('last_name', lastName, contactsTotal);
+        appendContactField('email', email, contactsTotal);
+        appendContactField('phone', phone, contactsTotal);
+        appendContactField('user_id', userId, contactsTotal);
+
+        // Adicionar linha à tabela de contatos
+        appendContactRow(contactId, firstName, lastName, email, phone, contactsTotal, false);
+
+        contactsTotal += 1;
+      } else {
+        // Editar contato existente
+        updateContactField('first_name', firstName, currentEditIdx);
+        updateContactField('last_name', lastName, currentEditIdx);
+        updateContactField('email', email, currentEditIdx);
+        updateContactField('phone', phone, currentEditIdx);
+
+        // Atualizar linha da tabela de contatos
+        // var row = document.querySelector(`#contact_'${currentEditIdx}']`);
+        var row = document.querySelector('#' + rowId);
+
+        row.dataset.firstName = firstName;
+        row.dataset.lastName = lastName;
+        row.dataset.email = email;
+        row.dataset.phone = phone;
+        row.querySelector('td:nth-child(1)').textContent = firstName;
+        row.querySelector('td:nth-child(2)').textContent = lastName;
+        row.querySelector('td:nth-child(3)').textContent = email;
+        row.querySelector('td:nth-child(4)').textContent = phone;
+
+        // Resetar índice de edição
+        currentEditIdx = null;
+      }
+
+      // Limpar campos do formulário
+      $('#contact_first_name').val('');
+      $('#contact_last_name').val('');
+      $('#contact_email').val('');
+      $('#contact_phone').val('');
+    } else {
+      alert('Please fill out all contact fields.');
+    }
+  });
+
+  function appendContactField(name, value, idx) {
+    divContacts.append(`<input type="hidden" value="${value}" name="lead[contacts_attributes][${idx}][${name}]" class="contact" data-idx="${idx}">`);
+  }
+
+  function updateContactField(name, value, idx) {
+    $(`input.contact[name='lead[contacts_attributes][${idx}][${name}]']`).val(value);
+  }
+
+  function appendContactRow(id, firstName, lastName, email, phone, idx, isSaved) {
+    const removeLink = $(`<a class="remove-contact add_fields" href="#">Delete</a>`);
+    const editLink = $(`<a class="edit-contact add_fields" href="#">Edit</a>`);
+    removeLink.data('idx', idx);
+    editLink.data('idx', idx);
+    const row = $(`<tr id="${id}" data-idx="${idx}"></tr>`);
+    row.append(`<td></td>`);
+    row.append(`<td>${firstName}</td>`);
+    row.append(`<td>${lastName}</td>`);
+    row.append(`<td>${email}</td>`);
+    row.append(`<td>${phone}</td>`);
+    row.append($('<td></td>').append(editLink));
+    row.append($('<td></td>').append(removeLink))
+    tableContacts.append(row);
+
+    removeLink.on('click', function(e) {
+      e.preventDefault();
+      const idx = $(this).data('idx');
+      if (isSaved) {
+        // Adicionar campo _destroy para registros salvos
+        appendDestroyField(idx);
+        row.hide();
+      } else {
+        // Remover campos ocultos e linha da tabela para novos registros
+        removeContactField(idx);
+        row.remove();
+      }
+    });
+
+    editLink.on('click', function(e) {
+      e.preventDefault();
+      currentEditIdx = $(this).data('idx');
+      $('#contact_first_name').val(row.find('td').eq(0).text());
+      $('#contact_last_name').val(row.find('td').eq(1).text());
+      $('#contact_email').val(row.find('td').eq(2).text());
+      $('#contact_phone').val(row.find('td').eq(3).text());
+    });
+  }
+
+  function appendDestroyField(idx) {
+    divContacts.append(`<input type="hidden" value="true" name="lead[contacts_attributes][${idx}][_destroy]" class="contact" data-idx="${idx}">`);
+  }
+
+  function removeContactField(idx) {
+    $(`input.contact[data-idx=${idx}]`).remove();
+  }
+
+  // Adicionar evento de remoção para contatos já salvos
+  $('table#contacts-table tbody tr').each(function() {
+    const row = $(this);
+    const idx = row.find('a.remove-contact').data('idx');
+    row.find('a.remove-contact').on('click', function(e) {
+      e.preventDefault();
+      appendDestroyField(idx);
+      row.hide();
+    });
+    row.find('a.edit-contact').on('click', function(e) {
+      e.preventDefault();
+      currentEditIdx = idx;
+      rowId = row.attr('id');
+      $('#contact_first_name').val(row.find('td').eq(0).text());
+      $('#contact_last_name').val(row.find('td').eq(1).text());
+      $('#contact_email').val(row.find('td').eq(2).text());
+      $('#contact_phone').val(row.find('td').eq(3).text());
+    });
+  });
