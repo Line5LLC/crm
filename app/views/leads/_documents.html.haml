@@ -5,26 +5,45 @@
   %small#lead_document_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:lead_documents_small)) unless edit
   #lead_document{ hidden_if(collapsed) }
-    %label
-      Add Document:
-      %input{type: "file", name: "documents[file]", id: "documents-file", multiple: true}
-    %button{type: "button", id: "add-document-button"} Add Document
-    %table
-      %thead
-        %tr
-          %th Document Name
-          %th Document Type
-          %th Document Size
-          %th Actions
-      %tbody{id: "document-table"}
-        - @documents.each do |document|
-          %tr
-            %td= document.file_file_name
-            %td= document.file_content_type
-            %td= number_to_human_size(document.file_file_size)
-            %td
-              = link_to "Download", document.file_url, style: 'margin-right: 10px;'
-              = link_to "Remove", "#", class: 'remove-document-button', data: { document_id: document.id }, style: 'margin-left: 10px;'
+    %div.contactsContainer
+      %div.flex.gap-custom
+        %div
+          %div
+            %label
+              Add Document:
+          %div
+            %input{type: "text", name: "", id: "", class:"customInputsLeads w-custom-laead-form"}
+        %div
+          %div
+            %label
+              Document Type
+          %div
+            %input{type: "text", name: "", id: "", class:"customInputsLeads w-custom-laead-form"}
+      %div.mt-2
+        %div
+          %label
+            Add Document:
+        %div
+          %input{type: "file", name: "documents[file]", id: "documents-file", multiple: true, class:"w-custom-laead-form-street-long"}
+        %div.mt-5px
+          %button{type: "button", id: "add-document-button", class:"btn btn-primary"} Add Document
+    %div.contactsContainer
+      %table
+        %thead
+          %tr.theadLeads
+            %th.p-14.theadLeads Document Name
+            %th.p-14.theadLeads Document Type
+            %th.p-14.theadLeads Document Size
+            %th.p-14.theadLeads Actions
+        %tbody{id: "document-table"}
+          - @documents.each do |document|
+            %tr
+              %td.p-14= document.file_file_name
+              %td.p-14= document.file_content_type
+              %td.p-14= number_to_human_size(document.file_file_size)
+              %td.p-14
+                = link_to "Download", document.file_url, style: 'margin-right: 10px;'
+                = link_to "Remove", "#", class: 'remove-document-button', data: { document_id: document.id }, style: 'margin-left: 10px;'
 
 :javascript
   $(document).ready(function() {

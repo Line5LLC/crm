@@ -8,8 +8,8 @@
     = render "leads/top_section",    f: f, edit: true
     = render "fields/edit_custom_field_group", f: f, edit: true
     = render "leads/contacts",        f: f, edit: true
-    -# = render "shared/add_comment",   f: f
-    -# = render "leads/reminder",       f: f
+    = render "shared/add_comment",   f: f
+    = render "leads/reminder",       f: f
     = render "leads/status",         f: f, edit: true
     = render "leads/documents",      f: f, edit: true
     = render "leads/web",            f: f, edit: true
@@ -33,8 +33,10 @@
       var popupContainer = document.getElementById('editLeadPopup');
       if (popupContainer) {
         console.log(popupContainer);
+        
         popupContainer.classList.remove('show');
         console.log("Popup closed");
       }
     });
+
   }

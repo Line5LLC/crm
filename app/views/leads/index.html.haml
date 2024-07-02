@@ -45,7 +45,7 @@
     %table#filterTable.fs-14.tableBorderLeads.mt-2
       %thead
         %tr
-          %th.p-14.theadLeads Lead Name
+          -# %th.p-14.theadLeads Lead Name
           %th.p-14.theadLeads Company Name
           %th.p-14.theadLeads Main Phone
           %th.p-14.theadLeads Main Email
@@ -56,16 +56,16 @@
       %tbody
         - @leads.each do |lead|
           %tr
-            %td
-              %div.cell-content
-                = "#{lead.first_name} #{lead.last_name}"
-            %td= lead.company
-            %td= lead.phone || lead.mobile
-            %td= lead.email
-            %td{:class => lead_status_class(lead.status)}= lead.status
-            %td= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
-            %td= lead.assigned_to # Assuming assigned_to is the lead owner
-            %td
+            -# %td
+            -#   %div.cell-content
+            -#     = "#{lead.first_name} #{lead.last_name}"
+            %td.p-14= lead.company
+            %td.p-14= lead.phone || lead.mobile
+            %td.p-14= lead.email
+            %td.p-14{:class => lead_status_class(lead.status)}= lead.status
+            %td.p-14= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
+            %td.p-14= lead.assigned_to # Assuming assigned_to is the lead owner
+            %td.p-14
               = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit), class: 'edit-lead-link') + " | "
               = link_to_delete(lead, confirm: t(:are_you_sure))
   -# %div
@@ -124,40 +124,52 @@
               %input{type: "checkbox", name: "date_filter", value: "today", class: "custom-checkbox-leads"}
             %div
               %label Today
-          %div.flex.al-item
+          %div.flex.al-item.mt-1
             %div
               %input{type: "checkbox", name: "date_filter", value: "yesterday", class: "custom-checkbox-leads"}
             %div
               %label Yesterday
-          %div.flex.al-item
+          %div.flex.al-item.mt-1
             %div
               %input{type: "checkbox", name: "date_filter", value: "last_7_days", class: "custom-checkbox-leads"}
             %div
               %label Last 7 Days
-          %div.flex.al-item
+          %div.flex.al-item.mt-1
             %div
               %input{type: "checkbox", name: "date_filter", value: "last_30_days", class: "custom-checkbox-leads"}
             %div
               %label Last 30 Days
-          %div.flex.al-item
+          %div.flex.mt-1
             %div
               %input{type: "checkbox", name: "date_filter", value: "custom_range", class: "custom-checkbox-leads"}
             %div
               %label Custom Range
-              %input{type: "text", name: "start_date", placeholder: "Start Date", class: "form-control"} 
-              %input{type: "text", name: "end_date", placeholder: "End Date", class: "form-control"} 
+              %input{type: "date", name: "start_date", placeholder: "Start Date", class: "form-control mt-5px"} 
+              %input{type: "date", name: "end_date", placeholder: "End Date", class: "form-control hideInput"} 
         .modal-footer
           %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
           %button.btn.btn-primary{id: "submitButton", type: "button"} Save changes
+#exampleModalDistroy.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title DATES
+        = link_to 'X', leads_path, class: 'btn-close'
+      .modal-body
+        %div#formContent
+          distroy succesfull
+        .modal-footer
+          = link_to 'close', leads_path, class: 'btn btn-primary'
 
 #paginate= render "shared/paginate_with_per_page"
+
 #export= render "shared/export"
 :javascript 
 
   document.addEventListener('DOMContentLoaded', function() {
     //edits leads pop up
     var editLinks = document.querySelectorAll('.edit-lead-link');
-    var popupContent = document.querySelectorAll('.popup-content');
+    var popupContent = document.querySelector('.popup-content');
     console.log("editLinks", editLinks)
     var editLeadPopup = document.getElementById('editLeadPopup');
     console.log("editLeadPopup", editLeadPopup)
@@ -168,6 +180,7 @@
       link.addEventListener('click', function(event) {
         event.preventDefault();
         var url = this.href;
+        
 
         // Fetch edit form content via AJAX
         fetch(url, {
@@ -178,8 +191,8 @@
         })
         .then(response => response.text())
         .then(data => {
-          console.log("data", data)
-          popupContent.innerHTML = data; // Insert fetched HTML into popup content
+         var editFormContent = document.querySelector('.popup-content'); // Replace with actual selector
+          editFormContent.innerHTML = data; // Update specific container within the popup
           editLeadPopup.classList.toggle('show'); // Show the popup
         })
         .catch(error => console.error('Error fetching edit form:', error));
@@ -189,6 +202,7 @@
 
     if (closeEditLeadPopup) {
       closeEditLeadPopup.addEventListener('click', function() {
+        
         editLeadPopup.classList.remove('show');
       });
     }
@@ -196,6 +210,7 @@
     // submit form for
     var submitButton = document.getElementById('submitButton');
 
+  // Filter for dates
     submitButton.addEventListener('click', function() {
       var checkboxes = document.querySelectorAll('.custom-checkbox-leads');
       var checkedFilters = Array.from(checkboxes)
@@ -250,11 +265,18 @@
         } else {
           console.log("No leads found in data.");
         }
+       var modalElement = document.getElementById('exampleModalThree');
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
       })
       .catch(error => console.error('Error fetching leads:', error));
       });
 
-  var submitButtonSort = document.getElementById('submitSort');
+    var submitButtonSort = document.getElementById('submitSort');
+
+  // Filter for Asc and Desc. 
 
   submitButtonSort.addEventListener('click', function() {
   var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
@@ -304,6 +326,12 @@
     } else {
       console.log("No leads found in data.");
     }
+     var modalElement = document.getElementById('exampleModalTwo');
+      var modalInstance = bootstrap.Modal.getInstance(modalElement);
+      console.log("modalElement", modalElement)
+      if (modalInstance) {
+        modalInstance.hide();
+      }
   })
   .catch(error => {
     console.error('Error fetching data:', error);

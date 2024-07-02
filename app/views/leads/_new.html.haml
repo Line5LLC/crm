@@ -33,5 +33,15 @@
         console.log("Popup closed");
       }
     });
+    
+  }
+
+  function closePopup() {
+    console.log("render pop up")
+    var popupContainer = document.getElementById('popupContainerLead');
+    if (popupContainer) {
+      popupContainer.classList.remove('show');
+      console.log("Popup closed");
+    }
   }
 

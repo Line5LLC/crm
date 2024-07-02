@@ -112,6 +112,7 @@ class LeadsController < EntitiesController
     respond_with(@lead) do |_format|
       if @lead.save_with_permissions(params.permit!)
         @lead.add_comment_by_user(@comment_body, current_user)
+        @lead_created = true
         if called_from_index_page?
           @leads = get_leads
           get_data_for_sidebar
@@ -171,6 +172,7 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def destroy
     @lead.destroy
+    flash[:notice] = "Lead was successfully deleted."
 
     respond_with(@lead) do |format|
       format.html { respond_to_destroy(:html) }

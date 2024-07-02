@@ -8,6 +8,9 @@
   $('##{create_id}').slideUp(250);
   $('##{entity_name.pluralize}').prepend('#{ j render(partial: entity_name, collection: [ @entity ]) }');
   $('##{dom_id(@entity)}').effect("highlight", { duration:1500 });
+
+  $('#popupContainerLead').removeClass('show');
+  console.log("Popup closed");
   - if called_from_index_page?
     = refresh_sidebar(:index)
     $('#paginate').html('#{ j render(partial: "shared/paginate_with_per_page") }');

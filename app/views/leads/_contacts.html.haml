@@ -6,25 +6,31 @@
   %small#lead_contact_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:lead_info_small)) unless edit
 
-  .contact-form{ hidden_if(collapsed) }
+  .contact-form.contactsContainer{ hidden_if(collapsed) }
     %h3 Contact Information
-    %table
-      %tr
-        %td
-          = label_tag :contact_first_name, "First Name"
-          = text_field_tag :contact_first_name, nil, id: "contact_first_name"
-        %td= spacer
-        %td
-          = label_tag :contact_last_name, "Last Name"
-          = text_field_tag :contact_last_name, nil, id: "contact_last_name"
-      %tr
-        %td
-          = label_tag :contact_email, "Email"
-          = text_field_tag :contact_email, nil, id: "contact_email"
-        %td= spacer
-        %td
-          = label_tag :contact_phone, "Phone"
-          = text_field_tag :contact_phone, nil, id: "contact_phone"
+    %div
+      %div.flex.gap-custom
+        %div
+          %div
+            = label_tag :contact_first_name, "First Name"
+          %div
+            = text_field_tag :contact_first_name, nil, id: "contact_first_name", class: "w-custom-laead-form"
+        %div
+          %div
+            = label_tag :contact_last_name, "Last Name"
+          %div
+            = text_field_tag :contact_last_name, nil, id: "contact_last_name", class: "w-custom-laead-form"
+      %div.flex.gap-custom
+        %div
+          %div
+            = label_tag :contact_email, "Email"
+          %div
+            = text_field_tag :contact_email, nil, id: "contact_email", class: "w-custom-laead-form"
+        %div
+          %div
+            = label_tag :contact_phone, "Phone"
+          %div
+            = text_field_tag :contact_phone, nil, id: "contact_phone", class: "w-custom-laead-form"
     %br
     %button.btn.btn-primary{ type: 'button', id: 'add-contact' } Add Contact
 
@@ -37,34 +43,39 @@
       = r.hidden_field :phone, class: 'contact', data: { idx: r.index }
       = r.hidden_field :user_id, class: 'contact', data: { idx: r.index }
 
-  .contacts-list{ hidden_if(collapsed) }
+  .contacts-list.contactsContainerTable{ hidden_if(collapsed) }
     %h3 Contacts
-    %table#contacts-table
+    %table#contacts-table.fs-14.tableBorderLeadsContacts
       %thead
         %tr
-          %th First Name
-          %th Last Name
-          %th Email
-          %th Phone
-          %th Actions
-          %th
-      %tbody
+          %th.theadLeads
+          %th.p-14.theadLeads First Name
+          %th.p-14.theadLeads Last Name
+          %th.p-14.theadLeads Email
+          %th.p-14.theadLeads Phone
+          %th.p-14.theadLeads action
+          %th.p-14.theadLeads
+      %tbody.mt-1
         - @lead.contacts.order(id: :asc).each_with_index do |contact, idx|
-          - next if contact.id.nil?
-          %tr{ id: "contact_#{contact.id}", data: { id: contact.id } }
-            %td= contact.first_name
-            %td= contact.last_name
-            %td= contact.email
-            %td= contact.phone
-            %td
-              = link_to 'Edit', '#', class: 'edit-contact add_fields', data: { idx: idx }
-            %td
-              = link_to 'Delete', '#', class: 'remove-contact add_fields', data: { idx: idx }
+          - if contact.id
+            %tr{ id: "contact_#{contact.id}", data: { id: contact.id } }
+              %td#p-10= contact.first_name
+              %td#p-10= contact.last_name
+              %td#p-10= contact.email
+              %td#p-10= contact.phone
+              %td#p-10
+                = link_to 'Edit', '#', class: 'edit-contact add_fields', data: { idx: idx }
+                = link_to 'Delete', '#', class: 'remove-contact add_fields', data: { idx: idx }
+
 
 
 :css
   #contacts-table {
     width: 100%;
+  }
+
+  #p-10{
+  padding: 10px !important;
   }
 
 

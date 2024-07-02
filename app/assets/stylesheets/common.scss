@@ -922,6 +922,14 @@ font-size: 14px;
   
 }
 
+.tableBorderLeadsContacts{
+  border: 1px solid #b8b4b4;
+  margin-top: 10px;
+  border-radius: 10px;
+  width: 100%; 
+  
+}
+
 .ovalStatusPendind{
   background-color: #FF9C9C;
   border-radius: 20px;
@@ -975,8 +983,13 @@ font-size: 14px;
 .flex{
   display: flex;
 }
+
 .al-item{
   align-items: center;
+}
+
+.al-baseline{
+  align-items: baseline;
 }
 
 .iconOrangeCircle{
@@ -1077,6 +1090,9 @@ font-size: 14px;
   margin-right: 5px; /* Ajusta el espacio entre el checkbox y el texto según sea necesario */
 }
 
+.hideInput{
+  visibility: hidden;
+}
 
 .custom-checkbox-leads {
   position: relative;
@@ -1280,6 +1296,14 @@ font-size: 14px;
   padding-bottom: 20px;
 }
 
+.p-10{
+  padding: 10px !important;
+}
+
+.section table td{
+  padding: 10px !important;
+}
+
 .gap-custom{
   gap: 10px;
 }
@@ -1308,6 +1332,14 @@ width: 240px;
   gap: 10px;
   display: flex;
   align-items: baseline;
+}
+
+.contactsContainer{
+  padding: 30px 0px;
+}
+
+.contactsContainerTable{
+  padding-bottom: 30px;
 }
 
 @media(max-width: 991px){
