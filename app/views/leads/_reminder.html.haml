@@ -5,26 +5,26 @@
   %small#lead_reminder_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:reminder_info_small)) unless edit
   #lead_reminder{ hidden_if(collapsed) }
-    = form_with model: @reminder, url: lead_reminders_path(@lead), remote: true do |f|
+    = f.fields_for :reminders do |r|
       .reminder-fields
         %div.reminiderFlex
           %div
             .field
               %div
-                = f.label :date, t(:date)
+                = r.label :date, t(:date)
               %div
-                = f.date_field :date, class: "reminderInput", id: "reminderInput"
+                = r.date_field :date, class: "reminderInput", id: "reminderInput"
           %div.dateType
             .field
               %div
-                = f.label :type, t(:type)
+                = r.label :type, t(:type)
               %div
-                = f.select :type, options_for_select([["SMS", "sms"], ["Call", "call"], ["Email", "email"]]), { prompt: "Select type" }, class: "reminderInput"
+                = r.select :type, options_for_select([["SMS", "sms"], ["Call", "call"], ["Email", "email"]]), { prompt: "Select type" }, class: "reminderInput"
       .field.mt-5px
         %div
-          = f.label :status, t(:status)
+          = r.label :status, t(:status)
         %div
-          = f.select :status, options_for_select([["Done", "done"], ["Pending", "pending"], ["Missing", "missing"]]), { prompt: "Select status" }, class: "reminderInputStatus"
+          = r.select :status, options_for_select([["Done", "done"], ["Pending", "pending"], ["Missing", "missing"]]), { prompt: "Select status" }, class: "reminderInputStatus"
 
       .buttonbar
-        = f.submit t(:create_reminder), class: 'btn btn-primary'
+        %button.btn.btn-primary{ type: 'button' } Add Reminder

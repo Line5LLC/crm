@@ -50,7 +50,7 @@ class Lead < CrmSchema
   has_many :addresses, dependent: :destroy, as: :addressable, class_name: "Address" # advanced search uses this
   has_many :emails, as: :mediator
   has_many :documents, as: :documentable
-  has_many :reminders, dependent: :destroy, class_name: 'Reminder'
+  has_many :reminders, dependent: :destroy
 
   serialize :subscribed_users, Array
 

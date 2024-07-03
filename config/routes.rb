@@ -100,6 +100,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reminders
+
   resources :leads, id: /\d+/ do
     # resources :reminders, only: [:create, :edit, :update, :destroy]
     collection do
