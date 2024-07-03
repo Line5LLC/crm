@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_25_133251) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_03_150200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -383,6 +383,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_25_133251) do
     t.index ["lead_id"], name: "index_reminders_on_lead_id"
   end
 
+  create_table "reminders_tables", force: :cascade do |t|
+    t.bigint "lead_id"
+    t.date "date"
+    t.string "type"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lead_id"], name: "index_reminders_tables_on_lead_id"
+  end
+
   create_table "sessions", id: :serial, force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -503,4 +513,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_25_133251) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "reminders", "leads"
+  add_foreign_key "reminders_tables", "leads"
 end

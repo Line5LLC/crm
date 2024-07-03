@@ -5,24 +5,26 @@
   %small#lead_reminder_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:reminder_info_small)) unless edit
   #lead_reminder{ hidden_if(collapsed) }
-    = f.fields_for :reminders do |reminder_fields|
+    = form_with model: @reminder, url: lead_reminders_path(@lead), remote: true do |f|
       .reminder-fields
+        %div.reminiderFlex
+          %div
+            .field
+              %div
+                = f.label :date, t(:date)
+              %div
+                = f.date_field :date, class: "reminderInput", id: "reminderInput"
+          %div.dateType
+            .field
+              %div
+                = f.label :type, t(:type)
+              %div
+                = f.select :type, options_for_select([["SMS", "sms"], ["Call", "call"], ["Email", "email"]]), { prompt: "Select type" }, class: "reminderInput"
+      .field.mt-5px
         %div
-          %div.reminiderFlex
-            %div
-              .field
-                %div
-                  = reminder_fields.label :date, t(:date)
-                %div
-                  = reminder_fields.date_field :date, class: "reminderInput", id:"reminderInput"
-            %div
-              .field.dateType
-                %div
-                  = reminder_fields.label :type, t(:type)
-                %div
-                  = select_tag "reminder[type]", options_for_select([["SMS", "sms"], ["Call", "call"], ["Email", "email"]]),  selected: "", class: "reminderInput "
-          .field.mt-5px
-            %div
-              = reminder_fields.label :status, t(:status)
-            %div
-              = select_tag "reminder[status]", options_for_select([["Done", "done"], ["Pending", "pending"], ["Missing", "missing"]]),  selected: "", class: "reminderInputStatus"
+          = f.label :status, t(:status)
+        %div
+          = f.select :status, options_for_select([["Done", "done"], ["Pending", "pending"], ["Missing", "missing"]]), { prompt: "Select status" }, class: "reminderInputStatus"
+
+      .buttonbar
+        = f.submit t(:create_reminder), class: 'btn btn-primary'

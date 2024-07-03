@@ -101,6 +101,7 @@ Rails.application.routes.draw do
   end
 
   resources :leads, id: /\d+/ do
+    # resources :reminders, only: [:create, :edit, :update, :destroy]
     collection do
       get :advanced_search
       post :filter
