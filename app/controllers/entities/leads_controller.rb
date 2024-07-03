@@ -19,7 +19,7 @@ class LeadsController < EntitiesController
       company_name_filter = params[:company]  # Use the correct parameter name
 
       if company_name_filter.present?
-        @leads = @leads.where("company LIKE ?", "%#{company_name_filter}%")
+        @leads = @leads.where("company ILIKE ?", "%#{company_name_filter}%")
       end
 
     respond_with @leads do |format|
@@ -44,10 +44,14 @@ class LeadsController < EntitiesController
         @leads = @leads.where("created_at >= ?", 30.days.ago.beginning_of_day)
       when "custom_range"
         start_date = Date.parse(params[:start_date]) rescue nil
-        end_date = Date.parse(params[:end_date]) rescue nil
-        if start_date && end_date
-          @leads = @leads.where(created_at: start_date.beginning_of_day..end_date.end_of_day)
+        if start_date
+          puts "Filtering for custom range starting at: #{start_date}"
+          @leads = @leads.where("DATE(created_at) = ?", start_date)
+        else
+          puts "Invalid start date provided"
         end
+      else
+        puts "Unknown date filter: #{params[:date_filter]}"
       end
     end
 

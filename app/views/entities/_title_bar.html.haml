@@ -57,37 +57,47 @@
   });
 
   function updateLeadsUI(filteredLeads) {
-    var table = document.querySelector('#filterTable');
-    if (!table) {
-        console.error('Table not found');
-        return;
-    }
+  var table = document.querySelector('#filterTable tbody');
+  if (!table) {
+    console.error('Table body not found');
+    return;
+  }
 
-    var tableBody = table.querySelector('tbody');
-    if (!tableBody) {
-        tableBody = document.createElement('tbody');
-        table.appendChild(tableBody);
-    }
+  // Clear existing rows
+  table.innerHTML = '';
 
-    // Clear existing rows
-    tableBody.innerHTML = '';
+  // Populate table with filtered leads
+  filteredLeads.forEach(function(lead) {
+    var statusClass = leadStatusClass(lead.status);
+    var row = document.createElement('tr');
 
-    // Populate table with filtered leads
-    filteredLeads.forEach(function(lead) {
-      var statusClass = leadStatusClass(lead.status);
-      var row = document.createElement('tr');
-      row.innerHTML = `
-        <td><div class="cell-content">${lead.first_name} ${lead.last_name}</div></td>
-        <td>${lead.company}</td>
-        <td>${lead.phone || lead.mobile}</td>
-        <td>${lead.email}</td>
-        <td class="${statusClass}">${lead.status}</td>
-        <td>${lead.created_at}</td>
-        <td>${lead.assigned_to}</td>
-        <td>
-        </td>
-      `;
-      tableBody.appendChild(row);
+    // Create each cell and add p-14 class to each one
+    ['company', 'phone', 'email', 'status', 'created_at', 'assigned_to'].forEach(function(cell) {
+      var td = document.createElement('td');
+      td.textContent = lead[cell];
+      td.classList.add('p-14');
+      if (cell === 'created_at') {
+        // Convert lead.created_at to the desired format (e.g., "2024-07-03")
+        var formattedDate = new Date(lead[cell]).toISOString().split('T')[0];
+        td.textContent = formattedDate;
+      } else {
+        td.textContent = lead[cell];
+      }
+      if (cell === 'status') {
+        td.classList.add(statusClass);
+      }
+      row.appendChild(td);
+    });
+
+    // Optional: Add additional cell with links
+    var actionsCell = document.createElement('td');
+    actionsCell.innerHTML = `
+      <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
+      <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+    `;
+    row.appendChild(actionsCell);
+
+    table.appendChild(row);
     });
 
     function leadStatusClass(status) {

@@ -10,7 +10,7 @@ $sidebar_width: 210px;
 // Common page elements.
 //------------------------------------------------------------------------------
 .title {
-  border-bottom: 1px #eee solid;
+  // border-bottom: 1px #eee solid;
   color: $color_title;
   font: {
     size: 17px;
@@ -1355,6 +1355,11 @@ width: 240px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
   width: 90%;
   border-radius: 10px;
+}
+
+.textProfileTitle{
+  font-size: 16px;
+  font-weight: bolder;
 }
 
 @media(max-width: 991px){
