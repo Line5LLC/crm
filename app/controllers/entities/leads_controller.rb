@@ -159,11 +159,18 @@ class LeadsController < EntitiesController
   end
 
   def process_documents
+    Rails.logger.info "Documents files received: #{params[:documents_files].inspect}"
+    Rails.logger.info "Document name received: #{params[:document_name]}"
+    Rails.logger.info "Document type received: #{params[:document_type]}"
     if params[:documents_files].present?
       params[:documents_files].each do |file|
-        if file.is_a?(ActionDispatch::Http::UploadedFile)
-          @lead.documents.create(file: file)
-        end
+        unique_filename = "#{SecureRandom.hex}-#{file.original_filename}"
+        @lead.documents.create!(
+          file: file,
+          file_file_name: unique_filename,
+          document_type: params[:document_type],
+          document_name: params[:document_name]
+        )
       end
     end
 

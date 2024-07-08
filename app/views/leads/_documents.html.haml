@@ -12,13 +12,13 @@
             %label
               Add Document:
           %div
-            %input{type: "text", name: "", id: "", class:"customInputsLeads w-custom-laead-form"}
+            %input{ type: "text", name: "document_name", id: "document_name", class: "customInputsLeads w-custom-laead-form", placeholder: "Enter Document Name" }
         %div
           %div
             %label
               Document Type
           %div
-            %input{type: "text", name: "", id: "", class:"customInputsLeads w-custom-laead-form"}
+            %input{ type: "text", name: "document_type", id: "document_type", class: "customInputsLeads w-custom-laead-form", placeholder: "Enter Document Type" }
       %div.mt-2
         %div
           %label
@@ -31,15 +31,19 @@
       %table
         %thead
           %tr.theadLeads
+            %th.p-14.theadLeads Document Name New
             %th.p-14.theadLeads Document Name
             %th.p-14.theadLeads Document Type
+            %th.p-14.theadLeads Document Type New
             %th.p-14.theadLeads Document Size
             %th.p-14.theadLeads Actions
         %tbody{id: "document-table"}
           - @documents.each do |document|
             %tr
+              %td.p-14= document.document_name
               %td.p-14= document.file_file_name
               %td.p-14= document.file_content_type
+              %td.p-14= document.document_type 
               %td.p-14= number_to_human_size(document.file_file_size)
               %td.p-14
                 = link_to "Download", document.file_url, style: 'margin-right: 10px;'
@@ -54,34 +58,37 @@
     clearHiddenInputs();
 
     $('#add-document-button').click(function() {
-      var fileInput = $('#documents-file')[0];
-      var files = fileInput.files;
+    var fileInput = $('#documents-file')[0];
+    var files = fileInput.files;
 
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var documentName = $('#document_name').val(); // Get document name from input
+      var documentType = $('#document_type').val(); // Get document type from input
 
-        var row = $('<tr>');
-        row.append($('<td>').text(file.name));
-        row.append($('<td>').text(file.type));
-        row.append($('<td>').text(formatBytes(file.size)));
-        row.append($('<td>').append('<a href="#" class="remove-document-button" style="margin-left: 10px;">Remove</a>'));
-        $('#document-table').append(row);
+      var row = $('<tr>'); // Create a new row for the document
+      row.append($('<td>').text(documentName)); // Display document name in the table
+      row.append($('<td>').text(file.name)); // Display file name in the table
+      row.append($('<td>').text(documentType)); // Display document type in the table
+      row.append($('<td>').text(formatBytes(file.size))); // Display file size in the table
+      row.append($('<td>').append('<a href="#" class="remove-document-button" style="margin-left: 10px;">Remove</a>')); // Add remove button in the table row
+      $('#document-table').append(row); // Append the new row to the document table
 
-        var hiddenFileInput = $('<input>').attr({
-          type: 'file',
-          name: 'documents_files[]',
-        });
+      var hiddenFileInput = $('<input>').attr({
+        type: 'file',
+        name: 'documents_files[]', // Add file to documents_files array
+      });
 
-        var dt = new DataTransfer();
-        dt.items.add(file);
+      var dt = new DataTransfer();
+      dt.items.add(file);
 
-        hiddenFileInput[0].files = dt.files;
+      hiddenFileInput[0].files = dt.files; // Set the file to hiddenFileInput
 
-        $('#lead_document').append(hiddenFileInput);
-      }
+      $('#lead_document').append(hiddenFileInput); // Add hiddenFileInput to lead_document
+    }
 
-      fileInput.value = '';
-    });
+    fileInput.value = ''; // Clear fileInput value
+  });
 
     function formatBytes(bytes, decimals = 2) {
       if (bytes === 0) return '0 Bytes';
@@ -108,5 +115,7 @@
 
       $(this).closest('tr').remove();
     });
+
+    
 
   });

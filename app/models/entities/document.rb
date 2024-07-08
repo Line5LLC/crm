@@ -32,6 +32,8 @@ class Document < CrmSchema
   do_not_validate_attachment_file_type :file
 
   validates :file_file_name, uniqueness: true, presence: true
+  validates :document_name, presence: true
+  validates :document_type, presence: true
 
   def generate_link
     s3_client = Aws::S3::Client.new(region: ENV['AWS_REGION'], access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
