@@ -107,17 +107,17 @@
         %table.fs-14.tableBorder
           %thead
             %tr
-              %th.p-14.theadLeads Lead Name
               %th.p-14.theadLeads Company Name
               %th.p-14.theadLeads Main Phone
+              %th.p-14.theadLeads Main Email
               %th.p-14.theadLeads Status
           %tbody
             - @leads.each do |lead|
               %tr
-                %td.p-14= "#{lead.first_name} #{lead.last_name}"
                 %td.p-14= lead.company
                 %td.p-14= lead.phone || lead.mobile
-                %td{:class => lead_status_class(lead.status)}= lead.status
+                %td.p-14= lead.email
+                %td{:class => lead_status_class(lead.status)}= lead.status 
     %div.testBox.mobile-mt-2
       %div.testTOCheck.p-15
         %div.font-orange-20

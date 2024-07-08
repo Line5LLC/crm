@@ -104,6 +104,7 @@ class LeadsController < EntitiesController
     @previous = Lead.my(current_user).find_by_id(detect_previous_id) || detect_previous_id if detect_previous_id
 
     @documents = @lead.documents
+    params[:cancel] ||= 'false'
     respond_with(@lead)
   end
 
