@@ -28,9 +28,26 @@
             = text_field_tag :contact_email, nil, id: "contact_email", class: "w-custom-laead-form"
         %div
           %div
-            = label_tag :contact_phone, "Phone"
+            = label_tag :contact_phone, "Main Phone"
           %div
             = text_field_tag :contact_phone, nil, id: "contact_phone", class: "w-custom-laead-form"
+      %div.flex.gap-custom
+        %div
+          %div
+            = label_tag :contact_mobile, "Mobile"
+          %div
+            = text_field_tag :contact_mobile, nil, id: "contact_mobile", class: "w-custom-laead-form-street-long"
+      %div.flex.gap-custom
+        %div
+          %div
+            = label_tag :contact_title, "Title"
+          %div
+            = text_field_tag :contact_title, nil, id: "contact_title", class: "w-custom-laead-form"
+        %div
+          %div
+            = label_tag :contact_department, "Department"
+          %div
+            = text_field_tag :contact_department, nil, id: "contact_department", class: "w-custom-laead-form"
     %br
     %button.btn.btn-primary{ type: 'button', id: 'add-contact' } Add Contact
 
@@ -41,6 +58,9 @@
       = r.hidden_field :last_name, class: 'contact', data: { idx: r.index }
       = r.hidden_field :email, class: 'contact', data: { idx: r.index }
       = r.hidden_field :phone, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :title, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :department, class: 'contact', data: { idx: r.index }
+      = r.hidden_field :mobile, class: 'contact', data: { idx: r.index }
       = r.hidden_field :user_id, class: 'contact', data: { idx: r.index }
 
   .contacts-list.contactsContainerTable{ hidden_if(collapsed) }
@@ -53,6 +73,9 @@
           %th.p-14.theadLeads Last Name
           %th.p-14.theadLeads Email
           %th.p-14.theadLeads Phone
+          %th.p-14.theadLeads Title
+          %th.p-14.theadLeads Department
+          %th.p-14.theadLeads Mobile
           %th.p-14.theadLeads action
           %th.p-14.theadLeads
       %tbody.mt-1
@@ -63,6 +86,9 @@
               %td#p-10= contact.last_name
               %td#p-10= contact.email
               %td#p-10= contact.phone
+              %td#p-10= contact.title
+              %td#p-10= contact.department
+              %td#p-10= contact.mobile
               %td#p-10
                 = link_to 'Edit', '#', class: 'edit-contact add_fields', data: { idx: idx }
                 = link_to 'Delete', '#', class: 'remove-contact add_fields', data: { idx: idx }
@@ -98,6 +124,9 @@
     const lastName = $('#contact_last_name').val();
     const email = $('#contact_email').val();
     const phone = $('#contact_phone').val();
+    const title = $('#contact_title').val();
+    const department = $('#contact_department').val();
+    const mobile = $('#contact_mobile').val();
     const userId = $('#contact_user_id').val() || currentUserId;
 
     if (firstName && lastName && email && phone) {
@@ -110,10 +139,13 @@
         appendContactField('last_name', lastName, contactsTotal);
         appendContactField('email', email, contactsTotal);
         appendContactField('phone', phone, contactsTotal);
+        appendContactField('title', title, contactsTotal);
+        appendContactField('department', department, contactsTotal);
+        appendContactField('mobile', mobile, contactsTotal);
         appendContactField('user_id', userId, contactsTotal);
 
         // Adicionar linha à tabela de contatos
-        appendContactRow(contactId, firstName, lastName, email, phone, contactsTotal, false);
+        appendContactRow(contactId, firstName, lastName, email, phone, title, department, mobile, contactsTotal, false);
 
         contactsTotal += 1;
       } else {
@@ -122,6 +154,9 @@
         updateContactField('last_name', lastName, currentEditIdx);
         updateContactField('email', email, currentEditIdx);
         updateContactField('phone', phone, currentEditIdx);
+        updateContactField('title', title, currentEditIdx);
+        updateContactField('department', department, currentEditIdx);
+        updateContactField('mobile', mobile, currentEditIdx);
 
         // Atualizar linha da tabela de contatos
         // var row = document.querySelector(`#contact_'${currentEditIdx}']`);
@@ -131,10 +166,17 @@
         row.dataset.lastName = lastName;
         row.dataset.email = email;
         row.dataset.phone = phone;
+        row.dataset.title = title;
+        row.dataset.department = department;
+        row.dataset.mobile = mobile;
         row.querySelector('td:nth-child(1)').textContent = firstName;
         row.querySelector('td:nth-child(2)').textContent = lastName;
         row.querySelector('td:nth-child(3)').textContent = email;
         row.querySelector('td:nth-child(4)').textContent = phone;
+        row.querySelector('td:nth-child(5)').textContent = title;
+        row.querySelector('td:nth-child(6)').textContent = department;
+        row.querySelector('td:nth-child(7)').textContent = mobile;
+        
 
         // Resetar índice de edição
         currentEditIdx = null;
@@ -145,6 +187,10 @@
       $('#contact_last_name').val('');
       $('#contact_email').val('');
       $('#contact_phone').val('');
+      $('#contact_title').val('');
+      $('#contact_department').val('');
+      $('#contact_mobile').val('');
+
     } else {
       alert('Please fill out all contact fields.');
     }
@@ -158,7 +204,7 @@
     $(`input.contact[name='lead[contacts_attributes][${idx}][${name}]']`).val(value);
   }
 
-  function appendContactRow(id, firstName, lastName, email, phone, idx, isSaved) {
+  function appendContactRow(id, firstName, lastName, email, phone, title, department, mobile, idx, isSaved) {
     const removeLink = $(`<a class="remove-contact add_fields" href="#">Delete</a>`);
     const editLink = $(`<a class="edit-contact add_fields" href="#">Edit</a>`);
     removeLink.data('idx', idx);
@@ -169,6 +215,9 @@
     row.append(`<td>${lastName}</td>`);
     row.append(`<td>${email}</td>`);
     row.append(`<td>${phone}</td>`);
+    row.append(`<td>${title}</td>`);
+    row.append(`<td>${department}</td>`);
+    row.append(`<td>${mobile}</td>`);
     row.append($('<td></td>').append(editLink));
     row.append($('<td></td>').append(removeLink))
     tableContacts.append(row);
@@ -194,6 +243,9 @@
       $('#contact_last_name').val(row.find('td').eq(1).text());
       $('#contact_email').val(row.find('td').eq(2).text());
       $('#contact_phone').val(row.find('td').eq(3).text());
+      $('#contact_title').val(row.find('td').eq(4).text());
+      $('#contact_department').val(row.find('td').eq(5).text());
+      $('#contact_mobile').val(row.find('td').eq(6).text());
     });
   }
 
@@ -222,5 +274,8 @@
       $('#contact_last_name').val(row.find('td').eq(1).text());
       $('#contact_email').val(row.find('td').eq(2).text());
       $('#contact_phone').val(row.find('td').eq(3).text());
+      $('#contact_title').val(row.find('td').eq(4).text());
+      $('#contact_department').val(row.find('td').eq(5).text());
+      $('#contact_mobile').val(row.find('td').eq(6).text());
     });
   });
