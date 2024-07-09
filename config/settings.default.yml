@@ -124,7 +124,7 @@
 #   Public  -- public access, share with everyone. This is the default.
 #   Shared  -- shared with selected accounts, should be selected by the user.
 #
-:default_access: "Public"
+:default_access: "Private"
 
 
 # User Signup
