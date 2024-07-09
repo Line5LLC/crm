@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_08_135927) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_09_130222) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -199,6 +199,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_08_135927) do
     t.string "background_info"
     t.string "skype", limit: 128
     t.text "subscribed_users"
+    t.string "ext"
     t.index ["assigned_to"], name: "index_contacts_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "id_last_name_deleted", unique: true
   end
@@ -320,6 +321,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_08_135927) do
     t.text "subscribed_users"
     t.integer "dealer_type"
     t.string "company_address", limit: 128
+    t.string "zip_code"
+    t.string "unit"
+    t.string "city"
+    t.string "state"
     t.index ["assigned_to"], name: "index_leads_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "index_leads_on_user_id_and_last_name_and_deleted_at", unique: true
   end

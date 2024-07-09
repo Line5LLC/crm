@@ -20,7 +20,6 @@
         %div
           .label #{t :alt_email}:
           = f.text_field :alt_email, class:"w-custom-laead-form"
-
       %div.flex.gap-custom
         %div
           .label #{t :phone}:
@@ -28,6 +27,20 @@
         %div
           .label #{t :mobile}:
           = f.text_field :mobile, class:"w-custom-laead-form"
+      %div.flex.gap-custom
+        %div
+          .label #{t :zip_code}:
+          = f.text_field :zip_code, class:"w-custom-laead-form"
+        %div
+          .label #{t :unit}:
+          = f.text_field :unit, class:"w-custom-laead-form"
+      %div.flex.gap-custom
+        %div
+          .label #{t :city}:
+          = f.text_field :city, class:"w-custom-laead-form"
+        %div
+          .label #{t :state}:
+          = f.text_field :state, class:"w-custom-laead-form"
       %div.flex.gap-custom
         %div
           .label #{t :referred_by}:

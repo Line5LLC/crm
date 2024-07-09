@@ -23,7 +23,11 @@ class CreateLeads < ActiveRecord::Migration[4.2]
       t.string :linkedin,    limit: 128
       t.string :facebook,    limit: 128
       t.string :twitter,     limit: 128
-      t.string :address
+      t.string :address,
+      t.string :zip_code,    limit: 16  
+      t.string :unit,        limit: 32  
+      t.string :city,        limit: 64  
+      t.string :state,       limit: 32  
       t.integer :rating,      null: false, default: 0
       t.boolean :do_not_call, null: false, default: false
       t.datetime :deleted_at
