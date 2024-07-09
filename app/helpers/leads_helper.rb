@@ -100,4 +100,21 @@ module LeadsHelper
       "ovalStatusPendind"  # Default class for other statuses
     end
   end
+
+  def campaign_status_class(status)
+    case status
+    when "planned"
+      "ovalStatusNew"
+    when "started"
+      "ovalStatusPendind"
+    when "completed"
+      "ovalStatusOkey"
+    when "on hold"
+      "ovalStatusWon"
+    when "called of"
+      "ovalStatusWon"
+    else
+      "ovalStatusPendind"  # Clase predeterminada para otros estados
+    end
+  end
 end

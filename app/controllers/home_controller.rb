@@ -15,8 +15,12 @@ class HomeController < ApplicationController
     @my_tasks = Task.visible_on_dashboard(current_user).includes(:user, :asset).by_due_at
     @my_opportunities = Opportunity.visible_on_dashboard(current_user).includes(:account, :user, :tags).by_closes_on.by_amount
     @my_accounts = Account.visible_on_dashboard(current_user).includes(:user, :tags).by_name
-    @leads = Lead.visible_on_dashboard(current_user).includes(:user, :tags).order(created_at: :desc)
+    @leads = Lead.visible_on_dashboard(current_user)
+               .includes(:user, :tags)
+               .order(created_at: :desc)
+               .limit(7)
     @won_leads = @leads.select { |lead| lead.status == "won" }
+
 
     status_counts = @leads.group_by(&:status).transform_values(&:count)
     total = status_counts.values.sum

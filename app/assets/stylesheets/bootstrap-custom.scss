@@ -143,7 +143,7 @@ button.navbar-toggler:focus {
   // On mobile, reverse the order of our content
   #primary-application-pane {
     .row:first-child {
-      flex-direction: column-reverse !important;
+      flex-direction: column !important;
     }
  
     .main {

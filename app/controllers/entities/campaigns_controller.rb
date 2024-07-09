@@ -13,12 +13,22 @@ class CampaignsController < EntitiesController
   def index
     
     @campaigns = get_campaigns(page: page_param, per_page: per_page_param)
+    Rails.logger.debug "Campaigns: #{@campaigns.inspect}"
+    puts "Campaigns: #{@campaigns.inspect}" if Rails.env.development?
+
+    campaing_name_filter = params[:name]  # Use the correct parameter name
+
+    if campaing_name_filter.present?
+      @campaigns = @campaigns.where("name ILIKE ?", "%#{campaing_name_filter}%")
+    end
     
     respond_with @campaigns do |format|
       format.xls { render layout: 'header' }
       format.csv { render csv: @campaigns }
     end
   end
+
+ 
 
   # GET /campaigns/1
   # AJAX /campaigns/1

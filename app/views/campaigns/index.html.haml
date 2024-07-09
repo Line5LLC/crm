@@ -39,7 +39,7 @@
             Filters
           %i.fa.fa-user.mar-r-icons-2
   %div.table-responsive
-    %table.fs-14.tableBorderLeads.mt-2
+    %table#filterTableCampaing.fs-14.tableBorderLeads.mt-2
       %thead
         %tr
           %th.p-14.theadLeads Campaing Name
@@ -63,7 +63,7 @@
             %td.p-14= campaign.starts_on # Adjust date format if needed
             %td.p-14= campaign.ends_on # Assuming assigned_to is the lead owner
             %td.p-14= campaign.target_leads
-            %td.p-14= campaign.status
+            %td.p-14{:class => campaign_status_class(campaign.status)}= campaign.status
             %td.p-14
               = link_to_inline(:edit_campaign, edit_campaign_path(campaign), text: t(:edit), class: "edit-campaign-link") + " | "
               = link_to_delete(campaign, confirm: t(:are_you_sure))
@@ -205,4 +205,5 @@
       editLeadPopup.classList.remove('show');
     });
   }
+
   });
