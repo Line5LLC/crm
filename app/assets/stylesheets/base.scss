@@ -42,12 +42,15 @@ ul li {
 //------------------------------------------------------------------------------
 a {
   text-decoration: none;
+  padding: 5px;
   &:link, &:visited {
     color: $color_link;
     transition: color 0.3s ease;
   }
   &:hover {
     background: $color_link_hover_background;
+    padding: 5px;
+    border-radius: 2px;
     color: $color_link_hover; }
   img {
     background-color: $color_link_image_background;
@@ -58,6 +61,12 @@ a {
 // Bootstrap exceptions
 a.btn, a.btn-sm {
   color: #ff6b45;
+}
+
+.btn-primary{
+width: auto;
+padding: 10px;
+color: #fff !important;
 }
 
 

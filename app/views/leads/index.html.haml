@@ -108,7 +108,7 @@
                 %label
                   Descending
       .modal-footer
-        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
+        -# %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
         %button#submitSort.btn.btn-primary{type: "button"} Save changes
 
 #exampleModalThree.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
@@ -212,9 +212,8 @@
     }
 
     // submit form for
-    var submitButton = document.getElementById('submitButton');
-
   // Filter for dates
+   var submitButton = document.getElementById('submitButton');
     submitButton.addEventListener('click', function() {
       var checkboxes = document.querySelectorAll('.custom-checkbox-leads');
       var checkedFilters = Array.from(checkboxes)
@@ -279,67 +278,67 @@
       .catch(error => console.error('Error fetching leads:', error));
       });
 
-    var submitButtonSort = document.getElementById('submitSort');
+   
 
   // Filter for Asc and Desc. 
-
+   var submitButtonSort = document.getElementById('submitSort');
   submitButtonSort.addEventListener('click', function() {
-  var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
-  var order = 'asc'; // Default to ascending if no checkbox is selected
+    var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
+    var order = 'asc'; // Default to ascending if no checkbox is selected
 
-  if (checkboxes.length > 0) {
-    order = checkboxes[0].value; // Get the value of the first checked checkbox (either 'asc' or 'desc')
-  }
-
-  var queryParams = new URLSearchParams({
-    order: order
-    // Add other parameters like date filters if needed
-  }).toString();
-
-  fetch('/leads/sort_leads?' + queryParams, {
-    method: 'GET',
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest'
+    if (checkboxes.length > 0) {
+      order = checkboxes[0].value; // Get the value of the first checked checkbox (either 'asc' or 'desc')
     }
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log("Received data:", data);
 
-    var tableBody = document.querySelector('#filterTable tbody');
-    tableBody.innerHTML = ""; // Clear existing table rows
+    var queryParams = new URLSearchParams({
+      order: order
+      // Add other parameters like date filters if needed
+    }).toString();
 
-    if (data.leads && data.leads.length > 0) {
-      data.leads.forEach(lead => {
-        var statusClass = leadStatusClass(lead.status);
-        var newRow = document.createElement('tr');
-        newRow.innerHTML = `
-          <td>${lead.company}</td>
-          <td>${lead.phone || lead.mobile}</td>
-          <td>${lead.email}</td>
-          <td class="${statusClass}">${lead.status}</td>
-          <td>${new Date(lead.created_at).toLocaleDateString()}</td>
-          <td>${lead.assigned_to}</td>
-          <td>
-            <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
-            <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
-          </td>
-        `;
-        tableBody.appendChild(newRow);
-      });
-    } else {
-      console.log("No leads found in data.");
-    }
-     var modalElement = document.getElementById('exampleModalTwo');
-      var modalInstance = bootstrap.Modal.getInstance(modalElement);
-      console.log("modalElement", modalElement)
-      if (modalInstance) {
-        modalInstance.hide();
+    fetch('/leads/sort_leads?' + queryParams, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
       }
-  })
-  .catch(error => {
-    console.error('Error fetching data:', error);
-  });
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Received data:", data);
+
+      var tableBody = document.querySelector('#filterTable tbody');
+      tableBody.innerHTML = ""; // Clear existing table rows
+
+      if (data.leads && data.leads.length > 0) {
+        data.leads.forEach(lead => {
+          var statusClass = leadStatusClass(lead.status);
+          var newRow = document.createElement('tr');
+          newRow.innerHTML = `
+            <td>${lead.company}</td>
+            <td>${lead.phone || lead.mobile}</td>
+            <td>${lead.email}</td>
+            <td class="${statusClass}">${lead.status}</td>
+            <td>${new Date(lead.created_at).toLocaleDateString()}</td>
+            <td>${lead.assigned_to}</td>
+            <td>
+              <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
+              <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+            </td>
+          `;
+          tableBody.appendChild(newRow);
+        });
+      } else {
+        console.log("No leads found in data.");
+      }
+      var modalElement = document.getElementById('exampleModalTwo');
+        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+        console.log("modalElement", modalElement)
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
   });
 
   function leadStatusClass(status) {

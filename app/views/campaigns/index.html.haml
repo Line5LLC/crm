@@ -1,7 +1,8 @@
 = styles_for :campaign
--# - sidebar = "#{view}/sidebar_#{action}" unless action.to_s == 'show'
--# - sidebar = "admin/#{sidebar}" if controller.class.to_s.starts_with?("Admin::")
--# = render 'search'
+- view   ||= controller.controller_name
+- action ||= controller.action_name
+- sidebar = "#{view}/sidebar_#{action}" unless action.to_s == 'show'
+- sidebar = "admin/#{sidebar}" if controller.class.to_s.starts_with?("Admin::")
 
 .remote#options{ hidden }
 %div.mt-2
@@ -51,6 +52,7 @@
           %th.p-14.theadLeads Ends On     
           %th.p-14.theadLeads Target Leads 
           %th.p-14.theadLeads Status
+          %th.p-14.theadLeads Create At:
           %th.p-14.theadLeads Actions
       %tbody
         - @campaigns.each do |campaign|
@@ -64,6 +66,7 @@
             %td.p-14= campaign.ends_on # Assuming assigned_to is the lead owner
             %td.p-14= campaign.target_leads
             %td.p-14{:class => campaign_status_class(campaign.status)}= campaign.status
+            %td.p-14= campaign.created_at.strftime("%Y-%m-%d")
             %td.p-14
               = link_to_inline(:edit_campaign, edit_campaign_path(campaign), text: t(:edit), class: "edit-campaign-link") + " | "
               = link_to_delete(campaign, confirm: t(:are_you_sure))
@@ -75,12 +78,11 @@
         %h5#exampleModalLabel.modal-title Modal title
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
       .modal-body
-        -# = content_for :sidebar
-        -# - begin
-        -#   = render sidebar if sidebar
-        -#   - rescue MissingTemplate
+        = content_for :sidebar
+        - begin
+          = render sidebar if sidebar
+          - rescue MissingTemplate
       .modal-footer
-        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
         %button.btn.btn-primary{type: "button"} Save changes
 
 
@@ -88,38 +90,25 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %h5#exampleModalLabel.modal-title SORT LEADS
+        %h5#exampleModalLabel.modal-title SORT Campaings
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
       .modal-body
         %div 
           %div
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", class:"custom-checkbox-campaing", value: "asc"}
               %div
                 %label
                   Ascending
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", class:"custom-checkbox-campaing", value: "desc"}
               %div
                 %label
                   Descending
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Recently Viewed
-            %div.flex.al-item
-              %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
-              %div
-                %label
-                  Recently added
       .modal-footer
-        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
-        %button.btn.btn-primary{type: "button"} Save changes
+        %button#submitSortCampaings.btn.btn-primary{type: "button"} Save changes
 
 #exampleModalThree.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
   .modal-dialog
@@ -132,37 +121,37 @@
           %div
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", name: "date_filter", value: "today", class: "custom-checkbox-campaing"}
               %div
                 %label
                   Today
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", name: "date_filter", value: "yesterday", class: "custom-checkbox-campaing"}
               %div
                 %label
                   Yesterday
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", name: "date_filter", value: "last_7_days", class: "custom-checkbox-campaing"}
               %div
                 %label
                   Last 7 Days
             %div.flex.al-item
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", name: "date_filter", value: "last_30_days", class: "custom-checkbox-campaing"}
               %div
                 %label
                   Last 30 Days
-            %div.flex.al-item
+            %div.flex.mt-1
               %div
-                %input{type: "checkbox", class:"custom-checkbox-leads"}
+                %input{type: "checkbox", name: "date_filter", value: "custom_range", class: "custom-checkbox-campaing"}
               %div
-                %label
-                  Custom Range
+                %label Custom Range
+                %input{type: "date", name: "start_date", placeholder: "Start Date", class: "form-control mt-5px"} 
+                %input{type: "date", name: "end_date", placeholder: "End Date", class: "form-control hideInput"}
       .modal-footer
-        %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
-        %button.btn.btn-primary{type: "button"} Save changes
+        %button.btn.btn-primary{id: "submitButtonDates", type: "button"} Save changes
 
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
@@ -204,6 +193,158 @@
     closeEditLeadPopup.addEventListener('click', function() {
       editLeadPopup.classList.remove('show');
     });
+  }
+  //filter campaings by date 
+  var submitButtonDates = document.getElementById('submitButtonDates');
+  submitButtonDates.addEventListener('click', function() {
+    var checkboxes = document.querySelectorAll('.custom-checkbox-campaing');
+    var checkedFilters = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+
+    var startDate = document.querySelector('input[name="start_date"]').value;
+    if (startDate) {
+    checkedFilters.push("custom_range");
+    }
+
+    var params = {
+      date_filter: checkedFilters.join(','),
+      start_date: startDate,
+    };
+
+    // Construct query parameters from params object
+    var queryParams = new URLSearchParams(params).toString();
+    console.log("queryParams", queryParams)
+
+      fetch('/campaigns/filter_date_campaigns?' + queryParams, {
+      method: 'GET',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest' // Signal to Rails that this is an AJAX request
+      }
+    })
+    .then(response => response.json()) // Parse response as JSON
+    .then(data => {
+      console.log("Received data from campaings ", data); // Log the entire data object
+
+      var tableBody = document.querySelector('#filterTableCampaing tbody');
+      tableBody.innerHTML = ""; // Clear existing table rows
+
+      if (data.campaigns && data.campaigns.length > 0) {
+        data.campaigns.forEach(campaign => {
+          var statusClass = campaignStatusClass(campaign.status);
+          var newRow = document.createElement('tr');
+          newRow.innerHTML = `
+            <td>${campaign.name}</td>
+            <td>${campaign.assigned_to}</td>
+            <td>${campaign.budget}</td>
+            <td >${campaign.leads_count}</td>
+            <td>${new Date(campaign.created_at).toLocaleDateString()}</td>
+            <td>${campaign.leads_count}</td>
+            <td class="">${campaign.revenue}</td>
+            <td>${campaign.starts_on}</td>
+            <td>${campaign.ends_on}</td>
+            <td>${campaign.target_leads}</td>
+            <td class="${statusClass}">${campaign.status}</td>
+            <td>${campaign.created_at}</td>
+            <td>
+              <a href="/campaigns/${campaign.id}/edit" class="edit-lead-link">Edit</a> |
+              <a href="/campaigns/${campaign.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+            </td>
+          `;
+          tableBody.appendChild(newRow);
+        });
+      } else {
+        console.log("No leads found in data.");
+      }
+      var modalElement = document.getElementById('exampleModalThree');
+      var modalInstance = bootstrap.Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    })
+    .catch(error => console.error('Error fetching leads:', error));
+  });
+
+  //sort filter for campaings 
+  var submitButtonSortCampaings = document.getElementById('submitSortCampaings');
+  submitButtonSortCampaings.addEventListener('click', function() {
+  var checkboxes = document.querySelectorAll('.custom-checkbox-campaing:checked');
+  var order = 'asc'; // Default to ascending if no checkbox is selected
+
+  if (checkboxes.length > 0) {
+    order = checkboxes[0].value; // Get the value of the first checked checkbox (either 'asc' or 'desc')
+    console.log("order", order)
+  }
+
+  var queryParams = new URLSearchParams({
+    order: order
+    // Add other parameters like date filters if needed
+  }).toString();
+
+  fetch('/campaigns/sort_campaigns?' + queryParams, {
+    method: 'GET',
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log("Received data from campaings", data);
+
+    var tableBody = document.querySelector('#filterTableCampaing tbody');
+    tableBody.innerHTML = ""; // Clear existing table rows
+
+    if (data.campaigns && data.campaigns.length > 0) {
+      data.campaigns.forEach(campaign => {
+        var statusClass = campaignStatusClass(campaign.status);
+        var newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${campaign.name}</td>
+          <td>${campaign.assigned_to}</td>
+          <td>${campaign.budget}</td>
+          <td >${campaign.leads_count}</td>
+          <td>${new Date(campaign.created_at).toLocaleDateString()}</td>
+          <td>${campaign.leads_count}</td>
+          <td class="">${campaign.revenue}</td>
+          <td>${campaign.starts_on}</td>
+          <td>${campaign.ends_on}</td>
+           <td>${campaign.target_leads}</td>
+           <td class="${statusClass}">${campaign.status}</td>
+          <td>
+            <a href="/campaigns/${campaign.id}/edit" class="edit-lead-link">Edit</a> |
+            <a href="/campaigns/${campaign.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+          </td>
+        `;
+        tableBody.appendChild(newRow);
+      });
+    } else {
+      console.log("No leads found in data.");
+    }
+     var modalElement = document.getElementById('exampleModalTwo');
+      var modalInstance = bootstrap.Modal.getInstance(modalElement);
+      console.log("modalElement", modalElement)
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+  });
+  function campaignStatusClass(status) {
+    switch (status) {
+      case "Planned":
+        return "ovalStatusNew";
+      case "Started":
+        return "ovalStatusPendind";
+      case "completed":
+        return "ovalStatusOkey";
+      case "on hold":
+      case "called of": // Fixed typo in status comparison
+        return "ovalStatusWon";
+      default:
+        return "ovalStatusPendind";  // Default class for other statuses
+    }
   }
 
   });

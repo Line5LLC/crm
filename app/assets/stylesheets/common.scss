@@ -207,7 +207,8 @@ $sidebar_width: 210px;
   position: relative;
   a.close {
     display: block;
-    background: #ff8b45;
+    background-color: #ff6b45;
+    border-radius: 5px;
     border: {
       top: 1px gainsboro solid;
       left: 1px gainsboro solid;
@@ -1117,6 +1118,34 @@ font-size: 14px;
   border-radius: 2px;
 }
 
+
+.custom-checkbox-campaing {
+  margin-right: 5px; /* Ajusta el espacio entre el checkbox y el texto según sea necesario */
+}
+
+.custom-checkbox-campaing {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid #F26B48; /* Cambia #000 al color que desees */
+  border-radius: 4px;
+  outline: none;
+}
+
+.custom-checkbox-campaing:checked::before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 16px;
+  height: 16px;
+  background-color: #F26B48; /* Cambia #000 al color que desees */
+  border-radius: 2px;
+}
+
 .customInputsLeads{
     height: 35px !important;
     border: 1px solid #909090 !important;
@@ -1360,6 +1389,12 @@ width: 240px;
 .textProfileTitle{
   font-size: 16px;
   font-weight: bolder;
+}
+
+.colorAndSizeIconReminders{
+  font-size: 18px !important;
+  color: white !important;
+  font-weight: bolder !important;
 }
 
 @media(max-width: 991px){

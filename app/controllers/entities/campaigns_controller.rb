@@ -171,6 +171,48 @@ class CampaignsController < EntitiesController
     end
   end
 
+  #GET /campaigns/sort_campaings                                         AJAX
+  #----------------------------------------------------------------------------
+  def sort_campaigns
+    order = params[:order] == 'asc' ? :asc : :desc
+    @campaigns = Campaign.order(created_at: order)
+
+    respond_to do |format|
+      format.json { render json: { campaigns: @campaigns } }
+    end
+  end
+
+  #GET /campaigns/filter_date_campaigns                                     AJAX
+  #----------------------------------------------------------------------------
+  def filter_date_campaigns
+    @campaigns = Campaign.all
+
+    if params[:date_filter].present?
+      case params[:date_filter]
+      when "today"
+        @campaigns = @campaigns.where("DATE(created_at) = ?", Date.today)
+      when "yesterday"
+        @campaigns = @campaigns.where("DATE(created_at) = ?", Date.yesterday)
+      when "last_7_days"
+        @campaigns = @campaigns.where("created_at >= ?", 7.days.ago.beginning_of_day)
+      when "last_30_days"
+        @campaigns = @campaigns.where("created_at >= ?", 30.days.ago.beginning_of_day)
+      when "custom_range"
+        start_date = Date.parse(params[:start_date]) rescue nil
+        if start_date
+          puts "Filtering for custom range starting at: #{start_date}"
+          @campaigns = @campaigns.where("DATE(created_at) = ?", start_date)
+        else
+          puts "Invalid start date provided"
+        end
+      else
+        puts "Unknown date filter: #{params[:date_filter]}"
+      end
+    end
+
+    render json: { campaigns: @campaigns }
+  end
+
   private
 
   #----------------------------------------------------------------------------

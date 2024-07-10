@@ -67,6 +67,8 @@ Rails.application.routes.draw do
       post :filter
       get :options
       get :field_group
+      get 'sort_campaigns', to: 'campaigns#sort_campaigns'
+      get 'filter_date_campaigns', to: 'campaigns#filter_date_campaigns'
       match :auto_complete, via: %i[get post]
       get :redraw
       get :versions

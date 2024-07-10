@@ -29,6 +29,8 @@ class LeadsController < EntitiesController
     end
   end
 
+  # GET /filter_date
+  #----------------------------------------------------------------------------
   def filter_date
     @leads = Lead.all
 
@@ -58,6 +60,9 @@ class LeadsController < EntitiesController
     render json: { leads: @leads }
   end
 
+
+  # GET /sort_leads
+  #----------------------------------------------------------------------------
   def sort_leads
     order = params[:order] == 'asc' ? :asc : :desc
     @leads = Lead.order(created_at: order)
