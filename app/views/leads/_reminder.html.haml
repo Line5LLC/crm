@@ -5,26 +5,176 @@
   %small#lead_reminder_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:reminder_info_small)) unless edit
   #lead_reminder{ hidden_if(collapsed) }
-    = f.fields_for :reminders do |r|
+    = fields_for :reminders do |r|
       .reminder-fields
-        %div.reminiderFlex
+        %div.reminderFlex
           %div
             .field
               %div
                 = r.label :date, t(:date)
               %div
-                = r.date_field :date, class: "reminderInput", id: "reminderInput"
+                = r.date_field :date, class: "reminderInput", id: "reminderDate"
           %div.dateType
             .field
               %div
                 = r.label :type, t(:type)
               %div
-                = r.select :type, options_for_select([["SMS", "sms"], ["Call", "call"], ["Email", "email"]]), { prompt: "Select type" }, class: "reminderInput"
+                = r.select :type, options_for_select([["SMS", "sms"], ["Call", "call"], ["Email", "email"]]), { prompt: "Select type" }, class: "reminderInput", id: "reminderType"
       .field.mt-5px
         %div
           = r.label :status, t(:status)
         %div
-          = r.select :status, options_for_select([["Done", "done"], ["Pending", "pending"], ["Missing", "missing"]]), { prompt: "Select status" }, class: "reminderInputStatus"
+          = r.select :status, options_for_select([["Done", "done"], ["Pending", "pending"], ["Missing", "missing"]]), { prompt: "Select status" }, class: "reminderInputStatus", id: "reminderStatus"
+      %br
+        %button.btn.btn-primary{ type: 'button', id: 'addReminderButton' } Add Reminder
 
-      .buttonbar
-        %button.btn.btn-primary{ type: 'button' } Add Reminder
+      %table.table.table-striped
+        %thead
+          %tr
+            %th= 'Date'
+            %th= 'Type'
+            %th= 'Status'
+            %th= 'Actions'
+        %tbody#reminders-table-body
+          - @lead.reminders.each do |reminder|
+            %tr{ id: "reminder-#{reminder.id}" }
+              %td= reminder.date.strftime("%Y-%m-%d")
+              %td= reminder.type
+              %td= reminder.status
+              %td
+                %a{ href: '#', onclick: "editReminder(#{reminder.to_json})" } Edit
+                |
+                %a{ href: '#', class: 'delete-link', data: {id: reminder.id}} Delete
+
+%script{ type: 'application/json', id: 'reminders-data' }
+  = raw @lead.reminders.to_json
+
+:javascript
+  $(document).ready(function() {
+
+    const remindersData = JSON.parse(document.getElementById('reminders-data').textContent);
+
+    $('#addReminderButton').on('click', function(e) {
+      e.preventDefault();
+
+      const date = $('#reminderDate').val();
+      const type = $('#reminderType').val();
+      const status = $('#reminderStatus').val();
+      const leadId = #{@lead.id};
+      const reminderId = $(this).data('reminder-id');
+
+      if (!date || !type || !status) {
+        alert('Please fill in all required fields for reminders.');
+        return;
+      }
+
+      const data = {
+        reminder: {
+          date: date,
+          type: type,
+          status: status,
+          lead_id: leadId,
+          id: reminderId
+        }
+      };
+
+      const remindersPath = reminderId ? `/reminders/${reminderId}` : '/reminders';
+      const method = reminderId ? 'PUT' : 'POST';
+
+      fetch(remindersPath, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(reminder => {
+        const index = remindersData.findIndex(r => r.id === reminder.id);
+        if (index !== -1) {
+          remindersData[index] = reminder;
+        } else {
+          remindersData.push(reminder);
+        }
+        renderRemindersTable(remindersData);
+        $('#addReminderButton').text('Add Reminder');
+        $('#addReminderButton').removeData('reminder-id');
+        $('#reminderDate').val('');
+        $('#reminderType').val('');
+        $('#reminderStatus').val('');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    });
+
+    $('tbody').on('click', 'a.delete-link', function(e) {
+      e.preventDefault();
+
+      const link = $(this);
+      const reminderId = $(this).data('id');
+
+      fetch(`/reminders/${reminderId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+      })
+      .then(reminder => {
+        const index = remindersData.findIndex(r => r.id === reminder.id);
+        if (index !== -1) {
+          remindersData.splice(index, 1);
+        }
+        renderRemindersTable(remindersData);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    });
+  });
+
+  function editReminder(reminder) {
+    $('#reminderDate').val(reminder.date);
+    $('#reminderType').val(reminder.type);
+    $('#reminderStatus').val(reminder.status);
+    $('#addReminderButton').text('Update Reminder');
+    $('#addReminderButton').data('reminder-id', reminder.id);
+  }
+
+  function renderReminderRow(reminder) {
+    if (!reminder) return '';
+
+    return `
+      <tr id="reminder-${reminder.id}">
+        <td>${new Date(reminder.date).toISOString().split('T')[0]}</td>
+        <td>${reminder.type}</td>
+        <td>${reminder.status}</td>
+        <td>
+          <a href="#" onclick='editReminder(${JSON.stringify(reminder)})'>Edit</a>
+          |
+          <a href="/reminders/${reminder.id}" class="delete-link" data-id="${reminder.id}">Delete</a>
+        </td>
+      </tr>
+    `;
+  }
+
+  function renderRemindersTable(reminders) {
+    const tbody = $('#reminders-table-body');
+    tbody.empty();
+    reminders.forEach(reminder => {
+      tbody.append(renderReminderRow(reminder));
+    });
+  }

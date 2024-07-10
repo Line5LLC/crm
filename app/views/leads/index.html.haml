@@ -170,9 +170,7 @@
     //edits leads pop up
     var editLinks = document.querySelectorAll('.edit-lead-link');
     var popupContent = document.querySelector('.popup-content');
-    console.log("editLinks", editLinks)
     var editLeadPopup = document.getElementById('editLeadPopup');
-    console.log("editLeadPopup", editLeadPopup)
     var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
 
     //edit js 
@@ -193,7 +191,6 @@
         })
         .then(response => response.text())
         .then(data => {
-          console.log("data", data)
          var editFormContent = document.querySelector('.popup-content'); // Replace with actual selector
           editFormContent.innerHTML = data; 
           // Update specific container within the popup
