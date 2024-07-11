@@ -56,7 +56,7 @@
             Today
           %div
             %h3.bold-number-miniBoxes
-              4
+              = @todays_reminders.length 
         %div.porcentageBox.flex-center
           %div
             = image_tag("increase1.png")
@@ -146,65 +146,39 @@
     %div.testBoxLarge.mar-r.p-14
       %div.font-orange-20
         %h4.mt-1 Reminders:
-      %div.testTOCheck.mt-2
-        %div.flex
-          %div.mar-r.iconOrangeCircle
-            %div
-              %i.fa.fa-phone.colorAndSizeIconReminders
-          %div.mt-1
-            %h3 Company Name - Today at 2pm
-            %p.m0 Lead Name
-        %div.mt-2
-          %span
-            %a Mark as done -
-          %span
-            %a Edit -
-          %span
-            %a Convert -
-          %span
-            %a Reject -
-          %span
-            %a Delete 
-      %div.testTOCheck.mt-2
-        %div.flex
-          %div.mar-r.iconOrangeCircle
-            %div  
-              %i.fa.fa-envelope.colorAndSizeIconReminders
-          %div.mt-1
-            %h3 Company Name - Today at 2pm
-            %p.m0 Lead Name
-        %div.mt-2
-          %span
-            %a Mark as done -
-          %span
-            %a Edit -
-          %span
-            %a Convert -
-          %span
-            %a Reject -
-          %span
-            %a Delete
-      %div.testTOCheck.mt-2
-        %div.flex
-          %div.mar-r.iconOrangeCircle
-            %i.fa.fa-at.colorAndSizeIconReminders
-          %div.mt-1
-            %h3 Company Name - Today at 2pm
-            %p.m0 Lead Name
-        %div.mt-2
-          %span
-            %a Mark as done -
-          %span
-            %a Edit -
-          %span
-            %a Convert -
-          %span
-            %a Reject -
-          %span
-            %a Delete
-
-
-
+      %div.mt-2
+        - @todays_reminders.each do |reminder|
+          %div.testTOCheck.mt-1
+            %div.flex.al-item
+              %div.mar-r.iconOrangeCircle
+                %div
+                  - case reminder.type
+                  - when 'sms'
+                    %i.fa.fa-envelope.colorAndSizeIconReminders
+                  - when 'call'
+                    %i.fa.fa-phone.colorAndSizeIconReminders
+                  - when 'email'
+                    %i.fa.fa-at.colorAndSizeIconReminders
+              %div.mt-1
+                %h3= @lead_companies[reminder.lead_id][:company]
+                %p.m0="status: #{reminder.status}"
+                %p.m0="date: #{reminder.date}"
+                %p.m0="type: #{reminder.type}"
+                %p.m0="Phone: #{@lead_companies[reminder.lead_id][:phone]}"
+                %p.m0="Mobile: #{@lead_companies[reminder.lead_id][:mobile]}"
+                %p.m0="Email: #{@lead_companies[reminder.lead_id][:email]}"
+                %p.m0="Alt Email: #{@lead_companies[reminder.lead_id][:alt_email]}"
+            %div.mt-2
+              -# %span
+              -#   %a Mark as done -
+              -# %span
+              -#   %a Edit -
+              -# %span
+              -#   %a Convert -
+              -# %span
+              -#   %a Reject -
+              -# %span
+              -#   %a Delete       
 #export= render "shared/export"
 
 :javascript

@@ -7,16 +7,16 @@
     %div.flex-center.mt-2(valign="top")
       = avatar_for(@user, style: "margin: 0px 10px 0px 0px")
     %div.text-center(valign="top")
-      %h3.mt-1= h(@user.full_name) + " (#{@user.username})"
+      %h3.mt-1.fs-30= h(@user.full_name) + " (#{@user.username})"
       - if !@user.title.blank? && !@user.company.blank?
         %div.mt-1= t(:works_at, job_title: h(@user.title), company: h(@user.company))
       - else
-        %div.mt-1= h(@user.title) unless @user.title.blank?
-        %div= h(@user.company) unless @user.company.blank?
+        %div.mt-1.fs-30.f-w-100= h(@user.title) unless @user.title.blank?
+        %div.fs-30= h(@user.company) unless @user.company.blank?
       %br
       %div
         - unless @user.email.blank?
-          %div
+          %div.emailProfile
             #{t :email}: #{auto_link(@user.email)}
         - unless @user.alt_email.blank?
           %div

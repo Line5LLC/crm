@@ -26,7 +26,28 @@ class HomeController < ApplicationController
     total = status_counts.values.sum
     @percentages = status_counts.transform_values { |count| (count.to_f / total * 100).round(2) }
 
-    puts "DEBUG: @activities = get_activities - #{@activities}"
+    today = Date.today
+    @todays_reminders = Reminder.joins(:lead)
+                          .where(date: today, leads: { id: @leads.pluck(:id) })
+                          .select('reminders.*, leads.*')
+
+    # Fetch company details separately for each lead
+    lead_ids = @todays_reminders.map(&:lead_id)
+    lead_details = Lead.where(id: lead_ids).pluck(:id, :company, :phone, :mobile, :email, :alt_email)
+    
+    @lead_companies = lead_details.map do |lead|
+      [lead[0], {
+        id: lead[0],
+        company: lead[1],
+        phone: lead[2],
+        mobile: lead[3],
+        email: lead[4],
+        alt_email: lead[5]
+      }]
+    end.to_h
+
+    puts "DEBUG: @todays_reminders = #{@todays_reminders.inspect}"
+    puts "DEBUG: @lead_companies = #{@lead_companies.inspect}"
 
     respond_with @activities do |format|
       format.xls { render xls: @activities, layout: 'header' }
