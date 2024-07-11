@@ -847,11 +847,14 @@ table.asset_attributes {
 .testBoxLarge{
   background-color: rgb(255, 255, 255);
   box-shadow: 2px 2px 20.1px rgba(0, 0, 0, 0.5);
-  width: 99%;
+  width: 96%;
   height: auto;
   border-radius: 10px;
   padding: 20px 20px 30px 20px !important;
+}
 
+.border-reminders-bottom{
+  border-bottom: 1px solid #e7e5e5
 }
 
 .leadsBoxContainer{
@@ -988,6 +991,14 @@ font-size: 14px;
 
 .al-item{
   align-items: center;
+}
+
+.mt-20-neg{
+margin-top: -20px;
+}
+
+.ml-7{
+  margin-left: 07px;
 }
 
 .al-baseline{

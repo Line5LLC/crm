@@ -287,6 +287,13 @@ class LeadsController < EntitiesController
     end
   end
 
+
+  # get /leads/filter_redirect                                            
+  #----------------------------------------------------------------------------
+  def filter_redirect
+    redirect_to action: :index
+  end
+
   private
 
   #----------------------------------------------------------------------------

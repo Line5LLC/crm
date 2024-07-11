@@ -171,6 +171,12 @@ class CampaignsController < EntitiesController
     end
   end
 
+  # get /campaigns/filter_redirect                                            
+  #----------------------------------------------------------------------------
+  def filter_redirect_campaigns
+    redirect_to action: :index
+  end
+
   #GET /campaigns/sort_campaings                                         AJAX
   #----------------------------------------------------------------------------
   def sort_campaigns

@@ -148,26 +148,55 @@
         %h4.mt-1 Reminders:
       %div.mt-2
         - @todays_reminders.each do |reminder|
-          %div.testTOCheck.mt-1
-            %div.flex.al-item
-              %div.mar-r.iconOrangeCircle
+          %div.mt-1
+            %div.customerFlex.al-item.border-reminders-bottom
+              %div.flex
+                %div.mar-r.iconOrangeCircle
+                  %div
+                    - case reminder.type
+                    - when 'sms'
+                      %i.fa.fa-envelope.colorAndSizeIconReminders
+                    - when 'call'
+                      %i.fa.fa-phone.colorAndSizeIconReminders
+                    - when 'email'
+                      %i.fa.fa-at.colorAndSizeIconReminders
                 %div
-                  - case reminder.type
-                  - when 'sms'
-                    %i.fa.fa-envelope.colorAndSizeIconReminders
-                  - when 'call'
-                    %i.fa.fa-phone.colorAndSizeIconReminders
-                  - when 'email'
-                    %i.fa.fa-at.colorAndSizeIconReminders
-              %div.mt-1
-                %h3= @lead_companies[reminder.lead_id][:company]
-                %p.m0="status: #{reminder.status}"
-                %p.m0="date: #{reminder.date}"
-                %p.m0="type: #{reminder.type}"
-                %p.m0="Phone: #{@lead_companies[reminder.lead_id][:phone]}"
-                %p.m0="Mobile: #{@lead_companies[reminder.lead_id][:mobile]}"
-                %p.m0="Email: #{@lead_companies[reminder.lead_id][:email]}"
-                %p.m0="Alt Email: #{@lead_companies[reminder.lead_id][:alt_email]}"
+                  %div.flex.al-item.mt-20-neg
+                    %div
+                      %p Company:
+                    %div
+                      %span.f-bold.ml-7= @lead_companies[reminder.lead_id][:company]
+                  %div.flex.al-item.mt-20-neg
+                    %div
+                      %p Phone:
+                    %div
+                      %span.f-bold.ml-7= @lead_companies[reminder.lead_id][:phone]
+                  %div.flex.al-item.mt-20-neg
+                    %div
+                      %p Email:
+                    %div
+                      %span.f-bold.ml-7= @lead_companies[reminder.lead_id][:email]
+              %div
+                %div
+                  %div.flex.al-item.mt-20-neg
+                    %div
+                      %p Status:
+                    %div
+                      %span.f-bold.ml-7= reminder.status
+                      -# %span.f-bold{ class: lead_status_class(reminder.status) }= reminder.status
+                  %div.flex.al-item.mt-20-neg
+                    %div
+                      %p Date:
+                    %div
+                      %span.f-bold.ml-7= reminder.date
+                  %div.flex.al-item.mt-20-neg
+                    %div
+                      %p Type:
+                    %div
+                      %span.f-bold.ml-7= reminder.type 
+                -# %p.m0="Mobile: #{@lead_companies[reminder.lead_id][:mobile]}"
+               
+                -# %p.m0="Alt Email: #{@lead_companies[reminder.lead_id][:alt_email]}"
             %div.mt-2
               -# %span
               -#   %a Mark as done -

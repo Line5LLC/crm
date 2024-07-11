@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     collection do
       get :advanced_search
       post :filter
+      get :filter_redirect_campaigns
       get :options
       get :field_group
       get 'sort_campaigns', to: 'campaigns#sort_campaigns'
@@ -109,6 +110,7 @@ Rails.application.routes.draw do
     collection do
       get :advanced_search
       post :filter
+      get :filter_redirect
       get 'filter_date', to: 'leads#filter_date', as: :filter_date_leads
       get 'sort_leads', to: 'leads#sort_leads', as: 'sort_leads_leads'
       get :options

@@ -83,7 +83,7 @@
           = render sidebar if sidebar
           - rescue MissingTemplate
       .modal-footer
-        %button.btn.btn-primary{type: "button"} Save changes
+        = link_to 'Save', filter_redirect_campaigns_campaigns_path, class: 'btn btn-primary'
 
 
 #exampleModalTwo.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
