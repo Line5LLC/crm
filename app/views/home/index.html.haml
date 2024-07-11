@@ -45,7 +45,7 @@
 %div
   %div.mt-2
     %h1 Main Dashboard
-  %div.testTOCheck
+  %div#clickable-section.testTOCheck
     %div.customerBox
       %div
         %p.boxesDashboardTtile 
@@ -62,8 +62,7 @@
             = image_tag("increase1.png")
           %div
             %p.p0.pDashboard-miniBoxes +10.45%
-
-    %div.customerBox
+    %div#leads_path.customerBox{ data: { url: filter_redirect_leads_path } }
       %div
         %p.boxesDashboardTtile Leads Accepted
       %div.customerFlex.pController
@@ -143,7 +142,7 @@
         = render "shared/recently"
       
   %div.mt-2
-    %div.testBoxLarge.mar-r.p-14
+    %div#reminders-section.testBoxLarge.mar-r.p-14
       %div.font-orange-20
         %h4.mt-1 Reminders:
       %div.mt-2
@@ -165,35 +164,35 @@
                     %div
                       %p Company:
                     %div
-                      %span.f-bold.ml-7= @lead_companies[reminder.lead_id][:company]
+                      %span.f-bold.ml-7.fs-16= @lead_companies[reminder.lead_id][:company]
                   %div.flex.al-item.mt-20-neg
                     %div
                       %p Phone:
                     %div
-                      %span.f-bold.ml-7= @lead_companies[reminder.lead_id][:phone]
+                      %span.f-bold.ml-7.fs-16= @lead_companies[reminder.lead_id][:phone]
                   %div.flex.al-item.mt-20-neg
                     %div
                       %p Email:
                     %div
-                      %span.f-bold.ml-7= @lead_companies[reminder.lead_id][:email]
+                      %span.f-bold.ml-7.fs-16= @lead_companies[reminder.lead_id][:email]
               %div
                 %div
                   %div.flex.al-item.mt-20-neg
                     %div
                       %p Status:
                     %div
-                      %span.f-bold.ml-7= reminder.status
+                      %span.f-bold.ml-7.fs-16= reminder.status
                       -# %span.f-bold{ class: lead_status_class(reminder.status) }= reminder.status
                   %div.flex.al-item.mt-20-neg
                     %div
                       %p Date:
                     %div
-                      %span.f-bold.ml-7= reminder.date
+                      %span.f-bold.ml-7.fs-16= reminder.date
                   %div.flex.al-item.mt-20-neg
                     %div
                       %p Type:
                     %div
-                      %span.f-bold.ml-7= reminder.type 
+                      %span.f-bold.ml-7.fs-16= reminder.type 
                 -# %p.m0="Mobile: #{@lead_companies[reminder.lead_id][:mobile]}"
                
                 -# %p.m0="Alt Email: #{@lead_companies[reminder.lead_id][:alt_email]}"
@@ -212,6 +211,37 @@
 
 :javascript
   document.addEventListener('DOMContentLoaded', function() {
+    //click scroll to reminders section
+    var clickableSection = document.getElementById('clickable-section');
+    var remindersSection = document.getElementById('reminders-section');
+
+    if (clickableSection && remindersSection) {
+      clickableSection.addEventListener('click', function() {
+        
+        remindersSection.classList.add('testBoxLarge-active');
+        
+        // Remove the 'testBoxLarge-active' class after 5 seconds
+        setTimeout(function() {
+          remindersSection.classList.remove('testBoxLarge-active');
+        }, 2000); // 5000 milliseconds = 5 seconds
+
+        // Scroll to reminders section
+        remindersSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+
+    //redirect leads path 
+    var leadsAcceptedBox = document.getElementById('leads_path');
+
+    if (leadsAcceptedBox) {
+      leadsAcceptedBox.addEventListener('click', function() {
+       var url = this.getAttribute('data-url');
+        if (url) {
+          window.location.href = url;
+        }
+      });
+    }
+
     const percentages = #{raw @percentages.to_json};
     console.log("DEBUG: Percentages", percentages); // Debugging output
 
