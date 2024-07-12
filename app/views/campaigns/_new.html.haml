@@ -29,3 +29,12 @@
       }
     });
   }
+
+  function closePopup() {
+    console.log("render pop up campaing")
+    var popupContainer = document.getElementById('popupContainerCampaign');
+    if (popupContainer) {
+      popupContainer.classList.remove('show');
+      console.log("Popup closed");
+    }
+  }

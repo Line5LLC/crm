@@ -13,15 +13,10 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def index
     @leads = get_leads(page: page_param)
-    
-      puts "@leads: #{@leads.inspect}"
-
-      company_name_filter = params[:company]  # Use the correct parameter name
-
-      if company_name_filter.present?
-        @leads = @leads.where("company ILIKE ?", "%#{company_name_filter}%")
-      end
-
+    company_name_filter = params[:company] 
+    if company_name_filter.present?
+      @leads = @leads.where("company ILIKE ?", "%#{company_name_filter}%")
+    end
     respond_with @leads do |format|
       format.xls { render layout: 'header' }
       format.csv { render csv: @leads }
@@ -286,7 +281,6 @@ class LeadsController < EntitiesController
       format.js { render :index }
     end
   end
-
 
   # get /leads/filter_redirect                                            
   #----------------------------------------------------------------------------

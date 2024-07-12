@@ -63,7 +63,7 @@
             %td.p-14= lead.phone || lead.mobile
             %td.p-14= lead.email
             %td.p-14{:class => lead_status_class(lead.status)}= lead.status
-            %td.p-14= lead.created_at.strftime("%Y-%m-%d") # Adjust date format if needed
+            %td.p-14= lead.created_at.strftime("%m/%d/%Y") # Adjust date format if needed
             %td.p-14= lead.assigned_to # Assuming assigned_to is the lead owner
             %td.p-14
               = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit), class: 'edit-lead-link') + " | "

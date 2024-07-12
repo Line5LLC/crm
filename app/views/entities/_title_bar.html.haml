@@ -107,8 +107,10 @@
         td.textContent = lead[cell];
         td.classList.add('p-14');
         if (cell === 'created_at') {
-          // Convert lead.created_at to the desired format (e.g., "2024-07-03")
-          var formattedDate = new Date(lead[cell]).toISOString().split('T')[0];
+          var dateObj = new Date(lead[cell]);
+          var formattedDate = (dateObj.getMonth() + 1).toString().padStart(2, '0') + '/' +
+                        dateObj.getDate().toString().padStart(2, '0') + '/' +
+                        dateObj.getFullYear();
           td.textContent = formattedDate;
         } else {
           td.textContent = lead[cell];

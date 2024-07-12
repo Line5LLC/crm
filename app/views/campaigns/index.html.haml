@@ -7,6 +7,7 @@
 .remote#options{ hidden }
 %div.mt-2
   %h1 CAMPAIGNS
+
 %div#popupContainerCampaign.popup
   %div.popup-contentCamp.mt-2
     .remote#create_campaign{ hidden }
@@ -14,12 +15,7 @@
 %div#editCampaignPopup.popup
   %div.popup-content.mt-2
     %div#edit_campaign{ hidden }
-  
--# .list#campaigns
--#   - if @campaigns.any?
--#     = render @campaigns
--#   - else
--#     = render "shared/empty"
+
 %div.leadsBoxContainer.mt-2
   = render 'entities/title_bar'
   %div.testTOCheck.mt-2
@@ -150,7 +146,17 @@
                 %input{type: "date", name: "end_date", placeholder: "End Date", class: "form-control hideInput"}
       .modal-footer
         %button.btn.btn-primary{id: "submitButtonDates", type: "button"} Save changes
-
+#exampleModalDistroyCampaigns.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title DATES
+        = link_to 'X', campaigns_path, class: 'btn-close'
+      .modal-body
+        %div#formContent
+          distroy succesfull
+        .modal-footer
+          = link_to 'close', campaigns_path, class: 'btn btn-primary'
 #paginate= render "shared/paginate_with_per_page"
 #export= render "shared/export"
 
