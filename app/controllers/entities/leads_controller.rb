@@ -20,6 +20,8 @@ class LeadsController < EntitiesController
     respond_with @leads do |format|
       format.xls { render layout: 'header' }
       format.csv { render csv: @leads }
+      format.html
+      format.json { render json: @leads }
       # format.json { render json: @leads.to_json(methods: :lead_status_class) }
     end
   end
@@ -252,8 +254,6 @@ class LeadsController < EntitiesController
   #----------------------------------------------------------------------------
   def redraw
     current_user.pref[:leads_per_page] = per_page_param if per_page_param
-
-    # Sorting and naming only: set the same option for Contacts if the hasn't been set yet.
     if params[:sort_by]
       current_user.pref[:leads_sort_by] = Lead.sort_by_map[params[:sort_by]]
       current_user.pref[:contacts_sort_by] ||= Contact.sort_by_map[params[:sort_by]] if Contact.sort_by_fields.include?(params[:sort_by])
@@ -263,11 +263,16 @@ class LeadsController < EntitiesController
       current_user.pref[:contacts_naming] ||= params[:naming]
     end
 
-    @leads = get_leads(page: 1, per_page: per_page_param) # Start one the first page.
+    @leads = get_leads(page: 1, per_page: per_page_param) # Start on the first page.
+
     set_options # Refresh options
 
+    logger.debug "Current page param: #{params[:page]}"
+    logger.debug "Current per_page param: #{per_page_param}"
+    logger.debug "Leads count: #{@leads.count}" # Check if @leads are loaded correctly
+
     respond_with(@leads) do |format|
-      format.js { render :index }
+      format.js { render partial: 'leads/index', locals: { leads: @leads } }
     end
   end
 

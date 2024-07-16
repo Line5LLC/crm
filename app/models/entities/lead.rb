@@ -51,6 +51,7 @@ class Lead < CrmSchema
   has_many :emails, as: :mediator
   has_many :documents, as: :documentable
   has_many :reminders, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   serialize :subscribed_users, Array
 

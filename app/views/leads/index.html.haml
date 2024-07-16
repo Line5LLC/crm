@@ -41,7 +41,7 @@
           %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
             Status 
           %i.fa.fa-filter.mar-r-icons-2
-  %div.table-responsive
+  %div#leadTableWrapper.table-responsive
     %table#filterTable.fs-14.tableBorderLeads.mt-2
       %thead
         %tr
@@ -158,12 +158,55 @@
         .modal-footer
           = link_to 'close', leads_path, class: 'btn btn-primary'
 
-#paginate= render "shared/paginate_with_per_page"
+#paginate= render "shared/paginate_with_per_page", leads: @leads
 
 #export= render "shared/export"
 :javascript 
 
   document.addEventListener('DOMContentLoaded', function() {
+    function setupPaginationLinks() {
+    var paginateLinks = document.querySelectorAll('#paginate a');
+
+    paginateLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        var url = this.getAttribute('href');
+        console.log('Clicked pagination link:', url);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            console.log('Response received:', xhr.responseText); // Debugging line
+
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = xhr.responseText;
+
+            var newTable = tempDiv.querySelector('#filterTable');
+            var newPagination = tempDiv.querySelector('#paginate');
+
+            var wrapper = document.getElementById('leadTableWrapper');
+            wrapper.querySelector('#filterTable').innerHTML = newTable.innerHTML;
+            wrapper.querySelector('#paginate').innerHTML = newPagination.innerHTML;
+
+            setupPaginationLinks(); // Reattach event listeners
+          } else {
+            console.error('Request failed. Status: ' + xhr.status);
+          }
+        };
+
+        xhr.onerror = function() {
+          console.error('Request failed');
+        };
+
+        xhr.send();
+      });
+    });
+  }
+
+  setupPaginationLinks();
+
     //edits leads pop up
     var editLinks = document.querySelectorAll('.edit-lead-link');
     var popupContent = document.querySelector('.popup-content');
@@ -206,7 +249,7 @@
     }
 
     // submit form for
-  // Filter for dates
+    // Filter for dates
    var submitButton = document.getElementById('submitButton');
     submitButton.addEventListener('click', function() {
       var checkboxes = document.querySelectorAll('.custom-checkbox-leads');
@@ -274,8 +317,8 @@
 
    
 
-  // Filter for Asc and Desc. 
-   var submitButtonSort = document.getElementById('submitSort');
+    // Filter for Asc and Desc. 
+    var submitButtonSort = document.getElementById('submitSort');
   submitButtonSort.addEventListener('click', function() {
     var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
     var order = 'asc'; // Default to ascending if no checkbox is selected

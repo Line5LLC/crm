@@ -25,6 +25,7 @@ class Comment < CrmSchema
   self.table_name = "comments"
 
   belongs_to :user
+  belongs_to :lead 
   belongs_to :commentable, polymorphic: true
 
   scope :created_by, ->(user) { where(user_id: user.id) }

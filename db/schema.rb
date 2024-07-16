@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_09_153146) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_16_163507) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_09_153146) do
     t.integer "user_id"
     t.integer "assigned_to"
     t.string "name", limit: 64, default: "", null: false
-    t.string "access", limit: 8, default: "Public"
+    t.string "access", limit: 8, default: "Private"
     t.string "website", limit: 64
     t.string "toll_free_phone", limit: 32
     t.string "phone", limit: 32
@@ -151,14 +151,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_09_153146) do
 
   create_table "comments", id: :serial, force: :cascade do |t|
     t.integer "user_id"
+    t.integer "lead_id"
     t.string "commentable_type"
     t.integer "commentable_id"
-    t.boolean "private"
+    t.boolean "private", default: false
     t.string "title", default: ""
     t.text "comment"
-    t.datetime "created_at", precision: nil
-    t.datetime "updated_at", precision: nil
-    t.string "state", limit: 16, default: "Expanded", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
   end
 
   create_table "contact_opportunities", id: :serial, force: :cascade do |t|
@@ -509,5 +510,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_09_153146) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "leads"
+  add_foreign_key "comments", "users"
   add_foreign_key "reminders", "leads"
 end

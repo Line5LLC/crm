@@ -111,7 +111,7 @@
               %th.p-14.theadLeads Main Email
               %th.p-14.theadLeads Status
           %tbody
-            - @leads.each do |lead|
+            - @leads_chart.each do |lead|
               %tr
                 %td.p-14= lead.company
                 %td.p-14= lead.phone || lead.mobile

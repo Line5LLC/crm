@@ -35,7 +35,7 @@
           %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
             Filters
           %i.fa.fa-user.mar-r-icons-2
-  %div.table-responsive
+  %div#campTableWrapper.table-responsive
     %table#filterTableCampaing.fs-14.tableBorderLeads.mt-2
       %thead
         %tr
@@ -163,6 +163,41 @@
 :javascript 
 
   document.addEventListener('DOMContentLoaded', function() {
+  var paginateLinks = document.querySelectorAll('#paginate a');
+
+    paginateLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        var url = this.getAttribute('href');
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            var response = xhr.responseText;
+            var wrapper = document.getElementById('campTableWrapper');
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = response;
+
+            var newTable = tempDiv.querySelector('#filterTable');
+            var newPagination = tempDiv.querySelector('#paginate');
+
+            wrapper.querySelector('#filterTable').innerHTML = newTable.innerHTML;
+            wrapper.querySelector('#paginate').innerHTML = newPagination.innerHTML;
+          } else {
+            console.error('Request failed. Status: ' + xhr.status);
+          }
+        };
+
+        xhr.onerror = function() {
+          console.error('Request failed');
+        };
+
+        xhr.send();
+      });
+    });
+
   var editLinks = document.querySelectorAll('.edit-campaign-link');
   var popupContent = document.querySelectorAll('.popup-content');
   var editLeadPopup = document.getElementById('editCampaignPopup');

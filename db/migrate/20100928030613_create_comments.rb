@@ -3,12 +3,13 @@
 class CreateComments < ActiveRecord::Migration[4.2]
   def self.up
     create_table :comments, force: true do |t|
-      t.references :user
-      t.references :commentable, polymorphic: true
-      t.boolean :private # TODO: add support for private comments.
+      t.references :user, foreign_key: true
+      t.references :lead, foreign_key: true
+      t.references :commentable, polymorphic: true, index: true
+      t.boolean :private, default: false
       t.string :title, default: ""
       t.text :comment
-      t.timestamps
+      t.timestamps null: false
     end
   end
 
