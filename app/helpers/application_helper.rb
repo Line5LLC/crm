@@ -110,6 +110,7 @@ module ApplicationHelper
     link_to(t(:edit),
             options[:url] || polymorphic_url(record, action: :edit),
             remote:  true,
+            class: options[:class],
             onclick: "this.href = this.href.split('?')[0] + '?previous='+encodeURI(crm.find_form('edit_#{j name}'));".html_safe)
   end
 

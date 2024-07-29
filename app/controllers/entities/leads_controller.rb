@@ -12,17 +12,11 @@ class LeadsController < EntitiesController
   # GET /leads
   #----------------------------------------------------------------------------
   def index
-    @leads = get_leads(page: page_param)
-    company_name_filter = params[:company] 
-    if company_name_filter.present?
-      @leads = @leads.where("company ILIKE ?", "%#{company_name_filter}%")
-    end
+    @leads = get_leads(page: params[:page])
+
     respond_with @leads do |format|
       format.xls { render layout: 'header' }
       format.csv { render csv: @leads }
-      format.html
-      format.json { render json: @leads }
-      # format.json { render json: @leads.to_json(methods: :lead_status_class) }
     end
   end
 

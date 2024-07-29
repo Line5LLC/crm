@@ -39,35 +39,24 @@
       %div.mar-r
         %div.input-with-icon
           %button.newCustomButton{"data-bs-target" => "#exampleModal", "data-bs-toggle" => "modal", type: "button"}
-            Status 
+            Status
           %i.fa.fa-filter.mar-r-icons-2
   %div#leadTableWrapper.table-responsive
-    %table#filterTable.fs-14.tableBorderLeads.mt-2
-      %thead
-        %tr
-          -# %th.p-14.theadLeads Lead Name
-          %th.p-14.theadLeads Company Name
-          %th.p-14.theadLeads Main Phone
-          %th.p-14.theadLeads Main Email
-          %th.p-14.theadLeads Lead Status
-          %th.p-14.theadLeads Create Lead
-          %th.p-14.theadLeads Lead Owner
-          %th.p-14.theadLeads Action
-      %tbody
-        - @leads.each do |lead|
-          %tr
-            -# %td
-            -#   %div.cell-content
-            -#     = "#{lead.first_name} #{lead.last_name}"
-            %td.p-14= lead.company
-            %td.p-14= lead.phone || lead.mobile
-            %td.p-14= lead.email
-            %td.p-14{:class => lead_status_class(lead.status)}= lead.status
-            %td.p-14= lead.created_at.strftime("%m/%d/%Y") # Adjust date format if needed
-            %td.p-14= lead.assigned_to # Assuming assigned_to is the lead owner
-            %td.p-14
-              = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit), class: 'edit-lead-link') + " | "
-              = link_to_delete(lead, confirm: t(:are_you_sure))
+  %table#filterTable.fs-14.tableBorderLeads.mt-2
+    %thead
+      %tr
+        %th.p-14.theadLeads Company Name
+        %th.p-14.theadLeads Main Phone
+        %th.p-14.theadLeads Main Email
+        %th.p-14.theadLeads Lead Status
+        %th.p-14.theadLeads Create Lead
+        %th.p-14.theadLeads Lead Owner
+        %th.p-14.theadLeads Action
+    %tbody#leads
+      - if @leads.any?
+        = render @leads
+      - else
+        = render "shared/empty"
   -# %div
   -#   = render 'leads/title_bar'
 #exampleModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "exampleModalLabel", tabindex: "-1"}
@@ -90,7 +79,7 @@
         %h5#exampleModalLabel.modal-title SORT LEADS
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "modal", type: "button"}
       .modal-body
-        %div 
+        %div
           %div
             %div.flex.al-item
               %div
@@ -141,8 +130,8 @@
               %input{type: "checkbox", name: "date_filter", value: "custom_range", class: "custom-checkbox-leads"}
             %div
               %label Custom Range
-              %input{type: "date", name: "start_date", placeholder: "Start Date", class: "form-control mt-5px"} 
-              %input{type: "date", name: "end_date", placeholder: "End Date", class: "form-control hideInput"} 
+              %input{type: "date", name: "start_date", placeholder: "Start Date", class: "form-control mt-5px"}
+              %input{type: "date", name: "end_date", placeholder: "End Date", class: "form-control hideInput"}
         .modal-footer
           %button.btn.btn-secondary{"data-bs-dismiss" => "modal", type: "button"} Close
           %button.btn.btn-primary{id: "submitButton", type: "button"} Save changes
@@ -161,7 +150,23 @@
 #paginate= render "shared/paginate_with_per_page", leads: @leads
 
 #export= render "shared/export"
-:javascript 
+:javascript
+
+  var createButton = document.querySelector('.create-button');
+  var newLeadPopup = document.getElementById('popupContainerLead');
+
+  createButton.addEventListener('click', function(event) {
+    newLeadPopup.classList.add('show');
+  });
+
+
+  var searchTimeout;
+
+  $('#query').on('keydown', function(event) {
+    $el = $(event.target)
+    if (searchTimeout) clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(function () { crm.search($el.val(), '#{controller_name}'); }, 500);
+  });
 
   document.addEventListener('DOMContentLoaded', function() {
     function setupPaginationLinks() {
@@ -207,50 +212,9 @@
 
   setupPaginationLinks();
 
-    //edits leads pop up
-    var editLinks = document.querySelectorAll('.edit-lead-link');
-    var popupContent = document.querySelector('.popup-content');
-    var editLeadPopup = document.getElementById('editLeadPopup');
-    var closeEditLeadPopup = document.getElementById('closeEditLeadPopup');
-
-    //edit js 
-    editLinks.forEach(function(link) {
-      link.addEventListener('click', function(event) {
-        event.preventDefault();
-        var url = this.href;
-        console.log("url" , url)
-        
-        
-
-        // Fetch edit form content via AJAX
-        fetch(url, {
-          method: 'GET',
-          headers: {
-            'X-Requested-With': 'XMLHttpRequest' // Set header for Rails to recognize AJAX request
-          }
-        })
-        .then(response => response.text())
-        .then(data => {
-         var editFormContent = document.querySelector('.popup-content'); // Replace with actual selector
-          editFormContent.innerHTML = data; 
-          // Update specific container within the popup
-          editLeadPopup.classList.toggle('show'); // Show the popup
-        })
-        .catch(error => console.error('Error fetching edit form:', error));
-      });
-      
-      });
-
-    if (closeEditLeadPopup) {
-      closeEditLeadPopup.addEventListener('click', function() {
-        
-        editLeadPopup.classList.remove('show');
-      });
-    }
-
     // submit form for
     // Filter for dates
-   var submitButton = document.getElementById('submitButton');
+    var submitButton = document.getElementById('submitButton');
     submitButton.addEventListener('click', function() {
       var checkboxes = document.querySelectorAll('.custom-checkbox-leads');
       var checkedFilters = Array.from(checkboxes)
@@ -259,8 +223,8 @@
 
       var startDate = document.querySelector('input[name="start_date"]').value;
       if (startDate) {
-      checkedFilters.push("custom_range");
-    }
+        checkedFilters.push("custom_range");
+     }
 
       var params = {
         date_filter: checkedFilters.join(','),
@@ -271,7 +235,7 @@
       var queryParams = new URLSearchParams(params).toString();
       console.log("queryParams", queryParams)
 
-        fetch('/leads/filter_date?' + queryParams, {
+      fetch('/leads/filter_date?' + queryParams, {
         method: 'GET',
         headers: {
           'X-Requested-With': 'XMLHttpRequest' // Signal to Rails that this is an AJAX request
@@ -285,7 +249,7 @@
         tableBody.innerHTML = ""; // Clear existing table rows
 
         if (data.leads && data.leads.length > 0) {
-          
+
           data.leads.forEach(lead => {
             var statusClass = leadStatusClass(lead.status);
             var newRow = document.createElement('tr');
@@ -315,87 +279,87 @@
       .catch(error => console.error('Error fetching leads:', error));
       });
 
-   
 
-    // Filter for Asc and Desc. 
+
+    // Filter for Asc and Desc.
     var submitButtonSort = document.getElementById('submitSort');
-  submitButtonSort.addEventListener('click', function() {
-    var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
-    var order = 'asc'; // Default to ascending if no checkbox is selected
+    submitButtonSort.addEventListener('click', function() {
+      var checkboxes = document.querySelectorAll('.custom-checkbox-leads:checked');
+      var order = 'asc'; // Default to ascending if no checkbox is selected
 
-    if (checkboxes.length > 0) {
-      order = checkboxes[0].value; // Get the value of the first checked checkbox (either 'asc' or 'desc')
-    }
-
-    var queryParams = new URLSearchParams({
-      order: order
-      // Add other parameters like date filters if needed
-    }).toString();
-
-    fetch('/leads/sort_leads?' + queryParams, {
-      method: 'GET',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
+      if (checkboxes.length > 0) {
+        order = checkboxes[0].value; // Get the value of the first checked checkbox (either 'asc' or 'desc')
       }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Received data:", data);
 
-      var tableBody = document.querySelector('#filterTable tbody');
-      tableBody.innerHTML = ""; // Clear existing table rows
+      var queryParams = new URLSearchParams({
+        order: order
+        // Add other parameters like date filters if needed
+      }).toString();
 
-      if (data.leads && data.leads.length > 0) {
-        data.leads.forEach(lead => {
-          var statusClass = leadStatusClass(lead.status);
-          var newRow = document.createElement('tr');
-          newRow.innerHTML = `
-            <td>${lead.company}</td>
-            <td>${lead.phone || lead.mobile}</td>
-            <td>${lead.email}</td>
-            <td class="${statusClass}">${lead.status}</td>
-            <td>${new Date(lead.created_at).toLocaleDateString()}</td>
-            <td>${lead.assigned_to}</td>
-            <td>
-              <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
-              <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
-            </td>
-          `;
-          tableBody.appendChild(newRow);
-        });
-      } else {
-        console.log("No leads found in data.");
-      }
-      var modalElement = document.getElementById('exampleModalTwo');
-        var modalInstance = bootstrap.Modal.getInstance(modalElement);
-        console.log("modalElement", modalElement)
-        if (modalInstance) {
-          modalInstance.hide();
+      fetch('/leads/sort_leads?' + queryParams, {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
         }
-    })
-    .catch(error => {
-      console.error('Error fetching data:', error);
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Received data:", data);
+
+        var tableBody = document.querySelector('#filterTable tbody');
+        tableBody.innerHTML = ""; // Clear existing table rows
+
+        if (data.leads && data.leads.length > 0) {
+          data.leads.forEach(lead => {
+            var statusClass = leadStatusClass(lead.status);
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = `
+              <td>${lead.company}</td>
+              <td>${lead.phone || lead.mobile}</td>
+              <td>${lead.email}</td>
+              <td class="${statusClass}">${lead.status}</td>
+              <td>${new Date(lead.created_at).toLocaleDateString()}</td>
+              <td>${lead.assigned_to}</td>
+              <td>
+                <a href="/leads/${lead.id}/edit" class="edit-lead-link">Edit</a> |
+                <a href="/leads/${lead.id}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+              </td>
+            `;
+            tableBody.appendChild(newRow);
+          });
+        } else {
+          console.log("No leads found in data.");
+        }
+        var modalElement = document.getElementById('exampleModalTwo');
+          var modalInstance = bootstrap.Modal.getInstance(modalElement);
+          console.log("modalElement", modalElement)
+          if (modalInstance) {
+            modalInstance.hide();
+          }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
     });
+
+    function leadStatusClass(status) {
+      switch (status) {
+        case "new":
+          return "ovalStatusNew";
+        case "rejected":
+          return "ovalStatusPendind";
+        case "contacted":
+          return "ovalStatusOkey";
+        case "won":
+          return "ovalStatusWon";
+        default:
+          return "ovalStatusPendind";  // Default class for other statuses
+     }
+    }
   });
 
-  function leadStatusClass(status) {
-        switch (status) {
-          case "new":
-            return "ovalStatusNew";
-          case "rejected":
-            return "ovalStatusPendind";
-          case "contacted":
-            return "ovalStatusOkey";
-          case "won":
-            return "ovalStatusWon";
-          default:
-            return "ovalStatusPendind";  // Default class for other statuses
-      }
-      }
-  });
 
 
- 
 
 
-  
+

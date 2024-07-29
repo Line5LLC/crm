@@ -26,13 +26,16 @@
 
 :javascript
   var closePopUpButton = document.getElementById('closePopUp');
+  var popupContent = document.querySelector('#edit_lead');
 
   if (closePopUpButton) {
     closePopUpButton.addEventListener('click', function() {
       var popupContainer = document.getElementById('editLeadPopup');
       if (popupContainer) {
-        
+
         popupContainer.classList.remove('show');
+        popupContent.innerHTML = '';
+        popupContent.style.display = 'none';
       }
     });
 

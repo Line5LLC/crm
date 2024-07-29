@@ -1,41 +1,22 @@
-%li.highlight[lead]
-  - if lead.status
-    .strip{class: lead.status}= t lead.status
-  - else
-    .strip{style: "color: gray;"}= t :other
+%tr
+  %td.p-14= lead.company
+  %td.p-14= lead.phone || lead.mobile
+  %td.p-14= lead.email
+  %td.p-14{:class => lead_status_class(lead.status)}= lead.status
+  %td.p-14= lead.created_at.strftime("%m/%d/%Y") # Adjust date format if needed
+  %td.p-14= lead.assigned_to # Assuming assigned_to is the lead owner
+  %td.p-14
+    -# = link_to_inline(:edit_lead, edit_lead_path(lead), text: t(:edit), class: "edit-lead-link-#{lead.id}") + " | "
+    = link_to_edit(lead, class: "edit-lead-link-#{lead.id}") + " | "
+    = link_to_delete(lead, confirm: t(:are_you_sure))
 
-  %ul.tools
-    - if can?(:update, lead)
-      %li= link_to_edit(lead)
+:javascript
+  //edits leads pop up
+  var editLinks = document.querySelectorAll(".edit-lead-link-#{lead.id}");
+  var editLeadPopup = document.getElementById('editLeadPopup');
 
-    - if %w(converted rejected).include?(lead.status)
-      %li
-        %font{ color: 'silver' }= t :convert
-    - elsif can?(:update, lead)
-      %li= link_to_convert(lead)
-
-    - if lead.status == "rejected"
-      %li
-        %font{ color: 'silver' }= t :reject
-    - elsif can?(:update, lead)
-      %li= link_to_reject(lead)
-
-    - if shown_on_landing_page?
-      %li= link_to_discard(lead)
-
-    - if can?(:destroy, lead)
-      %li= link_to_delete(lead)
-
-  .indent
-    = link_to_if can?(:read, lead), lead.full_name(current_user.preference[:leads_naming]), lead
-    %tt
-      - if lead.company? && lead.title?
-        = t(:works_at, job_title: '', company: lead.company)
-      - else
-        = lead.company if lead.company?
-        = lead.title if lead.title?
-      - if lead.referred_by?
-        &ndash;
-        == #{t :referred_by_small} #{lead.referred_by}
-
-    = hook(:lead_bottom, self, lead: lead)
+  editLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      editLeadPopup.classList.add('show');
+    });
+  });
